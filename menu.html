@@ -1,0 +1,918 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostellerie de la Sanaga - Menu</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="translations.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <img src="Hostellerie logo.png" alt="Hostellerie logo" class="logo">
+    </div>
+    <div class="header-center">
+      <h1 data-i18n="menu.title">Hostellerie de la sanaga</h1>
+      <p><em data-i18n="menu.tagline">Restaurant Longue</em></p>
+      <p data-i18n="menu.location">📍 Edea Cameroon, ile ALUCAM Enter les deux ponts de la sanaga</p>
+      <p data-i18n="menu.phone">📞 +237692266713</p>
+    </div>
+    <div class="header-right">
+      <div class="language-toggle" id="language-toggle">
+        <button type="button" class="language-trigger" id="language-trigger" aria-label="Change language" aria-expanded="false" aria-controls="language-menu">
+          <span class="language-globe" aria-hidden="true">🌍</span>
+          <span class="language-current" id="language-current-label">Français</span>
+          <span class="language-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="language-menu" id="language-menu" hidden>
+          <a href="#" class="lang-option" data-lang="fr">Français</a>
+          <a href="#" class="lang-option" data-lang="en">English</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="selected-item" class="selected-item" hidden>
+    <button type="button" id="selected-item-back" class="selected-item-back" data-i18n="menu.backToMenu">← Retour au menu</button>
+    <div id="selected-item-content" class="selected-item-content"></div>
+  </section>
+
+  <div class="nav">
+    <button onclick="scrollToSection('salades')" data-i18n="nav.salades">Salades</button>
+    <button onclick="scrollToSection('snacking')" data-i18n="nav.snacking">Snacking</button>
+    <button onclick="scrollToSection('Fine bouche')" data-i18n="nav.fineBouche">Fine bouche</button>
+    <button onclick="scrollToSection('poeles')" data-i18n="nav.poeles">Poêles</button>
+    <button onclick="scrollToSection('grillades')" data-i18n="nav.grillades">Au choix Plancha/Grillades</button>
+    <button onclick="scrollToSection('specialites')" data-i18n="nav.specialites">Spécialités Maison</button>
+    <button onclick="scrollToSection('desserts')" data-i18n="nav.desserts">Desserts</button>
+    <button onclick="scrollToSection('pizza')" data-i18n="nav.pizzas">Pizzas</button>
+    <button onclick="scrollToSection('Bar')" data-i18n="nav.boissonsChaudes">Boissons Chaudes</button>
+    <button onclick="scrollToSection('Eaux Mineral')" data-i18n="nav.eauxMinerales">Eaux Minérales</button>
+    <button onclick="scrollToSection('Jus de fruits')" data-i18n="nav.jusDeFruits">Jus de fruits</button>
+    <button onclick="scrollToSection('Soft et bierres brasserie')" data-i18n="nav.softsBieres">Softs et Bières de Brasserie</button>
+    <button onclick="scrollToSection('Suite Appero')" data-i18n="nav.suiteAppero">Suite Appero</button>
+    <button onclick="scrollToSection('Whisky et Liqueurs')" data-i18n="nav.whiskies">Whiskies et Liqueurs</button>
+    <button onclick="scrollToSection('Digestifs')" data-i18n="nav.digestifs">Digestifs</button>
+    <button onclick="scrollToSection('Eaux de Vie')" data-i18n="nav.eauxDeVie">Eaux de Vie</button>
+  </div>
+
+  <div class="search">
+    <input type="text" id="search" placeholder="Rechercher un élément de menu..." data-i18n-placeholder="menu.searchPlaceholder" onkeyup="searchMenu()">
+    <button type="button" onclick="clearSearch()" class="clear-search-btn" title="Clear search and show all items">✕</button>
+  </div>
+
+  <section class="qr-section">
+    <div class="qr-wrapper">
+      <div id="qr-image"></div>
+      <img src="Hostellerie logo.png" class="qr-logo" alt="Hostellerie logo">
+    </div>
+    <p id="qr-target" class="qr-target"></p>
+    <p data-i18n="menu.welcome">Bienvenue à Hostellerie</p>
+    <p data-i18n="menu.scanQr">Scannez ce code QR pour ouvrir le menu de ce site Web.</p>
+  </section>
+
+  <main id="main-menu">
+    <!-- Add the rest of the current menu content here as in the original file -->
+      <main id="main-menu">
+
+    <!-- SALADES -->
+    <section id="salades" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.saladesFraicheurs">Salades Fraicheurs</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="salad.png" alt="Petite portion Salade" class="item-image">
+          <h3>Petite portion</h3>
+          <p class="item-price">3500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Petite portion Salade', 3500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="🥗 Refreshing.png" alt="Moyenne portion Salade" class="item-image">
+          <h3>Moyenne portion</h3>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Moyenne portion Salade', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="grande.png" alt="Grande portion Salade" class="item-image">
+          <h3>Grande portion</h3>
+          <p class="item-price">7500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Grande portion Salade', 7500)">Add to Cart</button>
+        </div>
+      </div>
+      
+      <!-- Salad Compositions -->
+      <div class="compositions-section">
+        <h3 class="compositions-heading">Compositions selon portion:</h3>
+        <div class="compositions-grid">
+          <div class="composition-item">🥬 Laitue</div>
+          <div class="composition-item">🥕 Carotte</div>
+          <div class="composition-item">🍅 Tomate</div>
+          <div class="composition-item">🥒 Concombre</div>
+          <div class="composition-item">🥑 Avocat</div>
+          <div class="composition-item">🍗 Blanc de poulet</div>
+          <div class="composition-item">🌽 Maïs doux</div>
+          <div class="composition-item">🐟 Sardine</div>
+          <div class="composition-item">🥓 Jambon</div>
+          <div class="composition-item">🥚 Œuf</div>
+        </div>
+      </div>
+    </section>
+    <!-- SALADE COMPOSE -->
+     <section id="salades" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.saladesComposees">SALADES COMPOSEE</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="sauce-avocat.jpg" alt="Avocat sauce vinaigrette" class="item-image">
+          <h3>Avocat sauce vinaigrette</h3>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Avocat sauce vinaigrette', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="salade de gesiers.jpg" alt="Salade de gesiers" class="item-image">
+          <h3>Salade de gesiers</h3>
+          <p class="item-price">3500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Salade de gesiers', 3500)">Add to Cart</button>
+        </div>
+          <div class="item-card">
+            <img src="salade-piemontaise.png" alt="Salade de piemontaise" class="item-image">
+            <h3>Salade de piemontaise</h3>
+            <p class="item-price">4000 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Salade de piemontaise', 4000)">Add to Cart</button>
+          </div>
+          <div class="item-card">
+            <img src="avocat aux crevette sauce cocktail.jpg" alt="Avocat aux crevette sauce cocktail" class="item-image">
+            <h3>Avocat aux crevette sauce cocktail</h3>
+            <p class="item-price">6500 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Avocat aux crevette sauce cocktail', 6500)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Salad Compositions -->
+      <div class="compositions-section">
+        <h3 class="compositions-heading">Compositions:</h3>
+        <div class="compositions-grid">
+          <div class="composition-item">Gesiers</div>
+          <div class="composition-item">Oignons</div>
+          <div class="composition-item">Poivron</div>
+          <div class="composition-item">Laitue</div>
+          <div class="composition-item">Croutons</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- SNACKING -->
+    <section id="snacking" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.snacking"> Snacking</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="sandwich au poulet et fromage.webp" alt="Sandwich poulet/fromage" class="item-image">
+          <h3>Sandwich poulet/fromage</h3>
+          <p class="item-price">4250 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sandwich poulet/fromage', 4250)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="sandwich-fromage.png" alt="Sandwich au jambon/fromage(porc)" class="item-image">
+          <h3>Sandwich au jambon/fromage(porc)</h3>
+          <p class="item-price">4500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sandwich au jambon/fromage(porc)', 4500)">Add to Cart</button>
+        </div>
+      <div class="item-card">
+        <img src="Assiette de nems.png" alt="Assiette de nems, samoussa et sa salade verte" class="item-image">
+        <h3>Assiette de nems, samoussa et sa salade verte</h3>
+        <p class="item-price">5500 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Assiette de nems, samoussa et sa salade verte', 5500)">Add to Cart</button>
+      </div>
+        <div class="item-card">
+          <img src="Club sandwich.png" alt="Club Sandwich" class="item-image">
+          <h3>Club Sandwich</h3>
+          <p class="item-price">7000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Club Sandwich', 7000)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+<!-- fine bouche-->
+   <section id="Fine bouche" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.fineBouche"> FINE BOUCHE</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="Filet-de-bar-au-beurre-blanc-citronne.png" alt="Flet de bar au beurre blanc citronne" class="item-image">
+          <h3>Flet de bar au beurre blanc citronne</h3>
+          <p class="item-price">8000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Flet de bar au beurre blanc citronne', 8000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="i151055-magret-de-canard-grille-au-feu-de-bois.png" alt="Magret de canard grillé au feu de bois" class="item-image">
+          <h3>Magret de canard grillé au feu de bois</h3>
+          <p class="item-price">23500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Magret de canard grillé au feu de bois', 23500)">Add to Cart</button>
+        </div>
+      </div>
+      <!-- Salad Compositions -->
+      <div class="compositions-section">
+        <h3 class="compositions-heading">ACCOMPAGNEMENTS AU CHOIX</h3>
+        <div class="compositions-grid">
+          <div class="composition-item">Riz</div>
+          <div class="composition-item">Frites de Pommes</div>
+          <div class="composition-item">Frites de Plantain</div>
+          <div class="composition-item">Légumes sautés</div>
+          <div class="composition-item">Pommes Vapeur</div>
+      </div>
+      </div>
+   </section>
+<!--POELES-->
+<section id="poeles" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.poeles">POELES</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="poisson bar.png" alt="Poisson de saison(bar)" class="item-image">
+          <h3>Poisson de saison(bar)</h3>
+          <p class="item-price">8000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Poisson de saison(bar)', 8000)">Add to Cart</button>
+          <p>Au choix au vin, curry, a l'ail</p>
+        </div>
+        <div class="item-card">
+          <img src="19783_Sole-meuniere.png" alt="Sole entiere, Sauce-meuniere" class="item-image">
+          <h3>Sole entiere, Sauce-meuniere</h3>
+          <p class="item-price">8500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sole entiere, Sauce-meuniere', 8500)">Add to Cart</button>
+          <p>Au choix au vin, curry, a l'ail</p>
+        </div>
+        <div class="item-card">
+          <img src="Crevette.png" alt="Crevette du chef flambee" class="item-image">
+          <h3>Crevette du chef flambee</h3>
+          <p class="item-price">9500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Crevette du chef flambee', 9500)">Add to Cart</button>
+          <p>Au choix au vin, curry, a l'ail</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRILLADES -->
+    <section id="grillades" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.grillades">AU CHOIX PLANCHA/GRILLADE</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="1 poulet.png" alt="1/4 Poulet" class="item-image">
+          <h3>1/4 Poulet</h3>
+          <p class="item-price">7000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('1/4 Poulet', 7000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="2 poulet.webp" alt="1/2 Poulet" class="item-image">
+          <h3>1/2 Poulet</h3>
+          <p class="item-price">12000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('1/2 Poulet', 12000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="recette-poulet-entier.jpg" alt="Poulet entier" class="item-image">
+          <h3>Poulet entier</h3>
+          <p class="item-price">21000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Poulet entier', 21000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Steak.jpg" alt="Steak" class="item-image">
+          <h3>Steak</h3>
+          <p class="item-price">9000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Steak', 9000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Bar entier.jpg" alt="Bar entier" class="item-image">
+          <h3>Bar entier</h3>
+          <p class="item-price">8000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Bar entier', 8000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Cotes de porc grillees.webp" alt="Cote de porc grillée" class="item-image">
+          <h3>Cote de porc grillée</h3>
+          <p class="item-price">10000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Cote de porc grillée', 10000)">Add to Cart</button>
+        </div>
+      </div>
+      <!-- Sauce -->
+      <div class="compositions-section">
+        <h3 class="compositions-heading">SAUCE</h3>
+        <div class="compositions-grid">
+          <div class="composition-item">Poivre</div>
+          <div class="composition-item">Provencale</div>
+          <div class="composition-item">Sauce Champignons</div>
+          <div class="composition-item">Dijonnaise</div>
+      </div>
+      </div>
+    </section>
+    <!-- SPECIALITES -->
+    <section id="specialites" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.specialites">Spécialités Maison</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="Tripes.png" alt="Ragoût de tripes" class="item-image">
+          <h3>Ragoût de tripes</h3>
+          <p class="item-price">7000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Ragoût de tripes', 7000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="langue zebu.png" alt="Langue de zébu" class="item-image">
+          <h3>Langue de zébu</h3>
+          <p class="item-price">7500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Langue de zébu', 7500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Crevette four.jpg" alt="Crevettes au four" class="item-image">
+          <h3>Crevettes au four</h3>
+          <p class="item-price">13500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Crevettes au four', 13500)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <!-- DESSERTS -->
+    <section id="desserts" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.desserts">Desserts</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="Assiette fruits.avif" alt="Assiette de fruits" class="item-image">
+          <h3>Assiette de fruits</h3>
+          <p class="item-price">4000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Assiette de fruits', 4000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="i158931-crepes-marbrees.jpeg" alt="Crêpes marbrées" class="item-image">
+          <h3>Crêpes marbrées chocolat et miel</h3>
+          <p class="item-price">4500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Crêpes marbrées chocolat et miel', 4500)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <!-- Pizza-->
+    <section id="pizza" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.pizzas">Pizzas</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="Pizza cavaliere.jpg" alt="Pizza Cavaliere" class="item-image">
+          <h3>Cavaliere</h3>
+          <p>Tomate,poivron,Œuf,jambon blanc,fromage</p>
+          <p class="item-price">4500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Cavaliere', 4500)">Add to Cart</button>
+        </div>
+        <div class=" item-card">
+          <img src="Realpiz.png.jpeg" alt="Pizza 4 fromages" class="item-image">
+          <h3>Charcutiere</h3>
+          <p>Tomate, salami,saucisson a l'ail,jambon blanc,fromage,comichons,oignons</p>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Charcutiere', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="pizza-aux-legumes.jpeg" alt="Pizza Legumiere" class="item-image">
+          <h3>Legumiere</h3>
+          <p>Tomate, poivron, choux rouges/blanc,fromage,oignons</p>
+          <p class="item-price">4500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Legumiere', 4500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="margerita-pizza-resize.webp" alt="Pizza Margherita" class="item-image">
+          <h3>Margherita</h3>
+          <p>Tomate, champignons, fromage,oignons,olives noires</p>
+          <p class="item-price">4500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Margherita', 4500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Pizza maritime.jfif" alt="Pizza Maritime" class="item-image">
+          <h3>Maritime</h3>
+          <p>Tomate, thon,sardines,olive noire,fromage,oignon</p>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Maritime', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Pizza napolitaine.webp" alt="Pizza Napolitaine" class="item-image">
+          <h3>Napolitaine</h3>
+          <p>Tomate, anchois,champignons,fromage,oignons,olives noires</p>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Napolitaine', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Pizza ratatouille.webp" alt="Pizza Ratatouille" class="item-image">
+          <h3>Ratatouille</h3>
+          <p>Tomate, jambon blanc,anchois,thon,champignons,olive noire,poivron,fromage,oignons</p>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Ratatouille', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Pizza crevette.jpg" alt="Pizza Sanaga" class="item-image">
+          <h3>Sanaga</h3>
+          <p>Tomate, crevettes, fromage,oignons,olives noires</p>
+          <p class="item-price">5000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sanaga', 5000)">Add to Cart</button>
+        </div>
+      </div>
+      <p data-i18n="section.pizzaNote">Nos pizza sont également a emporter au prix majoré de 500 FCFA pour les frais d'emballage</p>
+    </section>
+    <!-- Cafe section-->
+     <section id="Cafe" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.boissonsChaudes">Boissons Chaudes</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="Cafe filtre.png" alt="Café Filtre" class="item-image">
+          <h3>Café Filtre</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Café Filtre', 1000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="The.png" alt="Thé" class="item-image">
+          <h3>Thé</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Thé', 1000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Citronelle.png" alt="Café Citronelle" class="item-image">
+          <h3>Café Citronelle</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Café Citronelle', 1000)">Add to Cart</button>
+        </div>
+          <div class="item-card">
+            <img src="Autres.png" alt="Autres divers infusions" class="item-image">
+            <h3>Autres Divers</h3>
+            <p class="item-price">1000 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Autres Divers', 1000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+          <img src="Laid.png" alt="Lait" class="item-image">
+          <h3>Lait</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Lait', 1000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Choco.png" alt="Chocolat chaud" class="item-image">
+          <h3>Chocolat chaud</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Chocolat chaud', 1500)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+          <img src="Expresso.webp" alt="Café Expresso" class="item-image">
+          <h3>Café Expresso</h3>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Café Expresso', 1500)">Add to Cart</button>
+        </div>
+    </section>
+    <!-- Bar section-->
+     <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.eauxMinerales">EAUX MINERALES</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="Tangui(pm).png" alt="Tangui (pm)" class="item-image">
+          <h3>Tangui (pm)</h3>
+          <p class="item-price">850 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Tangui (pm)', 850)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Super(pm).png" alt="Super (pm)" class="item-image">
+          <h3>Supermont (pm)</h3>
+          <p class="item-price">850 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Supermont (pm)', 850)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Vitale(pm).png" alt="Vitale (pm)" class="item-image">
+          <h3>Vitale (pm)</h3>
+          <p class="item-price">850 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Vitale (pm)', 850)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="real tangui.png" alt="Tangui (gm)" class="item-image">
+          <h3>Tangui (gm)</h3>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Tangui (gm)', 1500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Supermont.png" alt="Supermont (gm)" class="item-image">
+          <h3>Supermont (gm)</h3>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Supermont (gm)', 1500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="vitale(gm).png" alt="Vitale (gm)" class="item-image">
+          <h3>Vitale (gm)</h3>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Vitale (gm)', 1500)">Add to Cart</button>
+        </div>
+      </section>
+       <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.eauxGazeuses">EAUX GAZEUSES</h2>
+      <div class="items-grid">
+        <div class="item-card">
+        <img src="Perrier.png" alt="Perrier" class="item-image">
+        <h3>Perrier</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Perrier', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Badoit.png" alt="Badoit" class="item-image">
+        <h3>Badoit</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Badoit', 4000)">Add to Cart</button>
+      </div>
+      </div>
+      </section>
+       <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.jusDeFruits">JUS DE FRUITS</h2>
+      <div class="items-grid" alt="Fruits" class="item-image">
+        <div class="item-card">
+        <img src="Fruits.png" alt="Jus de fruits" class="item-image">
+        <h3>Jus de Fruits</h3>
+        <p class="item-price">1500 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Jus de fruits', 1500)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Fruits presse.png" alt="Jus de fruits Naturels presses" class="item-image">
+        <h3>Jus de Fruits Naturels pressés</h3>
+        <p class="item-price">2000</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Jus de Fruits Naturels pressés', 2000)">Add to Cart</button>
+      </div>
+    </div>
+      </section>
+      <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.softsBieres">SOFTS ET BIERRES BRASSERIE</h2>
+      <div class="items-grid" alt="Fruits" class="item-image">
+        <div class="item-card">
+          <img src="Cocaco.png" alt="Coca-cola" class="item-image">
+          <h3>Coca-cola</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Coca-cola', 1000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Sch.png" alt="Sch Tonic" class="item-image">
+          <h3>Sch Tonic</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sch Tonic', 1000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+          <img src="Top tonic.png" alt="Top Tonic" class="item-image">
+          <h3>Top Tonic</h3>
+          <p class="item-price">1000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Top Tonic', 1000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+            <img src="Soda.png" alt="Soda" class="item-image">
+            <h3>Soda</h3>
+            <p class="item-price">1000 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Soda', 1000)">Add to Cart</button>
+        </div>
+          <div class="item-card">
+            <img src="malt.png" alt="Malta" class="item-image">
+            <h3>Malta Guinness</h3>
+            <p class="item-price">1500 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Malta Guinness', 1500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+            <img src="Castel(pm).png" alt="Castel" class="item-image">
+            <h3>Castel</h3>
+            <p>(pm)</p>
+            <p class="item-price">1500 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Castel', 1500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+            <img src="real33.png" alt="33 Export" class="item-image">
+            <h3>33 Export</h3>
+            <p>(pm)</p>
+            <p class="item-price">1500 FCFA</p>
+            <button class="add-to-cart-btn" onclick="addToCart('33 Export', 1500)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+          <img src="mutzig-65.png" alt="Guinness" class="item-image">
+          <h3>Mutzig</h3>
+          <p>(pm)</p>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Mutzig', 1500)">Add to Cart</button>
+        </div>
+      <div class="item-card">
+          <img src="Beaufort(pm).png" alt="Beaufort" class="item-image">
+          <h3>Beaufort</h3>
+          <p>(pm)</p>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Beaufort', 1500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="castel.png" alt="Castel" class="item-image">
+          <h3>Castel</h3>
+          <p>(gm)</p>
+          <p class="item-price">1900 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Castel', 1900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="real33.png" alt="33 Export" class="item-image">
+          <h3>33 Export</h3>
+          <p>(gm)</p>
+          <p class="item-price">1900 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('33 Export', 1900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="mutzig.png" alt="Mutzig" class="item-image">
+          <h3>Mutzig</h3>
+          <p>(gm)</p>
+          <p class="item-price">1900 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Mutzig', 1900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Blager.png" alt="Beaufort" class="item-image">
+          <h3>Grande Beaufort</h3>
+          <p class="item-price">1900 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Grande Beaufort', 1900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Chill.png" alt="Chill" class="item-image">
+          <h3>Chill</h3>
+          <p class="item-price">1900 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Chill', 1900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Booster.png" alt="Booster" class="item-image">
+          <h3>Booster</h3>
+          <p>(gm)</p>
+          <p class="item-price">1900 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Booster', 1900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Isembeck.png" alt="Isembeck" class="item-image">
+          <h3>Isembeck</h3>
+          <p>(gm)</p>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Isembeck', 2000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="SmallG.png" alt="Guinness" class="item-image">
+          <h3>Petite Guinness</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Petite Guinness', 2000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Pguiness.png" alt="Guinness" class="item-image">
+          <h3>Grande Guinness</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Grande Guinness', 2000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Top.png" alt="Top" class="item-image">
+          <h3>Top</h3>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Top', 1500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="Djino.png" alt="Djino" class="item-image">
+          <h3>Djino</h3>
+          <p class="item-price">1500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Djino', 1500)">Add to Cart</button>
+        </div>
+      </div>
+      <!-- appero-->
+      </section>
+      <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.suiteAppero">SUITE APPERO</h2>
+      <div class="items-grid" alt="Fruits" class="item-image">
+        <div class="item-card">
+        <img src="Campari.png" alt="Campari" class="item-image">
+        <h3>Campari</h3>
+        <p class="item-price">2000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Campari', 2000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Martinireal.png" alt="Martini" class="item-image">
+        <h3>Martini</h3>
+        <p class="item-price">2000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Martini', 2000)">Add to Cart</button>
+      </div>
+        <div class="item-card">
+          <img src="Porto.png" alt="Porto" class="item-image">
+          <h3>Porto</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Porto', 2000)">Add to Cart</button>
+    </div>
+    <div class="item-card">
+          <img src="gordon's.png" alt="Gordon's Gin" class="item-image">
+          <h3>Gordon's Gin</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Gordon\'s Gin', 2000)">Add to Cart</button>
+    </div>
+    <div class="item-card">
+          <img src="Ricard.png" alt="Ricard" class="item-image">
+          <h3>Ricard</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Ricard', 2000)">Add to Cart</button>
+    </div>
+    <div class="item-card">
+          <img src="Bailleys.png" alt="Bailleys" class="item-image">
+          <h3>Bailleys</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Bailleys', 2000)">Add to Cart</button>
+    </div>
+    <div class="item-card">
+          <img src="Amarula.png" alt="Amarula" class="item-image">
+          <h3>Amarula</h3>
+          <p class="item-price">2000 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Amarula', 2000)">Add to Cart</button>
+    </div>
+    <div class="item-card">
+          <img src="Gin.png" alt="Gin Long Drink" class="item-image">
+          <h3>Gin Long Drink</h3>
+          <p class="item-price">2500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Gin Long Drink', 2500)">Add to Cart</button>
+    </div>
+    <div class="item-card">
+          <img src="Campari.png" alt="Campari long" class="item-image">
+          <h3>Campari Long Drink</h3>
+          <p class="item-price">2500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Campari Long Drink', 2500)">Add to Cart</button>
+    </div>
+    </div>
+      </section>
+      <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.whiskies">WHISKIES ET LIQUEURS</h2>
+      <div class="items-grid" alt="Fruits" class="item-image">
+        <div class="item-card">
+        <img src="Clan.png" alt="Clan Campbell" class="item-image">
+        <h3>Clan Campbell</h3>
+        <p class="item-price">2500 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Clan Campbell', 2500)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Grand.png" alt="Grant's" class="item-image">
+        <h3>Grant's</h3>
+        <p class="item-price">3000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Grant\'s', 3000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Whisky.png" alt="Whisky long drink" class="item-image">
+        <h3>Whisky Long Drink</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Whisky Long Drink', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Chivas.png" alt="Chivas Regal" class="item-image">
+        <h3>Chivas Regal</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Chivas Regal', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Blackk.png" alt="Johnnie Black" class="item-image">
+        <h3>Johnnie Black</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Johnnie Black', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Jack.png" alt="Jack Daniel's" class="item-image">
+        <h3>Jack Daniel's</h3>
+        <p class="item-price">5000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Jack Daniel\'s', 5000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Glenfiddch.png" alt="Glenfiddich" class="item-image">
+        <h3>Glenfiddich</h3>
+        <p class="item-price">5000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Glenfiddich', 5000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Get 277.png" alt="Get 27" class="item-image">
+        <h3>Get 27</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Get 27', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Get31.png" alt="Get 31" class="item-image">
+        <h3>Get 31</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Get 31', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Grand.png" alt="Grand Marnier" class="item-image">
+        <h3>Grand Marnier</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Grand Marnier', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Cointreau.png" alt="Cointreau" class="item-image">
+        <h3>Cointreau</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Cointreau', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Marie.png" alt="Marie Brizard" class="item-image">
+        <h3>Baileys</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Baileys', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Red.png" alt="Johnnie red" class="item-image">
+        <h3>Johnnie Red</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Johnnie Red', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Glenfiddch.png" alt="Glenfiddich" class="item-image">
+        <h3>Glenfiddich</h3>
+        <p class="item-price">5000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Glenfiddich', 5000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Get 277.png" alt="Get 27" class="item-image">
+        <h3>Get 27</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Get 27', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Get31.png" alt="Get 31" class="item-image">
+        <h3>Get 31</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Get 31', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Grand.png" alt="Grand Marnier" class="item-image">
+        <h3>Grand Marnier</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Grand Marnier', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Cointreau.png" alt="Cointreau" class="item-image">
+        <h3>Cointreau</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Cointreau', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Marie.png" alt="Marie Brizard" class="item-image">
+        <h3>Marie Brizard</h3>
+        <p class="item-price">4000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Marie Brizard', 4000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Red.png" alt="Johnnie red" class="item-image">
+        <h3>Johnnie Red</h3>
+        <p class="item-price">8000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Johnnie Red', 8000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="j&b.png" alt="J&B" class="item-image">
+        <h3>J&B</h3>
+        <p class="item-price">8000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('J&B', 8000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Whisky Ballantine's _ 16U$D.png" alt="Glenfiddich" class="item-image">
+        <h3>Ballantines</h3>
+        <p class="item-price">8000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Ballantines', 8000)">Add to Cart</button>
+      </div>
+      </div>
+      </section>
+      <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.digestifs">DIGESTIFS</h2>
+      <div class="items-grid" alt="Fruits" class="item-image">
+        <div class="item-card">
+        <img src="Cle des ducs.png" alt="Armagnac Clés des Ducs" class="item-image">
+        <h3>Armagnac Clés des Ducs</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Armagnac Clés des Ducs', 6000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="montesquiou.png" alt="Montesquieu" class="item-image">
+        <h3>Montesquieu</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Montesquieu', 6000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Remy.png" alt="Rémy Martin" class="item-image">
+        <h3>Rémy Martin</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Rémy Martin', 6000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Martell.png" alt="Martell" class="item-image">
+        <h3>Martell</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Martell', 6000)">Add to Cart</button>
+      </div>
+    </div>
+      </section>
+      <section id="Bar" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.eauxDeVie">EAUX DE VIE</h2>
+      <div class="items-grid" alt="Fruits" class="item-image">
+        <div class="item-card">
+        <img src="Kirsch.png" alt="Kirsch" class="item-image">
+        <h3>Kirsch</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Kirsch', 6000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Poire.png" alt="Poire Williams" class="item-image">
+        <h3>Poire Williams</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Poire Williams', 6000)">Add to Cart</button>
+      </div>
+      <div class="item-card">
+        <img src="Mirabelle.png" alt="Mirabelle" class="item-image">
+        <h3>Mirabelle</h3>
+        <p class="item-price">6000 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Mirabelle', 6000)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <script src="script.js" defer></script>
+  <script src="translations.js" defer></script>
+</body>
+</html>
