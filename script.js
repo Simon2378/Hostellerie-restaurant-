@@ -185,9 +185,57 @@ function showAllItems() {
   cards.forEach(card => {
     card.style.display = 'flex';
   });
+  const messageBox = document.getElementById('search-message');
+  if (messageBox) {
+    messageBox.textContent = '';
+  }
 }
 
-// Setup language toggle functionality
+function normalizeText(text) {
+  return String(text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function searchMenu() {
+  const searchInput = document.getElementById('search');
+  const messageBox = document.getElementById('search-message');
+  if (!searchInput) return;
+  
+  const query = normalizeText(searchInput.value);
+  const cards = document.querySelectorAll('.item-card');
+  let visibleCount = 0;
+  
+  cards.forEach(card => {
+    const itemName = card.querySelector('h3');
+    if (!itemName) return;
+    
+    const itemText = normalizeText(itemName.textContent);
+    const isMatch = query === '' || itemText.includes(query);
+    
+    card.style.display = isMatch ? 'flex' : 'none';
+    if (isMatch) visibleCount++;
+  });
+  
+  if (messageBox) {
+    if (query === '') {
+      messageBox.textContent = '';
+    } else if (visibleCount === 0) {
+      messageBox.textContent = currentLanguage === 'fr'
+        ? 'Aucun article trouvé.'
+        : 'Item not found.';
+    } else {
+      messageBox.textContent = currentLanguage === 'fr'
+        ? `${visibleCount} article${visibleCount > 1 ? 's' : ''} trouvé${visibleCount > 1 ? 's' : ''}.`
+        : `${visibleCount} item${visibleCount > 1 ? 's' : ''} found.`;
+    }
+  }
+}
+
+// Setup item card click handlers for modal
 function setupLanguageToggle() {
   const languageTrigger = document.getElementById('language-trigger');
   const languageMenu = document.getElementById('language-menu');
@@ -304,32 +352,27 @@ function addToCart(itemName, price) {
 
 // Scroll to section
 function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({
-    behavior: "smooth"
-  });
-}
+  const targetId = String(id || '');
+  const normalizedTarget = normalizeText(targetId);
+  let target = document.getElementById(targetId);
 
-// Search menu
-function searchMenu() {
-  const searchInput = document.getElementById('search');
-  if (!searchInput) return;
-  
-  const query = searchInput.value.toLowerCase().trim();
-  const cards = document.querySelectorAll('.item-card');
-  
-  cards.forEach(card => {
-    const itemName = card.querySelector('h3');
-    if (!itemName) return;
-    
-    const itemText = itemName.textContent.toLowerCase();
-    
-    // Show all items if search is empty, otherwise filter by name
-    if (query === '' || itemText.includes(query)) {
-      card.style.display = 'flex';
-    } else {
-      card.style.display = 'none';
-    }
-  });
+  if (!target) {
+    target = Array.from(document.querySelectorAll('[id]')).find(element => normalizeText(element.id) === normalizedTarget);
+  }
+
+  if (!target) {
+    target = Array.from(document.querySelectorAll('section.menu-section, section')).find(section => {
+      const heading = section.querySelector('.section-heading');
+      return normalizeText(heading?.textContent || section.id) === normalizedTarget;
+    });
+  }
+
+  if (target) {
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
 }
 
 // Setup item card click handlers for modal

@@ -384,15 +384,24 @@ header {
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.search-message {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #1a1f36;
+  min-height: 1.4em;
 }
 
 .search input {
   padding: 12px 40px 12px 18px;
   width: 100%;
-  max-width: 500px;
+  max-width: 100%;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 1rem;
   transition: all 0.3s ease;
   background: #f8f9fa;
 }
@@ -657,12 +666,9 @@ header {
 
 .modal-content {
   background: white;
-
-  *,
   margin: auto;
   padding: 0;
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
   border-radius: 12px;
   max-width: 600px;
   width: 90%;
@@ -791,6 +797,7 @@ header {
     padding: 18px 14px;
     align-items: center;
     text-align: center;
+    line-height: 1.1;
   }
 
   .header-left .logo {
@@ -799,7 +806,7 @@ header {
   }
 
   .header-center h1 {
-    font-size: 22px;
+    font-size: 45px;
   }
 
   .header-center p {
@@ -811,13 +818,19 @@ header {
   }
 
   .hero-video-container {
-    min-height: 36vh;
-    max-height: 60vh;
+    width: 100%;
+    height: 36vh;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  video{
+    height: 36vh;
   }
 
   .hero-text {
-    font-size: clamp(1.1rem, 4.8vw, 2.2rem);
+    font-size: 40px;
     padding: 0 14px;
+    line-height: 1.1;
   }
 
   .hero-sides {
@@ -872,7 +885,13 @@ header {
   }
 
   .item-image {
-    height: 150px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .search input {
+    font-size: 1rem;
   }
 
   #Bar .item-image {
@@ -925,6 +944,10 @@ header {
 
   .hero-side-button {
     padding: 12px 16px;
+  }
+
+  .search input {
+    font-size: 1rem;
   }
 
   .hero-social-row {
@@ -995,22 +1018,6 @@ header {
     inset: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.42) 100%);
     pointer-events: none;
-}
-
-.hero-text {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 28px;
-  color: #ffffff;
-  /* scaled down so the header fits inside the video on phones */
-  font-size: clamp(1.2rem, 2.6vw, 2.6rem);
-  font-weight: 800;
-  text-align: center;
-  line-height: 1.03;
 }
 
 .hero-sides {
@@ -1107,6 +1114,8 @@ header {
 .hero-side-image {
     width: 100%;
     aspect-ratio: 16 / 10;
+    max-height: 320px;
+    height: auto;
     border-radius: 24px;
     object-fit: cover;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
@@ -1235,4 +1244,4 @@ header {
 
 .menu-link-btn:hover {
   transform: translateY(-2px);
-  
+}
