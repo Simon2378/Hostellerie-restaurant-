@@ -792,13 +792,15 @@ header {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   header {
+    display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 18px 14px;
     align-items: center;
     text-align: center;
     line-height: 1.1;
-  }
+    width: 100%;
+}
 
   .header-left .logo {
     width: 64px;
@@ -1079,6 +1081,25 @@ header {
     font-size: 0.95rem;
     text-align: center;
     opacity: 0.95;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.footer-copy {
+    margin: 0;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #1a1f36;
 }
 
 .social-link {
