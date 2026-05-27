@@ -64,7 +64,7 @@
   </div>
   <div id="search-message" class="search-message" aria-live="polite"></div>
 
-  <section class="qr-section">
+  <section class="qr-section" id="qr-section">
     <div class="qr-wrapper">
       <div id="qr-image"></div>
       <img src="Hostellerie logo.png" class="qr-logo" alt="Hostellerie logo">
@@ -894,7 +894,7 @@
         <img src="Kirsch.png" alt="Kirsch" class="item-image">
         <h3>Kirsch</h3>
         <p class="item-price">6000 FCFA</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Kirsch', 6000)">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Kirsch', 6000)">Add to cart</button>
       </div>
       <div class="item-card">
         <img src="Poire.png" alt="Poire Williams" class="item-image">
@@ -914,5 +914,12 @@
 
   <script src="script.js" defer></script>
   <script src="translations.js" defer></script>
+  <script>
+    if(window.location.href.includes("admin")){
+
+      document.getElementById("qr-section")
+      .style.display ="block";
+    }
+  </script>
 </body>
 </html>

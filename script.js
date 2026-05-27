@@ -234,6 +234,8 @@ function searchMenu() {
     }
   }
 }
+//Make the  Qr code to be hidden and let it open to vercel.app when am scanning
+
 
 // Setup item card click handlers for modal
 function setupLanguageToggle() {

@@ -552,6 +552,7 @@ header {
   max-width: 420px;
   text-align: center;
   border-top: 4px solid #d4af37;
+  display: none;
 }
 
 .qr-wrapper {
