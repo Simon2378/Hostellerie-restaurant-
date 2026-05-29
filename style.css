@@ -1,3 +1,12 @@
+*{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -123,7 +132,7 @@ body.welcome-active #selected-item {
 }
 
 header {
-  padding: 30px 20px;
+  padding: 20px;
   background: linear-gradient(135deg, #1a1f36 0%, #2d3561 100%);
   color: white;
   display: flex;
@@ -131,6 +140,8 @@ header {
   justify-content: space-between;
   gap: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  min-height: auto;
 }
 
 .header-left {
@@ -229,8 +240,8 @@ header {
 
 .hero-section {
   max-width: 1180px;
-  margin: 40px auto 20px;
-  padding: 30px 24px;
+  margin: 10px auto;
+  padding: 15px 20px;
   background: white;
   border-radius: 22px;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
@@ -362,13 +373,72 @@ header {
   padding: 10px 20px;
   border: none;
   background: #1a1f36;
-  color: white;
-  border-radius: 25px;
+}
+
+/* Mobile overrides: reduce hero-side image height for phones (smaller than before) */
+@media (max-width: 900px) {
+  .hero-sides { flex-direction: column; gap: 18px; }
+  .hero-side { min-height: auto; padding: 14px; }
+  .hero-side-image {
+    height: min(40vh, 420px) !important;
+    max-height: none !important;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-side-image {
+    height: min(36vh, 360px) !important;
+    border-radius: 14px;
+  }
+  .hero-side { padding: 12px; }
+}
+
+/* Hero sides: larger images and buttons aligned to the bottom */
+.hero-sides {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+.hero-side {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-height: 560px; /* increase container height so image appears bigger and button moves down */
+  padding: 18px;
+  background: transparent;
+}
+
+.hero-side-image {
+  width: 100%;
+  height: 420px; /* larger visual height for the side images */
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.hero-side-button {
+  margin-top: auto; /* push button to the bottom of the hero-side box */
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d4af37, #f5e58f);
+  color: #1a1f36;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  font-size: 13px;
-  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .hero-sides { flex-direction: column; gap: 18px; }
+  .hero-side { min-height: auto; }
+  .hero-side-image { height: 320px; }
 }
 
 .nav button:hover {
@@ -734,15 +804,14 @@ header {
 
 .modal-image {
   width: 100%;
-  height: 350px;
+  max-width: 420px;
+  height: auto;
+  max-height: 320px;
   background: #f0f0f0;
   border-radius: 10px;
-  margin-bottom: 25px;
-  object-fit: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 80px;
+  margin: 0 auto 25px auto;
+  object-fit: contain;
+  display: block;
 }
 
 .modal-details {
@@ -796,14 +865,20 @@ header {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 18px 14px;
+    padding: 15px;
     align-items: center;
     text-align: center;
     line-height: 1.1;
     width: 100%;
 }
-
-  .header-left .logo {
+  .header-center{
+    width: 100%;
+    text-align: center;
+  } 
+  .nav{
+    width: 100%;
+  }
+   .header-left .logo {
     width: 64px;
     height: 64px;
   }
@@ -904,6 +979,7 @@ header {
   .modal-image {
     height: 220px;
   }
+
 }
 
 @media (max-width: 520px) {
@@ -981,6 +1057,10 @@ header {
     width: calc(100% - 24px);
     margin: 18px auto 26px;
     padding: 16px 18px;
+  }
+
+  .items-grid {
+    grid-template-columns: 1fr;
   }
 }
 

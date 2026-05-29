@@ -56,6 +56,8 @@ const translations = {
     'hero.buttonMenu': 'Menu',
     'hero.orderNow': 'Commander maintenant',
     'hero.seeMenu': 'Voir le menu',
+    'hero.side1': 'Des saveurs authentiques livrées directement chez vous',
+    'hero.side2': 'Explorez nos pensées pour satisfaire toutes vos envies',
     'hero.photo1': 'Espace photo 1',
     'hero.photo2': 'Espace photo 2',
     'hero.photo3': 'Espace photo 3',
@@ -94,7 +96,8 @@ const translations = {
     'section.digestifs': 'DIGESTIFS',
     'section.eauxDeVie': 'EAUX DE VIE',
     'section.pizzaNote': 'Nos pizzas sont également à emporter au prix majoré de 500 FCFA pour les frais d’emballage.',
-    'button.addToCart': 'Ajouter au panier'
+    'button.addToCart': 'Ajouter au panier',
+    'button.view': 'Voir'
   },
   en: {
     'menu.title': 'Hostellerie de la sanaga',
@@ -115,6 +118,8 @@ const translations = {
     'hero.buttonMenu': 'Menu',
     'hero.orderNow': 'Order now',
     'hero.seeMenu': 'See menu',
+    'hero.side1': 'Authentic flavors delivered directly to you',
+    'hero.side2': 'Explore our ideas to satisfy all your cravings',
     'hero.photo1': 'Photo space 1',
     'hero.photo2': 'Photo space 2',
     'hero.photo3': 'Photo space 3',
@@ -153,7 +158,8 @@ const translations = {
     'section.digestifs': 'Digestifs',
     'section.eauxDeVie': 'Eaux-de-vie',
     'section.pizzaNote': 'Our pizzas are also available for takeaway with a 500 FCFA packaging fee.',
-    'button.addToCart': 'Add to Cart'
+    'button.addToCart': 'Add to Cart',
+    'button.view': 'View'
   }
 };
 
@@ -177,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Ensure all menu items are visible by default
   showAllItems();
+    setupViewButtons();
 });
 
 // Function to show all menu items
@@ -189,6 +196,23 @@ function showAllItems() {
   if (messageBox) {
     messageBox.textContent = '';
   }
+}
+
+function setupViewButtons() {
+  document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+    button.type = 'button';
+    const viewText = translations[currentLanguage]?.['button.view'];
+    if (viewText) {
+      button.textContent = viewText;
+    }
+    button.onclick = function(e) {
+      e.stopPropagation();
+      const card = this.closest('.item-card');
+      if (card) {
+        showItemModal(card);
+      }
+    };
+  });
 }
 
 function normalizeText(text) {
@@ -298,18 +322,13 @@ function setLanguage(lang) {
     searchInput.placeholder = translations[lang]['menu.searchPlaceholder'];
   }
 
-  // Translate all add-to-cart buttons
-  document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-    if (translations[lang]['button.addToCart']) {
-      button.textContent = translations[lang]['button.addToCart'];
-    }
-  });
-
   // Update hero image buttons (order and see menu)
   const orderBtn = document.querySelector('.hero-side-button[data-action="order"]');
   const seeMenuBtn = document.querySelector('.hero-side-button[data-action="see-menu"]');
   if (orderBtn && translations[lang]['hero.orderNow']) orderBtn.textContent = translations[lang]['hero.orderNow'];
   if (seeMenuBtn && translations[lang]['hero.seeMenu']) seeMenuBtn.textContent = translations[lang]['hero.seeMenu'];
+
+  setupViewButtons();
 
   // Reset hero header rotation index and show immediate language-appropriate text
   heroHeaderIndex = 0;
@@ -327,8 +346,12 @@ function generateQRCode() {
     // Clear previous QR code
     qrContainer.innerHTML = '';
     
-    // Get current URL
-    const url = window.location.href;
+    // Always generate a QR code for the hosted website URL
+    const url = 'https://hostellerie-menu.netlify.app';
+    const qrTarget = document.getElementById('qr-target');
+    if (qrTarget) {
+      qrTarget.textContent = url;
+    }
     
     // Generate QR code
     new QRCode(qrContainer, {
