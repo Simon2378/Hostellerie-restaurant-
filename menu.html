@@ -48,7 +48,7 @@
     <button onclick="scrollToSection('specialites')" data-i18n="nav.specialites">Spécialités Maison</button>
     <button onclick="scrollToSection('desserts')" data-i18n="nav.desserts">Desserts</button>
     <button onclick="scrollToSection('pizza')" data-i18n="nav.pizzas">Pizzas</button>
-    <button onclick="scrollToSection('Bar')" data-i18n="nav.boissonsChaudes">Boissons Chaudes</button>
+    <button onclick="scrollToSection('Cafe')" data-i18n="nav.boissonsChaudes">Boissons Chaudes</button>
     <button onclick="scrollToSection('Eaux Mineral')" data-i18n="nav.eauxMinerales">Eaux Minérales</button>
     <button onclick="scrollToSection('Jus de fruits')" data-i18n="nav.jusDeFruits">Jus de fruits</button>
     <button onclick="scrollToSection('Soft et bierres brasserie')" data-i18n="nav.softsBieres">Softs et Bières de Brasserie</button>
@@ -69,7 +69,9 @@
       <div id="qr-image"></div>
       <img src="Hostellerie logo.png" class="qr-logo" alt="Hostellerie logo">
     </div>
-    <p id="qr-target" class="qr-target"></p>
+    <p class="qr-target">
+      <a id="qr-target" class="qr-link" href="https://hostellerie-menu.netlify.app" target="_blank" rel="noreferrer noopener"></a>
+    </p>
     <p data-i18n="menu.welcome">Bienvenue à Hostellerie</p>
     <p data-i18n="menu.scanQr">Scannez ce code QR pour ouvrir le menu de ce site Web.</p>
   </section>
@@ -453,7 +455,7 @@
         </div>
     </section>
     <!-- Bar section-->
-     <section id="Bar" class="menu-section">
+     <section id="Eaux Mineral" class="menu-section">
       <h2 class="section-heading" data-i18n="section.eauxMinerales">EAUX MINERALES</h2>
       <div class="items-grid">
         <div class="item-card">
@@ -493,7 +495,7 @@
           <button class="add-to-cart-btn" onclick="addToCart('Vitale (gm)', 1500)">Add to Cart</button>
         </div>
       </section>
-       <section id="Bar" class="menu-section">
+       <section id="Eaux Gazeuses" class="menu-section">
       <h2 class="section-heading" data-i18n="section.eauxGazeuses">EAUX GAZEUSES</h2>
       <div class="items-grid">
         <div class="item-card">
@@ -510,7 +512,7 @@
       </div>
       </div>
       </section>
-       <section id="Bar" class="menu-section">
+       <section id="Jus de fruits" class="menu-section">
       <h2 class="section-heading" data-i18n="section.jusDeFruits">JUS DE FRUITS</h2>
       <div class="items-grid" alt="Fruits" class="item-image">
         <div class="item-card">
@@ -527,7 +529,7 @@
       </div>
     </div>
       </section>
-      <section id="Bar" class="menu-section">
+      <section id="Soft et bierres brasserie" class="menu-section">
       <h2 class="section-heading" data-i18n="section.softsBieres">SOFTS ET BIERRES BRASSERIE</h2>
       <div class="items-grid" alt="Fruits" class="item-image">
         <div class="item-card">
@@ -662,7 +664,7 @@
       </div>
       <!-- appero-->
       </section>
-      <section id="Bar" class="menu-section">
+      <section id="Suite Appero" class="menu-section">
       <h2 class="section-heading" data-i18n="section.suiteAppero">SUITE APPERO</h2>
       <div class="items-grid" alt="Fruits" class="item-image">
         <div class="item-card">
@@ -721,7 +723,7 @@
     </div>
     </div>
       </section>
-      <section id="Bar" class="menu-section">
+      <section id="Whisky et Liqueurs" class="menu-section">
       <h2 class="section-heading" data-i18n="section.whiskies">WHISKIES ET LIQUEURS</h2>
       <div class="items-grid" alt="Fruits" class="item-image">
         <div class="item-card">
@@ -858,7 +860,7 @@
       </div>
       </div>
       </section>
-      <section id="Bar" class="menu-section">
+      <section id="Digestifs" class="menu-section">
       <h2 class="section-heading" data-i18n="section.digestifs">DIGESTIFS</h2>
       <div class="items-grid" alt="Fruits" class="item-image">
         <div class="item-card">
@@ -887,7 +889,7 @@
       </div>
     </div>
       </section>
-      <section id="Bar" class="menu-section">
+      <section id="Eaux de Vie" class="menu-section">
       <h2 class="section-heading" data-i18n="section.eauxDeVie">EAUX DE VIE</h2>
       <div class="items-grid" alt="Fruits" class="item-image">
         <div class="item-card">
@@ -914,12 +916,5 @@
 
   <script src="script.js" defer></script>
   <script src="translations.js" defer></script>
-  <script>
-    if(window.location.href.includes("admin")){
-
-      document.getElementById("qr-section")
-      .style.display ="block";
-    }
-  </script>
 </body>
 </html>

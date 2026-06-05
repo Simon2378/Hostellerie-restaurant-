@@ -167,6 +167,13 @@ const translations = {
 document.addEventListener('DOMContentLoaded', function() {
   setLanguage('fr');
   generateQRCode();
+
+  const qrSection = document.getElementById('qr-section');
+  const isAdmin = window.location.href.includes('admin');
+  if (qrSection) {
+    qrSection.style.display = isAdmin ? 'block' : 'none';
+  }
+
   setupLanguageToggle();
   setupItemCardClickHandlers();
   setupModalCloseHandlers();
@@ -351,6 +358,7 @@ function generateQRCode() {
     const qrTarget = document.getElementById('qr-target');
     if (qrTarget) {
       qrTarget.textContent = url;
+      qrTarget.setAttribute('href', url);
     }
     
     // Generate QR code
