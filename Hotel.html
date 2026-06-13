@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebergement</title>
+    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="translations.css">
+</head>
+<body>
+    <header class="header">
+    <div class="header-left">
+      <img src="Hostellerie logo.png" alt="Hostellerie logo" class="logo">
+    </div>
+    <div class="header-center">
+      <h1 data-i18n="menu.title">Hostellerie de la sanaga</h1>
+      <p><em data-i18n="menu.tagline">Restaurant Longue</em></p>
+      <p data-i18n="menu.location">📍 Edea Cameroon, ile ALUCAM Enter les deux ponts de la sanaga</p>
+      <p data-i18n="menu.phone">📞 +237692266713</p>
+    </div>
+    <div class="header-right">
+      <div class="language-toggle" id="language-toggle">
+        <button type="button" class="language-trigger" id="language-trigger" aria-label="Change language" aria-expanded="false" aria-controls="language-menu">
+          <span class="language-globe" aria-hidden="true">🌍</span>
+          <span class="language-current" id="language-current-label">Français</span>
+          <span class="language-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="language-menu" id="language-menu" hidden>
+          <a href="#" class="lang-option" data-lang="fr">Français</a>
+          <a href="#" class="lang-option" data-lang="en">English</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="hotel-gallery">
+    <div class="section-heading-wrap">
+      <h2 data-i18n="gallery.heading">Découvrez l'Hostellerie de la Sanaga</h2>
+      <p class="gallery-intro" data-i18n="gallery.intro">Cliquez sur une photo pour afficher les détails de la chambre et découvrir les prix.</p>
+    </div>
+
+    <div class="slider-container">
+      <div class="slides">
+
+        <article class="slide" data-index="0" onclick="openGallery(0)">
+          <img src="suite.jpg" alt="Chambre Suite">
+          <div class="slide-content">
+            <span class="slide-badge">Suite</span>
+            <h3>Chambres Suite</h3>
+            <p>Avec petit déjeuner. Plus d'espace et une ambiance élégante.</p>
+            <div class="price">À partir de 67 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+          </div>
+        </article>
+
+        <article class="slide" data-index="1" onclick="openGallery(1)">
+          <img src="Speciallux.png" alt="Chambre Luxe Spéciale">
+          <div class="slide-content">
+            <span class="slide-badge">Luxe</span>
+            <h3>Chambres luxe spéciale</h3>
+            <p>Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.</p>
+            <div class="price">À partir de 57 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+          </div>
+        </article>
+
+        <article class="slide" data-index="2" onclick="openGallery(2)">
+          <img src="luxe.PNG" alt="Chambre Luxe">
+          <div class="slide-content">
+            <span class="slide-badge">Luxe</span>
+            <h3>Chambres luxe</h3>
+            <p>Avec petit déjeuner. Élégante et spacieuse pour un confort maximal.</p>
+            <div class="price">À partir de 42 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+          </div>
+        </article>
+
+        <article class="slide" data-index="3" onclick="openGallery(3)">
+          <img src="Standart.PNG" alt="Chambre Standard">
+          <div class="slide-content">
+            <span class="slide-badge">Standard</span>
+            <h3>Chambres standard</h3>
+            <p>Sans petit déjeuner. Idéale pour un séjour simple et propre.</p>
+            <div class="price">À partir de 29 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="gallery-footer">
+      <div class="gallery-count" id="gallery-count">1 / 4</div>
+      <div class="gallery-note" data-i18n="gallery.note">Parcourez les images en plein écran et revenez rapidement à la réservation.</div>
+    </div>
+  </section>
+
+  <div id="room-detail-panel" class="room-detail-panel">
+    <div class="room-detail-media">
+      <img id="detail-image" src="" alt="Image de chambre" />
+      <div class="room-thumbnails" id="detail-thumbnails"></div>
+    </div>
+    <div class="room-detail-info">
+      <h3 id="detail-title"></h3>
+      <div class="detail-price" id="detail-price"></div>
+      <p id="detail-description"></p>
+      <div class="detail-features" id="detail-features"></div>
+      <div class="detail-actions">
+        <a id="detail-reserve" href="tel:+237699801830" class="reserve-btn">Réserver</a>
+      </div>
+    </div>
+  </div>
+  <!-- footer-->
+   <div class="footer-contact">
+    <h2 data-i18n="mariage.contact">📞 Réservation & Informations</h2>
+    <p>
+      <strong data-i18n="mariage.edea">Edea, île ALUCAM</strong><br>
+      <span data-i18n="mariage.between">Entre les deux ponts de la Sanaga</span>
+    </p>
+    <p>
+      <a href="tel:+237699801830" class="contact-link">+237 699 801 830</a> / 
+      <a href="tel:+237692266713" class="contact-link">+237 692 266 713</a>
+    </p>
+    <p>
+      <a href="https://wa.me/237699801830" class="contact-link" data-i18n="mariage.whatsapp">📱 WhatsApp</a> | 
+      <a href="https://www.facebook.com/share/1T9pKmGRUJ/?mibextid=wwXlfr" class="contact-link" target="_blank">Facebook</a>
+    </p>
+    <p data-i18n="mariage.availability">Nous sommes disponibles 24h/24 pour répondre à vos questions !</p>
+  </div>
+
+  <footer class="landing-footer" style="margin-top: 40px;">
+    <div class="footer-content">
+      <p class="footer-copy">&copy; 2026 Hostellerie De La Sanaga. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html> 

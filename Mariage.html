@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packages Mariage - Hostellerie de la Sanaga</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="translations.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <img src="Hostellerie logo.png" alt="Hostellerie logo" class="logo">
+    </div>
+    <div class="header-center">
+      <h1 data-i18n="menu.title">Hostellerie de la sanaga</h1>
+      <p><em data-i18n="menu.tagline">Restaurant Longue</em></p>
+      <p data-i18n="menu.location">📍 Edea Cameroon, ile ALUCAM Enter les deux ponts de la sanaga</p>
+      <p data-i18n="menu.phone">📞 +237692266713</p>
+    </div>
+    <div class="header-right">
+      <div class="language-toggle" id="language-toggle">
+        <button type="button" class="language-trigger" id="language-trigger" aria-label="Change language" aria-expanded="false" aria-controls="language-menu">
+          <span class="language-globe" aria-hidden="true">🌍</span>
+          <span class="language-current" id="language-current-label">Français</span>
+          <span class="language-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="language-menu" id="language-menu" hidden>
+          <a href="#" class="lang-option" data-lang="fr">Français</a>
+          <a href="#" class="lang-option" data-lang="en">English</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="mariage-container">
+    <div class="mariage-header">
+      <img src="Hostellerie logo.png" alt="Hostellerie de la Sanaga">
+      <h1>Packages Mariage</h1>
+      <p data-i18n="mariage.subtitle">à EDEA - OFFRES EXCEPTIONNELLES</p>
+    </div>
+
+    <!-- Wedding Packages -->
+    <div class="packages-grid">
+      <!-- Package Bronze -->
+      <div class="package-card package-bronze">
+        <div class="package-header">Package Bronze</div>
+        <div class="package-price">
+          <p class="price-amount">12 695 FCFA</p>
+          <p class="price-label" data-i18n="mariage.perPerson">Par personne</p>
+        </div>
+        <div class="package-content">
+          <div class="package-item">
+            <strong data-i18n="mariage.menuBuffet">Menu Buffet Bronze Sono</strong>
+            <span data-i18n="mariage.decoration">Décoration complète mise en place</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.standardRoom">Chambre Standard</strong>
+            <em data-i18n="mariage.roomSize150">(Jusqu'à 150m² environ)</em>
+            <span data-i18n="mariage.discount10">10% de réduction sur les autres chambres</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.champagne">Bouteille de Champagne</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.bouquet">Bouquet de Fleur</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.cake">Gâteau de Mariage</strong>
+            <em data-i18n="mariage.perPerson">(Nombre de personnes prévu)</em>
+          </div>
+        </div>
+        <div class="package-cta">
+          <button class="reserve-btn" onclick="reservePackage('bronze')" data-i18n="mariage.reserve">Réserver</button>
+        </div>
+      </div>
+
+      <!-- Package Or -->
+      <div class="package-card package-or">
+        <div class="package-header">Package Or</div>
+        <div class="package-price">
+          <p class="price-amount">14 820 FCFA</p>
+          <p class="price-label" data-i18n="mariage.perPerson">Par personne</p>
+        </div>
+        <div class="package-content">
+          <div class="package-item">
+            <strong data-i18n="mariage.menuBuffet">Menu Buffet Or Sono</strong>
+            <span data-i18n="mariage.decoration">Décoration complète mise en place</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.standardRoom">Chambre Standard</strong>
+            <em data-i18n="mariage.roomSize150">(Jusqu'à 150m² environ)</em>
+            <span data-i18n="mariage.discount15">15% de réduction sur les autres chambres</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.champagne">Bouteille de Champagne</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.bouquet">Bouquet de Fleur</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.cake">Gâteau de Mariage</strong>
+            <em data-i18n="mariage.perPerson">(Nombre de personnes prévu)</em>
+          </div>
+        </div>
+        <div class="package-cta">
+          <button class="reserve-btn" onclick="reservePackage('or')" data-i18n="mariage.reserve">Réserver</button>
+        </div>
+      </div>
+
+      <!-- Package Saphir -->
+      <div class="package-card package-saphir">
+        <div class="package-header">Package Saphir</div>
+        <div class="package-price">
+          <p class="price-amount">16 845 FCFA</p>
+          <p class="price-label" data-i18n="mariage.perPerson">Par personne</p>
+        </div>
+        <div class="package-content">
+          <div class="package-item">
+            <strong data-i18n="mariage.menuBuffet">Menu Buffet Saphir Sono</strong>
+            <span data-i18n="mariage.decoration">Décoration complète mise en place</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.luxeRoom">Chambre Luxe</strong>
+            <em data-i18n="mariage.roomSize200">(Jusqu'à 200m² environ)</em>
+            <span data-i18n="mariage.discount20">20% de réduction sur les autres chambres</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.champagne">Bouteille de Champagne</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.bouquet">Bouquet de Fleur</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.cake">Gâteau de Mariage</strong>
+            <em data-i18n="mariage.perPerson">(Nombre de personnes prévu)</em>
+          </div>
+        </div>
+        <div class="package-cta">
+          <button class="reserve-btn" onclick="reservePackage('saphir')" data-i18n="mariage.reserve">Réserver</button>
+        </div>
+      </div>
+
+      <!-- Package Diamant -->
+      <div class="package-card package-diamant">
+        <div class="package-header">Package Diamant</div>
+        <div class="package-price">
+          <p class="price-amount">21 925 FCFA</p>
+          <p class="price-label" data-i18n="mariage.perPerson">Par personne</p>
+        </div>
+        <div class="package-content">
+          <div class="package-item">
+            <strong data-i18n="mariage.menuBuffet">Menu Buffet Diamant Sono</strong>
+            <span data-i18n="mariage.decoration">Décoration complète mise en place</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.vipRoom">Chambre VIP</strong>
+            <em data-i18n="mariage.roomSize300">(Jusqu'à 300m² environ)</em>
+            <span data-i18n="mariage.discount20">20% de réduction sur les autres chambres</span>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.champagne">Bouteille de Champagne</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.bouquet">Bouquet de Fleur</strong>
+          </div>
+          <div class="package-item">
+            <strong data-i18n="mariage.cake">Gâteau de Mariage</strong>
+            <em data-i18n="mariage.perPerson">(Nombre de personnes prévu)</em>
+          </div>
+        </div>
+        <div class="package-cta">
+          <button class="reserve-btn" onclick="reservePackage('diamant')" data-i18n="mariage.reserve">Réserver</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <h2 data-i18n="mariage.whyChoose">Pourquoi choisir l'Hostellerie de la Sanaga ?</h2>
+      <div class="info-content">
+        <div class="info-item">
+          <h3 data-i18n="mariage.location">📍 Localisation Privilégiée</h3>
+          <p data-i18n="mariage.locationDesc">Sur l'île ALUCAM à Edea, un cadre idyllique face à la Sanaga pour des photos inoubliables.</p>
+        </div>
+        <div class="info-item">
+          <h3 data-i18n="mariage.service">🎩 Service Professionnel</h3>
+          <p data-i18n="mariage.serviceDesc">Notre équipe expérimentée s'occupe de tous les détails pour votre jour spécial.</p>
+        </div>
+        <div class="info-item">
+          <h3 data-i18n="mariage.accommodation">🏨 Hébergement Confortable</h3>
+          <p data-i18n="mariage.accommodationDesc">Vos invités profitent de réductions sur nos chambres spacieuses et bien équipées.</p>
+        </div>
+        <div class="info-item">
+          <h3 data-i18n="mariage.cuisine">🍽️ Cuisine Raffinée</h3>
+          <p data-i18n="mariage.cuisineDesc">Des menus variés préparés avec soin pour satisfaire tous vos convives.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Contact -->
+  <div class="footer-contact">
+    <h2 data-i18n="mariage.contact">📞 Réservation & Informations</h2>
+    <p>
+      <strong data-i18n="mariage.edea">Edea, île ALUCAM</strong><br>
+      <span data-i18n="mariage.between">Entre les deux ponts de la Sanaga</span>
+    </p>
+    <p>
+      <a href="tel:+237699801830" class="contact-link">+237 699 801 830</a> / 
+      <a href="tel:+237692266713" class="contact-link">+237 692 266 713</a>
+    </p>
+    <p>
+      <a href="https://wa.me/237699801830" class="contact-link" data-i18n="mariage.whatsapp">📱 WhatsApp</a> | 
+      <a href="https://www.facebook.com/share/1T9pKmGRUJ/?mibextid=wwXlfr" class="contact-link" target="_blank">Facebook</a>
+    </p>
+    <p data-i18n="mariage.availability">Nous sommes disponibles 24h/24 pour répondre à vos questions !</p>
+  </div>
+
+  <footer class="landing-footer" style="margin-top: 40px;">
+    <div class="footer-content">
+      <p class="footer-copy">&copy; 2026 Hostellerie De La Sanaga. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

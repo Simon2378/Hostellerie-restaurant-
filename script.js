@@ -35,6 +35,12 @@ function orderNow() {
   window.location.href = 'https://wa.me/237692266713';
 }
 
+function openWhatsApp(product) {
+  const message = encodeURIComponent(`Je souhaite commander: ${product}`);
+  const phoneNumber = '237699801830';
+  window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+}
+
 // Translation dictionary
 const translations = {
   fr: {
@@ -58,9 +64,12 @@ const translations = {
     'hero.seeMenu': 'Voir le menu',
     'hero.side1': 'Des saveurs authentiques livrées directement chez vous',
     'hero.side2': 'Explorez nos pensées pour satisfaire toutes vos envies',
-    'hero.photo1': 'Espace photo 1',
+    'hero.phot o1': 'Espace photo 1',
     'hero.photo2': 'Espace photo 2',
     'hero.photo3': 'Espace photo 3',
+    'hero.sideHeading1': 'Découvrez nos différents menus et profitez d\'un excellent rapport qualité-prix.',
+    'hero.sideHeading2': 'Découvrez nos chambres, suites et espaces de réception à des prix attractifs.',
+    'hero.sideHeading3': 'Découvrez nos espaces de réception élégants et nos formules adaptées pour célébrer votre mariage dans un cadre exceptionnel.',
     'nav.salades': 'Salades',
     'nav.snacking': 'Snacking',
     'nav.fineBouche': 'Fine bouche',
@@ -96,8 +105,62 @@ const translations = {
     'section.digestifs': 'DIGESTIFS',
     'section.eauxDeVie': 'EAUX DE VIE',
     'section.pizzaNote': 'Nos pizzas sont également à emporter au prix majoré de 500 FCFA pour les frais d’emballage.',
+    'gallery.heading': 'Découvrez l\'Hostellerie de la Sanaga',
+    'gallery.intro': 'Cliquez sur une photo pour ouvrir la galerie et naviguer entre les chambres avec les boutons précédent / suivant.',
+    'gallery.note': 'Parcourez les images en plein écran et revenez rapidement à la réservation.',
+    'gallery.roomDetails': 'Détails de la chambre',
     'button.addToCart': 'Ajouter au panier',
-    'button.view': 'Voir'
+    'button.view': 'Voir',
+    'mariage.subtitle': 'à EDEA - OFFRES EXCEPTIONNELLES',
+    'mariage.perPerson': 'Par personne',
+    'mariage.menuBuffet': 'Menu Buffet Sono',
+    'mariage.decoration': 'Décoration complète mise en place',
+    'mariage.standardRoom': 'Chambre Standard',
+    'mariage.roomSize150': '(Jusqu\'à 150m² environ)',
+    'mariage.roomSize200': '(Jusqu\'à 200m² environ)',
+    'mariage.roomSize300': '(Jusqu\'à 300m² environ)',
+    'mariage.discount10': '10% de réduction sur les autres chambres',
+    'mariage.discount15': '15% de réduction sur les autres chambres',
+    'mariage.discount20': '20% de réduction sur les autres chambres',
+    'mariage.luxeRoom': 'Chambre Luxe',
+    'mariage.vipRoom': 'Chambre VIP',
+    'mariage.champagne': 'Bouteille de Champagne',
+    'mariage.bouquet': 'Bouquet de Fleur',
+    'mariage.cake': 'Gâteau de Mariage',
+    'mariage.reserve': 'Réserver',
+    'mariage.whyChoose': 'Pourquoi choisir l\'Hostellerie de la Sanaga ?',
+    'mariage.location': '📍 Localisation Privilégiée',
+    'mariage.locationDesc': 'Sur l\'île ALUCAM à Edea, un cadre idyllique face à la Sanaga pour des photos inoubliables.',
+    'mariage.service': '🎩 Service Professionnel',
+    'mariage.serviceDesc': 'Notre équipe expérimentée s\'occupe de tous les détails pour votre jour spécial.',
+    'mariage.accommodation': '🏨 Hébergement Confortable',
+    'mariage.accommodationDesc': 'Vos invités profitent de réductions sur nos chambres spacieuses et bien équipées.',
+    'mariage.cuisine': '🍽️ Cuisine Raffinée',
+    'mariage.cuisineDesc': 'Des menus variés préparés avec soin pour satisfaire tous vos convives.',
+    'mariage.contact': '📞 Réservation & Informations',
+    'mariage.edea': 'Edea, île ALUCAM',
+    'mariage.between': 'Entre les deux ponts de la Sanaga',
+    'mariage.whatsapp': '📱 WhatsApp',
+    'mariage.availability': 'Nous sommes disponibles 24h/24 pour répondre à vos questions !',
+    'cake.eyebrow': 'Gâteaux d\'anniversaire & de mariage',
+    'cake.title': 'Gâteaux sur commande',
+    'cake.intro': 'Choisissez un gâteau livré avec une finition professionnelle, une décoration personnalisée et des saveurs variées. Nos formules sont conçues pour célébrer vos moments les plus précieux.',
+    'cake.cake10': 'Gâteau 10 parts',
+    'cake.cake15': 'Gâteau 15 parts',
+    'cake.item1': 'Commande 24h à l\'avance',
+    'cake.item2': 'Décoration sur mesure',
+    'cake.item3': 'Saveurs au choix',
+    'cake.item4': 'Finition professionnelle',
+    'cake.item5': 'Personnalisation de thème',
+    'cake.item6': 'Disponible sur commande',
+    'cake.item7': 'Gâteaux d\'anniversaire personnalisés',
+    'cake.item8': 'Gâteaux de mariage',
+    'cake.item9': 'Finition professionnelle',
+    'cake.item10': 'Décoration selon thème',
+    'cake.item11': 'Saveurs variées',
+    'cake.item12': 'Commande 24h à l\'avance',
+    'cake.orderBtn': 'Commander maintenant',
+    'cake.note': 'Sur demande : gâteaux d\'anniversaire personnalisés, gâteaux de mariage et décorations selon votre thème.'
   },
   en: {
     'menu.title': 'Hostellerie de la sanaga',
@@ -119,10 +182,9 @@ const translations = {
     'hero.orderNow': 'Order now',
     'hero.seeMenu': 'See menu',
     'hero.side1': 'Authentic flavors delivered directly to you',
-    'hero.side2': 'Explore our ideas to satisfy all your cravings',
-    'hero.photo1': 'Photo space 1',
-    'hero.photo2': 'Photo space 2',
-    'hero.photo3': 'Photo space 3',
+    'hero.sideHeading1': 'Discover our different menus and enjoy excellent value for money.',
+    'hero.sideHeading2': 'Explore our rooms, suites and event spaces at attractive prices.',
+    'hero.sideHeading3': 'Discover our elegant reception spaces and tailored wedding packages for an exceptional celebration.',
     'nav.salades': 'Salads',
     'nav.snacking': 'Snacks',
     'nav.fineBouche': 'Fine Taste',
@@ -158,8 +220,62 @@ const translations = {
     'section.digestifs': 'Digestifs',
     'section.eauxDeVie': 'Eaux-de-vie',
     'section.pizzaNote': 'Our pizzas are also available for takeaway with a 500 FCFA packaging fee.',
+    'gallery.heading': 'Discover Hostellerie de la Sanaga',
+    'gallery.intro': 'Click any photo to open the gallery and browse rooms with previous / next buttons.',
+    'gallery.note': 'Explore the room images full screen and return quickly to booking.',
+    'gallery.roomDetails': 'Room details',
     'button.addToCart': 'Add to Cart',
-    'button.view': 'View'
+    'button.view': 'View',
+    'mariage.subtitle': 'in EDEA - EXCEPTIONAL OFFERS',
+    'mariage.perPerson': 'Per person',
+    'mariage.menuBuffet': 'Menu Buffet Sono',
+    'mariage.decoration': 'Complete decoration setup',
+    'mariage.standardRoom': 'Standard Room',
+    'mariage.roomSize150': '(Up to 150m² approximately)',
+    'mariage.roomSize200': '(Up to 200m² approximately)',
+    'mariage.roomSize300': '(Up to 300m² approximately)',
+    'mariage.discount10': '10% discount on other rooms',
+    'mariage.discount15': '15% discount on other rooms',
+    'mariage.discount20': '20% discount on other rooms',
+    'mariage.luxeRoom': 'Luxury Room',
+    'mariage.vipRoom': 'VIP Room',
+    'mariage.champagne': 'Bottle of Champagne',
+    'mariage.bouquet': 'Flower Bouquet',
+    'mariage.cake': 'Wedding Cake',
+    'mariage.reserve': 'Reserve',
+    'mariage.whyChoose': 'Why choose Hostellerie de la Sanaga ?',
+    'mariage.location': '📍 Privileged Location',
+    'mariage.locationDesc': 'On ALUCAM Island in Edea, an idyllic setting overlooking the Sanaga for unforgettable photos.',
+    'mariage.service': '🎩 Professional Service',
+    'mariage.serviceDesc': 'Our experienced team takes care of every detail for your special day.',
+    'mariage.accommodation': '🏨 Comfortable Accommodation',
+    'mariage.accommodationDesc': 'Your guests enjoy discounts on our spacious and well-equipped rooms.',
+    'mariage.cuisine': '🍽️ Refined Cuisine',
+    'mariage.cuisineDesc': 'Varied menus prepared with care to satisfy all your guests.',
+    'mariage.contact': '📞 Reservation & Information',
+    'mariage.edea': 'Edea, ALUCAM Island',
+    'mariage.between': 'Between the two bridges of the Sanaga',
+    'mariage.whatsapp': '📱 WhatsApp',
+    'mariage.availability': 'We are available 24/7 to answer your questions!',
+    'cake.eyebrow': 'Birthday & Wedding Cakes',
+    'cake.title': 'Custom Cakes on Order',
+    'cake.intro': 'Choose a cake delivered with professional finish, custom decoration, and varied flavors. Our packages are designed to celebrate your most precious moments.',
+    'cake.cake10': 'Cake 10 servings',
+    'cake.cake15': 'Cake 15 servings',
+    'cake.item1': '24-hour advance order',
+    'cake.item2': 'Custom decoration',
+    'cake.item3': 'Flavors to choose from',
+    'cake.item4': 'Professional finish',
+    'cake.item5': 'Theme personalization',
+    'cake.item6': 'Available on order',
+    'cake.item7': 'Custom birthday cakes',
+    'cake.item8': 'Wedding cakes',
+    'cake.item9': 'Professional finish',
+    'cake.item10': 'Theme-based decoration',
+    'cake.item11': 'Varied flavors',
+    'cake.item12': '24-hour advance order',
+    'cake.orderBtn': 'Order Now',
+    'cake.note': 'On request: custom birthday cakes, wedding cakes and decorations according to your theme.'
   }
 };
 
@@ -274,8 +390,11 @@ function setupLanguageToggle() {
   const languageMenu = document.getElementById('language-menu');
   const langOptions = document.querySelectorAll('.lang-option');
 
+  if (!languageTrigger || !languageMenu) return;
+
   languageTrigger.addEventListener('click', function(e) {
     e.preventDefault();
+    e.stopPropagation();
     const isHidden = languageMenu.hasAttribute('hidden');
     if (isHidden) {
       languageMenu.removeAttribute('hidden');
@@ -289,6 +408,7 @@ function setupLanguageToggle() {
   langOptions.forEach(option => {
     option.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       const lang = this.getAttribute('data-lang');
       setLanguage(lang);
       languageMenu.setAttribute('hidden', '');
@@ -327,13 +447,36 @@ function setLanguage(lang) {
   const searchInput = document.getElementById('search');
   if (searchInput) {
     searchInput.placeholder = translations[lang]['menu.searchPlaceholder'];
+    const clearSearchBtn = document.querySelector('.clear-search-btn');
+    if (clearSearchBtn && translations[lang]['menu.clearSearchTitle']) {
+      clearSearchBtn.title = translations[lang]['menu.clearSearchTitle'];
+    }
   }
 
   // Update hero image buttons (order and see menu)
-  const orderBtn = document.querySelector('.hero-side-button[data-action="order"]');
-  const seeMenuBtn = document.querySelector('.hero-side-button[data-action="see-menu"]');
-  if (orderBtn && translations[lang]['hero.orderNow']) orderBtn.textContent = translations[lang]['hero.orderNow'];
-  if (seeMenuBtn && translations[lang]['hero.seeMenu']) seeMenuBtn.textContent = translations[lang]['hero.seeMenu'];
+  const orderButtons = document.querySelectorAll('.hero-side-button[data-action="order"]');
+  const seeMenuButtons = document.querySelectorAll('.hero-side-button[data-action="see-menu"]');
+  const seeHotelButtons = document.querySelectorAll('.hero-side-button[data-action="see-hotel"]');
+  const seeWeddingsButtons = document.querySelectorAll('.hero-side-button[data-action="see-weddings"]');
+
+  orderButtons.forEach(button => {
+    if (translations[lang]['hero.orderNow']) button.textContent = translations[lang]['hero.orderNow'];
+  });
+  seeMenuButtons.forEach(button => {
+    if (translations[lang]['hero.seeMenu']) button.textContent = translations[lang]['hero.seeMenu'];
+  });
+  seeHotelButtons.forEach(button => {
+    if (translations[lang]['hero.seeHotel']) button.textContent = translations[lang]['hero.seeHotel'];
+  });
+  seeWeddingsButtons.forEach(button => {
+    if (translations[lang]['hero.seeWeddings']) button.textContent = translations[lang]['hero.seeWeddings'];
+  });
+
+  // Update cake order buttons
+  const cakeOrderButtons = document.querySelectorAll('.cake-order-btn');
+  cakeOrderButtons.forEach(button => {
+    if (translations[lang]['cake.orderBtn']) button.textContent = translations[lang]['cake.orderBtn'];
+  });
 
   setupViewButtons();
 
@@ -444,9 +587,24 @@ window.refreshMenuDisplay = function() {
 
 // Show item in modal
 function showItemModal(cardElement) {
-  const itemName = cardElement.querySelector('h3').textContent;
-  const itemPrice = cardElement.querySelector('.item-price').textContent;
+  const itemName = cardElement.querySelector('h3')?.textContent || '';
   const itemImage = cardElement.querySelector('img');
+  let itemPrice = '';
+  const priceElement = cardElement.querySelector('.item-price');
+  if (priceElement) {
+    itemPrice = priceElement.textContent.trim();
+  } else {
+    const table = cardElement.querySelector('.portion-table');
+    if (table) {
+      itemPrice = Array.from(table.querySelectorAll('tr'))
+        .slice(1)
+        .map(row => row.textContent.trim().replace(/\s+/g, ' '))
+        .join(' | ');
+    } else {
+      const priceParagraph = Array.from(cardElement.querySelectorAll('p')).find(p => /\d{3,}/.test(p.textContent));
+      itemPrice = priceParagraph ? priceParagraph.textContent.trim() : '';
+    }
+  }
   
   // Create or get modal
   let modal = document.getElementById('item-modal');
@@ -466,8 +624,13 @@ function showItemModal(cardElement) {
   // Build modal content
   const imageTag = imageSrc ? `<img src="${imageSrc}" class="modal-image" alt="${itemName}">` : `<div class="modal-image">🍽️</div>`;
   
-  // Extract price value for addToCart
-  const priceValue = parseInt(itemPrice.replace(/\D/g, ''));
+  const priceMatches = itemPrice.match(/(\d{3,})/g);
+  const priceValue = priceMatches ? parseInt(priceMatches[priceMatches.length - 1], 10) : 0;
+  
+  const itemDescription = translations[currentLanguage]?.['modal.description'] || (currentLanguage === 'fr'
+    ? 'Découvrez ce délicieux plat de notre menu'
+    : 'Enjoy this delicious item from our menu');
+  const addToCartText = translations[currentLanguage]?.['button.addToCart'] || (currentLanguage === 'fr' ? 'Ajouter au panier' : 'Add to Cart');
   
   modal.innerHTML = `
     <div class="modal-content">
@@ -479,11 +642,11 @@ function showItemModal(cardElement) {
         ${imageTag}
         <div class="modal-details">
           <h3>${itemName}</h3>
-          <p>Enjoy this delicious item from our menu</p>
+          <p>${itemDescription}</p>
           <div class="modal-price">${itemPrice}</div>
         </div>
         <button class="modal-btn" onclick="addToCartAndClose('${itemName}', ${priceValue})">
-          ${currentLanguage === 'fr' ? 'Ajouter au panier' : 'Add to Cart'}
+          ${addToCartText}
         </button>
       </div>
     </div>
@@ -530,3 +693,133 @@ function clearSearch() {
     searchMenu();
   }
 }
+
+// Hotel package reservation
+function reservePackage(packageName) {
+  const message = `Je suis intéressé par le package ${packageName.toUpperCase()}`;
+  window.location.href = `https://wa.me/237699801830?text=${encodeURIComponent(message)}`;
+}
+
+const hotelGallerySlides = [
+  {
+    src: 'suite.jpg',
+    title: 'Chambres Suite',
+    description: 'Avec petit déjeuner. Plus d\'espace et une ambiance élégante.',
+    price: 'À partir de 67 000 FCFA / Nuit',
+    images: [
+      'suite1.png',
+      'suite2.png',
+      'suite3.png',
+      'suite4.png',
+    ]
+  },
+  {
+    src: 'Speciallux.png',
+    title: 'Chambres luxe spéciale',
+    description: 'Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.',
+    price: 'À partir de 57 000 FCFA / Nuit',
+    images: [
+      'luxe special1.png',
+      'luxe special2.png',
+      'luxe special3.png',
+      'luxe special4.png',
+    ]
+  },
+  {
+    src: 'luxe.PNG',
+    title: 'Chambres luxe',
+    description: 'Avec petit déjeuner. Élégante et spacieuse pour un confort maximal.',
+    price: 'À partir de 42 000 FCFA / Nuit',
+    images: [
+      'luxe1.png',
+      'luxe2.png',
+      'luxe3.png',
+      'luxe4.png',
+    ]
+  },
+  {
+    src: 'Standart.PNG',
+    title: 'Chambres standard',
+    description: 'Sans petit déjeuner. Idéale pour un séjour simple et propre.',
+    price: 'À partir de 29 000 FCFA / Nuit',
+    images: [
+      'standard-1.jpg',
+      'standard-2.jpg',
+      'standard-3.jpg',
+      'standard-4.jpg',
+    ]
+  }
+];
+
+let currentGalleryIndex = 0;
+let currentGalleryImageIndex = 0;
+
+function openGallery(index) {
+  currentGalleryIndex = index;
+  currentGalleryImageIndex = 0;
+  renderRoomDetails();
+
+  const detailPanel = document.getElementById('room-detail-panel');
+  if (detailPanel) {
+    detailPanel.style.display = 'grid';
+    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function renderRoomDetails() {
+  const slide = hotelGallerySlides[currentGalleryIndex];
+  if (!slide) return;
+
+  const image = document.getElementById('detail-image');
+  const title = document.getElementById('detail-title');
+  const description = document.getElementById('detail-description');
+  const price = document.getElementById('detail-price');
+  const thumbnails = document.getElementById('detail-thumbnails');
+  const features = document.getElementById('detail-features');
+  const reserveButton = document.getElementById('detail-reserve');
+  const count = document.getElementById('gallery-count');
+
+  const mainImage = slide.images[currentGalleryImageIndex] || slide.src;
+
+  if (image) {
+    image.src = mainImage;
+    image.alt = slide.title;
+  }
+  if (title) title.textContent = slide.title;
+  if (description) description.textContent = slide.description;
+  if (price) price.textContent = slide.price;
+  if (reserveButton) reserveButton.href = 'tel:+237699801830';
+  if (count) count.textContent = `${currentGalleryIndex + 1} / ${hotelGallerySlides.length}`;
+
+  if (thumbnails) {
+    thumbnails.innerHTML = slide.images.map((src, idx) => `
+      <button type="button" class="detail-thumbnail${idx === currentGalleryImageIndex ? ' active' : ''}" data-index="${idx}">
+        <img src="${src}" alt="${slide.title} vue ${idx + 1}" />
+      </button>
+    `).join('');
+
+    thumbnails.querySelectorAll('.detail-thumbnail').forEach(button => {
+      button.addEventListener('click', function () {
+        currentGalleryImageIndex = Number(this.dataset.index);
+        renderRoomDetails();
+      });
+    });
+  }
+
+  if (features) {
+    features.innerHTML = slide.features?.length
+      ? slide.features.map(feature => `<span>${feature}</span>`).join('')
+      : '';
+  }
+}
+
+function hideRoomDetails() {
+  const detailPanel = document.getElementById('room-detail-panel');
+  if (detailPanel) {
+    detailPanel.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  hideRoomDetails();
+});

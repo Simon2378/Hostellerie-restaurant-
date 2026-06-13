@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateau</title>
+    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="translations.css">
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js" defer></script>
+    <header class="header">
+    <div class="header-left">
+      <img src="Hostellerie logo.png" alt="Hostellerie logo" class="logo">
+    </div>
+    <div class="header-center">
+      <h1 data-i18n="menu.title">Hostellerie de la sanaga</h1>
+      <p><em data-i18n="menu.tagline">Restaurant Longue</em></p>
+      <p data-i18n="menu.location">📍 Edea Cameroon, ile ALUCAM Enter les deux ponts de la sanaga</p>
+      <p data-i18n="menu.phone">📞 +237692266713</p>
+    </div>
+    <div class="header-right">
+      <div class="language-toggle" id="language-toggle">
+        <button type="button" class="language-trigger" id="language-trigger" aria-label="Change language" aria-expanded="false" aria-controls="language-menu">
+          <span class="language-globe" aria-hidden="true">🌍</span>
+          <span class="language-current" id="language-current-label">Français</span>
+          <span class="language-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="language-menu" id="language-menu" hidden>
+          <a href="#" class="lang-option" data-lang="fr">Français</a>
+          <a href="#" class="lang-option" data-lang="en">English</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="cake-page">
+    <section class="cake-hero">
+      <div class="cake-hero-text">
+        <span class="eyebrow" data-i18n="cake.eyebrow">Gâteaux d'anniversaire & de mariage</span>
+        <h2 data-i18n="cake.title">Gâteaux sur commande</h2>
+        <p class="intro" data-i18n="cake.intro">Choisissez un gâteau livré avec une finition professionnelle, une décoration personnalisée et des saveurs variées. Nos formules sont conçues pour célébrer vos moments les plus précieux.</p>
+
+        <div class="cake-pricing-grid">
+          <article class="cake-card">
+            <img src="Cake.jpg" alt="Gâteau 10 parts" class="cake-card-image">
+            <h3 data-i18n="cake.cake10">Gâteau 10 parts</h3>
+            <p class="price">15 000 FCFA</p>
+            <ul>
+              <li class="li-style-1" data-i18n="cake.item1">Commande 24h à l'avance</li>
+              <li class="li-style-2" data-i18n="cake.item2">Décoration sur mesure</li>
+              <li class="li-style-3" data-i18n="cake.item3">Saveurs au choix</li>
+            </ul>
+            <button class="cake-order-btn" onclick="openWhatsApp('Gâteau 10 parts - 15 000 FCFA')" data-i18n="cake.orderBtn">Commander maintenant</button>
+          </article>
+
+           <article class="cake-card">
+            <img src="cake1.jpg" alt="Gâteau 10 parts" class="cake-card-image">
+            <h3 data-i18n="cake.cake10">Gâteau 10 parts</h3>
+            <p class="price">15 000 FCFA</p>
+            <ul>
+              <li class="li-style-1" data-i18n="cake.item4">Finition professionnelle</li>
+              <li class="li-style-2" data-i18n="cake.item5">Personnalisation de thème</li>
+              <li class="li-style-3" data-i18n="cake.item6">Disponible sur commande</li>
+            </ul>
+            <button class="cake-order-btn" onclick="openWhatsApp('Gâteau 15 parts - 22 500 FCFA')" data-i18n="cake.orderBtn">Commander maintenant</button>
+          </article>
+
+          <article class="cake-card">
+            <img src="cake3.jpg" alt="Gâteau 10 parts" class="cake-card-image">
+            <h3 data-i18n="cake.cake10">Gâteau 10 parts</h3>
+            <p class="price">15 000 FCFA</p>
+            <ul>
+              <li class="li-style-1" data-i18n="cake.item7">Gâteaux d'anniversaire personnalisés</li>
+              <li class="li-style-2" data-i18n="cake.item8">Gâteaux de mariage</li>
+              <li class="li-style-3" data-i18n="cake.item9">Finition professionnelle</li>
+            </ul>
+            <button class="cake-order-btn" onclick="openWhatsApp('Gâteau 10 parts - 15 000 FCFA')" data-i18n="cake.orderBtn">Commander maintenant</button>
+          </article>
+
+          <article class="cake-card">
+            <img src="cake2.png.jpg" alt="Gâteau 15 parts" class="cake-card-image">
+            <h3 data-i18n="cake.cake15">Gâteau 15 parts</h3>
+            <p class="price">22 500 FCFA</p>
+            <ul>
+              <li class="li-style-1" data-i18n="cake.item10">Décoration selon thème</li>
+              <li class="li-style-2" data-i18n="cake.item11">Saveurs variées</li>
+              <li class="li-style-3" data-i18n="cake.item12">Commande 24h à l'avance</li>
+            </ul>
+            <button class="cake-order-btn" onclick="openWhatsApp('Gâteau 15 parts - 22 500 FCFA')" data-i18n="cake.orderBtn">Commander maintenant</button>
+          </article>
+        </div>
+
+        <div class="cake-note" data-i18n="cake.note">Sur demande : gâteaux d'anniversaire personnalisés, gâteaux de mariage et décorations selon votre thème.</div>
+      </div>
+    </section>
+  </main>
+  
+   <!-- footer-->
+   <div class="footer-contact">
+    <h2 data-i18n="mariage.contact">📞 Réservation & Informations</h2>
+    <p>
+      <strong data-i18n="mariage.edea">Edea, île ALUCAM</strong><br>
+      <span data-i18n="mariage.between">Entre les deux ponts de la Sanaga</span>
+    </p>
+    <p>
+      <a href="tel:+237699801830" class="contact-link">+237 699 801 830</a> / 
+      <a href="tel:+237692266713" class="contact-link">+237 692 266 713</a>
+    </p>
+    <p>
+      <a href="https://wa.me/237699801830" class="contact-link" data-i18n="mariage.whatsapp">📱 WhatsApp</a> | 
+      <a href="https://www.facebook.com/share/1T9pKmGRUJ/?mibextid=wwXlfr" class="contact-link" target="_blank">Facebook</a>
+    </p>
+    <div class="landing-socials footer-icons">
+      <a class="social-link facebook" href="https://www.facebook.com/share/1T9pKmGRUJ/?mibextid=wwXlfr" target="_blank" rel="noopener noreferrer">
+        <img src="Facebook.png" alt="Facebook" class="social-icon">
+      </a>
+      <a class="social-link" href="https://wa.me/237699801830" target="_blank" rel="noopener noreferrer">
+        <img src="Z.png" alt="WhatsApp" class="social-icon">
+      </a>
+      <a class="social-link tiktok" href="https://www.tiktok.com/@hostelleriedelasanaga" target="_blank" rel="noopener noreferrer">
+        <img src="Tiktok.png" alt="TikTok" class="social-icon">
+      </a>
+    </div>
+    <p data-i18n="mariage.availability">Nous sommes disponibles 24h/24 pour répondre à vos questions !</p>
+  </div>
+
+  <footer class="landing-footer">
+    <div class="footer-content">
+      <p class="footer-copy">&copy; 2026 Hostellerie De La Sanaga. Tous droits réservés.</p>
+    </div>
+  </footer>
+</body>
+</html>
