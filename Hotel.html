@@ -19,17 +19,7 @@
       <p data-i18n="menu.phone">📞 +237692266713</p>
     </div>
     <div class="header-right">
-      <div class="language-toggle" id="language-toggle">
-        <button type="button" class="language-trigger" id="language-trigger" aria-label="Change language" aria-expanded="false" aria-controls="language-menu">
-          <span class="language-globe" aria-hidden="true">🌍</span>
-          <span class="language-current" id="language-current-label">Français</span>
-          <span class="language-caret" aria-hidden="true">▾</span>
-        </button>
-        <div class="language-menu" id="language-menu" hidden>
-          <a href="#" class="lang-option" data-lang="fr">Français</a>
-          <a href="#" class="lang-option" data-lang="en">English</a>
-        </div>
-      </div>
+      <!-- Language selector moved to index.html; page uses stored language preference -->
     </div>
   </header>
   <section class="hotel-gallery">
@@ -44,44 +34,44 @@
         <article class="slide" data-index="0" onclick="openGallery(0)">
           <img src="suite.jpg" alt="Chambre Suite">
           <div class="slide-content">
-            <span class="slide-badge">Suite</span>
-            <h3>Chambres Suite</h3>
-            <p>Avec petit déjeuner. Plus d'espace et une ambiance élégante.</p>
-            <div class="price">À partir de 67 000 FCFA / Nuit</div>
-            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+            <span class="slide-badge" data-i18n="room.suitebadge">Suite</span>
+            <h3 data-i18n="room.suite-title">Chambres Suite</h3>
+            <p data-i18n="room.suite-desc">Avec petit déjeuner. Plus d'espace et une ambiance élégante.</p>
+            <div class="price" data-i18n="room.suitePrice">À partir de 67 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()" data-i18n="room.reserve">Réserver</a>
           </div>
         </article>
 
         <article class="slide" data-index="1" onclick="openGallery(1)">
           <img src="Speciallux.png" alt="Chambre Luxe Spéciale">
           <div class="slide-content">
-            <span class="slide-badge">Luxe</span>
-            <h3>Chambres luxe spéciale</h3>
-            <p>Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.</p>
-            <div class="price">À partir de 57 000 FCFA / Nuit</div>
-            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+            <span class="slide-badge" data-i18n="room.luxe">Luxe</span>
+            <h3 data-i18n="room.luxe-title">Chambres luxe spéciale</h3>
+            <p data-i18n="room.luxe-desc">Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.</p>
+            <div class="price" data-i18n="room.luxePrice">À partir de 57 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()" data-i18n="room.reserve">Réserver</a>
           </div>
         </article>
 
         <article class="slide" data-index="2" onclick="openGallery(2)">
           <img src="luxe.PNG" alt="Chambre Luxe">
           <div class="slide-content">
-            <span class="slide-badge">Luxe</span>
-            <h3>Chambres luxe</h3>
-            <p>Avec petit déjeuner. Élégante et spacieuse pour un confort maximal.</p>
-            <div class="price">À partir de 42 000 FCFA / Nuit</div>
-            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+            <span class="slide-badge" data-i18n="room.luxe-2">Luxe</span>
+            <h3 data-i18n="room.luxe-title">Chambres luxe</h3>
+            <p data-i18n="room.luxe-desc">Avec petit déjeuner. Élégante et spacieuse pour un confort maximal.</p>
+            <div class="price" data-i18n="room.luxePrice">À partir de 42 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()" data-i18n="room.reserve">Réserver</a>
           </div>
         </article>
 
         <article class="slide" data-index="3" onclick="openGallery(3)">
           <img src="Standart.PNG" alt="Chambre Standard">
           <div class="slide-content">
-            <span class="slide-badge">Standard</span>
-            <h3>Chambres standard</h3>
-            <p>Sans petit déjeuner. Idéale pour un séjour simple et propre.</p>
-            <div class="price">À partir de 29 000 FCFA / Nuit</div>
-            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()">Réserver</a>
+            <span class="slide-badge" data-i18n="room.standard-1">Standard</span>
+            <h3 data-i18n="room.standard-title">Chambres standard</h3>
+            <p data-i18n="room.standard-desc">Sans petit déjeuner. Idéale pour un séjour simple et propre.</p>
+            <div class="price" data-i18n="room.standardPrice">À partir de 29 000 FCFA / Nuit</div>
+            <a href="tel:+237699801830" class="reserve-btn" onclick="event.stopPropagation()" data-i18n="room.reserve">Réserver</a>
           </div>
         </article>
       </div>

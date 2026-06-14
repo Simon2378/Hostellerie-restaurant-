@@ -62,14 +62,23 @@ const translations = {
     'hero.buttonMenu': 'Menu',
     'hero.orderNow': 'Commander maintenant',
     'hero.seeMenu': 'Voir le menu',
+    'hero.seeHotel': 'Voir les Chambres',
+    'hero.seeWeddings': 'Voir les offres',
+    'hero.seeCakes': 'Voir les gâteaux',
     'hero.side1': 'Des saveurs authentiques livrées directement chez vous',
     'hero.side2': 'Explorez nos pensées pour satisfaire toutes vos envies',
+    'hero.side3': 'Célébrez le plus beau jour de votre vie avec élégance et raffinement',
+    'hero.side4': 'Des saveurs authentiques livrées directement chez vous',
     'hero.phot o1': 'Espace photo 1',
     'hero.photo2': 'Espace photo 2',
     'hero.photo3': 'Espace photo 3',
     'hero.sideHeading1': 'Découvrez nos différents menus et profitez d\'un excellent rapport qualité-prix.',
     'hero.sideHeading2': 'Découvrez nos chambres, suites et espaces de réception à des prix attractifs.',
     'hero.sideHeading3': 'Découvrez nos espaces de réception élégants et nos formules adaptées pour célébrer votre mariage dans un cadre exceptionnel.',
+    'div.h3-1': 'Découvrez nos différents menus et profitez d\'un excellent rapport qualité-prix.',
+    'div.h3-2': 'Découvrez nos chambres, suites et espaces de réception à des prix attractifs.',
+    'div.h3-3': 'Découvrez nos espaces de réception élégants et nos formules adaptées pour célébrer votre mariage dans un cadre exceptionnel.',
+    'div.h3-4': 'Découvrez nos délicieux gâteaux, parfaits pour toutes les occasions, avec des saveurs authentiques et une présentation élégante.',
     'nav.salades': 'Salades',
     'nav.snacking': 'Snacking',
     'nav.fineBouche': 'Fine bouche',
@@ -160,7 +169,23 @@ const translations = {
     'cake.item11': 'Saveurs variées',
     'cake.item12': 'Commande 24h à l\'avance',
     'cake.orderBtn': 'Commander maintenant',
-    'cake.note': 'Sur demande : gâteaux d\'anniversaire personnalisés, gâteaux de mariage et décorations selon votre thème.'
+    'cake.note': 'Sur demande : gâteaux d\'anniversaire personnalisés, gâteaux de mariage et décorations selon votre thème.',
+    'room.suite': 'Suite',
+    'room.suitebadge': 'Suite',
+    'room.suite-title': 'Chambres Suite',
+    'room.suite-desc': 'Avec petit déjeuner. Plus d\'espace et une ambiance élégante.',
+    'room.suitePrice': 'À partir de 67 000 FCFA / Nuit',
+    'room.reserve': 'Réserver',
+    'room.luxe': 'Luxe',
+    'room.luxe-2': 'Luxe',
+    'room.luxe-1': 'Luxe',
+    'room.luxe-title': 'Chambres luxe spéciale',
+    'room.luxe-desc': 'Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.',
+    'room.luxePrice': 'À partir de 57 000 FCFA / Nuit',
+    'room.standard-1': 'Standard',
+    'room.standard-title': 'Chambres standard',
+    'room.standard-desc': 'Sans petit déjeuner. Idéale pour un séjour simple et propre.',
+    'room.standardPrice': 'À partir de 29 000 FCFA / Nuit'
   },
   en: {
     'menu.title': 'Hostellerie de la sanaga',
@@ -181,10 +206,20 @@ const translations = {
     'hero.buttonMenu': 'Menu',
     'hero.orderNow': 'Order now',
     'hero.seeMenu': 'See menu',
+    'hero.seeHotel': 'See rooms',
+    'hero.seeWeddings': 'See offers',
+    'hero.seeCakes': 'See cakes',
     'hero.side1': 'Authentic flavors delivered directly to you',
+    'hero.side2': 'Explore our thoughts to satisfy all your cravings',
+    'hero.side3': 'Celebrate the most beautiful day of your life with elegance and refinement',
+    'hero.side4': 'Authentic flavors delivered directly to you',
     'hero.sideHeading1': 'Discover our different menus and enjoy excellent value for money.',
     'hero.sideHeading2': 'Explore our rooms, suites and event spaces at attractive prices.',
     'hero.sideHeading3': 'Discover our elegant reception spaces and tailored wedding packages for an exceptional celebration.',
+    'div.h3-1': 'Discover our different menus and enjoy excellent value for money.',
+    'div.h3-2': 'Discover our rooms, suites and event spaces at attractive prices.',
+    'div.h3-3': 'Discover our elegant reception spaces and tailored wedding packages for an exceptional celebration.',
+    'div.h3-4': 'Discover our delicious cakes, perfect for all occasions, with authentic flavors and elegant presentation.',
     'nav.salades': 'Salads',
     'nav.snacking': 'Snacks',
     'nav.fineBouche': 'Fine Taste',
@@ -275,13 +310,30 @@ const translations = {
     'cake.item11': 'Varied flavors',
     'cake.item12': '24-hour advance order',
     'cake.orderBtn': 'Order Now',
-    'cake.note': 'On request: custom birthday cakes, wedding cakes and decorations according to your theme.'
+    'cake.note': 'On request: custom birthday cakes, wedding cakes and decorations according to your theme.',
+    'room.suite': 'Suite',
+    'room.suitebadge': 'Suite',
+    'room.suite-title': 'Suite Rooms',
+    'room.suite-desc': 'With breakfast. More space and an elegant ambiance.',
+    'room.suitePrice': 'From 67,000 FCFA / Night',
+    'room.reserve': 'Reserve',
+    'room.luxe': 'Luxury',
+    'room.luxe-2': 'Luxury',
+    'room.luxe-1': 'Luxury',
+    'room.luxe-title': 'Luxury Rooms',
+    'room.luxe-desc': 'With breakfast. High-end comfort for a refined stay.',
+    'room.luxePrice': 'From 57,000 FCFA / Night',
+    'room.standard': 'Standard',
+    'room.standard-title': 'Standard Rooms',
+    'room.standard-desc': 'Without breakfast. Ideal for a simple and clean stay.',
+    'room.standardPrice': 'From 29,000 FCFA / Night'
   }
 };
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', function() {
-  setLanguage('fr');
+  const storedLang = localStorage.getItem('siteLanguage') || 'fr';
+  setLanguage(storedLang);
   generateQRCode();
 
   const qrSection = document.getElementById('qr-section');
@@ -410,6 +462,8 @@ function setupLanguageToggle() {
       e.preventDefault();
       e.stopPropagation();
       const lang = this.getAttribute('data-lang');
+      // Persist site-wide language preference so all pages load in the chosen language
+      try { localStorage.setItem('siteLanguage', lang); } catch (err) {}
       setLanguage(lang);
       languageMenu.setAttribute('hidden', '');
       languageTrigger.setAttribute('aria-expanded', 'false');
@@ -458,6 +512,7 @@ function setLanguage(lang) {
   const seeMenuButtons = document.querySelectorAll('.hero-side-button[data-action="see-menu"]');
   const seeHotelButtons = document.querySelectorAll('.hero-side-button[data-action="see-hotel"]');
   const seeWeddingsButtons = document.querySelectorAll('.hero-side-button[data-action="see-weddings"]');
+  const seeCakesButtons = document.querySelectorAll('.hero-side-button[data-action="see-cakes"]');
 
   orderButtons.forEach(button => {
     if (translations[lang]['hero.orderNow']) button.textContent = translations[lang]['hero.orderNow'];
@@ -471,6 +526,9 @@ function setLanguage(lang) {
   seeWeddingsButtons.forEach(button => {
     if (translations[lang]['hero.seeWeddings']) button.textContent = translations[lang]['hero.seeWeddings'];
   });
+  seeCakesButtons.forEach(button => {
+    if (translations[lang]['hero.seeCakes']) button.textContent = translations[lang]['hero.seeCakes'];
+  });
 
   // Update cake order buttons
   const cakeOrderButtons = document.querySelectorAll('.cake-order-btn');
@@ -479,6 +537,7 @@ function setLanguage(lang) {
   });
 
   setupViewButtons();
+  renderRoomDetails();
 
   // Reset hero header rotation index and show immediate language-appropriate text
   heroHeaderIndex = 0;
@@ -703,9 +762,10 @@ function reservePackage(packageName) {
 const hotelGallerySlides = [
   {
     src: 'suite.jpg',
-    title: 'Chambres Suite',
-    description: 'Avec petit déjeuner. Plus d\'espace et une ambiance élégante.',
-    price: 'À partir de 67 000 FCFA / Nuit',
+    titleKey: 'room.suite-title',
+    descriptionKey: 'room.suite-desc',
+    priceKey: 'room.suitePrice',
+    altKey: 'room.suite',
     images: [
       'suite1.png',
       'suite2.png',
@@ -715,9 +775,10 @@ const hotelGallerySlides = [
   },
   {
     src: 'Speciallux.png',
-    title: 'Chambres luxe spéciale',
-    description: 'Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.',
-    price: 'À partir de 57 000 FCFA / Nuit',
+    titleKey: 'room.luxe-title',
+    descriptionKey: 'room.luxe-desc',
+    priceKey: 'room.luxePrice',
+    altKey: 'room.luxe',
     images: [
       'luxe special1.png',
       'luxe special2.png',
@@ -727,9 +788,10 @@ const hotelGallerySlides = [
   },
   {
     src: 'luxe.PNG',
-    title: 'Chambres luxe',
-    description: 'Avec petit déjeuner. Élégante et spacieuse pour un confort maximal.',
-    price: 'À partir de 42 000 FCFA / Nuit',
+    titleKey: 'room.luxe-title',
+    descriptionKey: 'room.luxe-desc',
+    priceKey: 'room.luxePrice',
+    altKey: 'room.luxe-2',
     images: [
       'luxe1.png',
       'luxe2.png',
@@ -739,9 +801,10 @@ const hotelGallerySlides = [
   },
   {
     src: 'Standart.PNG',
-    title: 'Chambres standard',
-    description: 'Sans petit déjeuner. Idéale pour un séjour simple et propre.',
-    price: 'À partir de 29 000 FCFA / Nuit',
+    titleKey: 'room.standard-title',
+    descriptionKey: 'room.standard-desc',
+    priceKey: 'room.standardPrice',
+    altKey: 'room.standard-1',
     images: [
       'standard-1.jpg',
       'standard-2.jpg',
@@ -781,14 +844,22 @@ function renderRoomDetails() {
 
   const mainImage = slide.images[currentGalleryImageIndex] || slide.src;
 
+  const translatedSlideTitle = translations[currentLanguage]?.[slide.titleKey] || slide.title || '';
+  const translatedSlideDescription = translations[currentLanguage]?.[slide.descriptionKey] || slide.description || '';
+  const translatedSlidePrice = translations[currentLanguage]?.[slide.priceKey] || slide.price || '';
+  const translatedAltText = translations[currentLanguage]?.[slide.altKey] || translatedSlideTitle || '';
+
   if (image) {
     image.src = mainImage;
-    image.alt = slide.title;
+    image.alt = translatedAltText;
   }
-  if (title) title.textContent = slide.title;
-  if (description) description.textContent = slide.description;
-  if (price) price.textContent = slide.price;
-  if (reserveButton) reserveButton.href = 'tel:+237699801830';
+  if (title) title.textContent = translatedSlideTitle;
+  if (description) description.textContent = translatedSlideDescription;
+  if (price) price.textContent = translatedSlidePrice;
+  if (reserveButton) {
+    reserveButton.href = 'tel:+237699801830';
+    reserveButton.textContent = translations[currentLanguage]?.['room.reserve'] || 'Réserver';
+  }
   if (count) count.textContent = `${currentGalleryIndex + 1} / ${hotelGallerySlides.length}`;
 
   if (thumbnails) {
