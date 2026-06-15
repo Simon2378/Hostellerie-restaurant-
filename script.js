@@ -176,16 +176,24 @@ const translations = {
     'room.suite-desc': 'Avec petit déjeuner. Plus d\'espace et une ambiance élégante.',
     'room.suitePrice': 'À partir de 67 000 FCFA / Nuit',
     'room.reserve': 'Réserver',
-    'room.luxe': 'Luxe',
+    'room.luxe': 'Luxe-special',
     'room.luxe-2': 'Luxe',
     'room.luxe-1': 'Luxe',
-    'room.luxe-title': 'Chambres luxe spéciale',
+    'room.luxe-special': 'LUXE SPÉCIALE',
+    'room.luxe-special-title': 'Chambre de luxe spéciale',
+    'room.luxe-special-desc': 'Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.',
+    'room.luxe-special-price': 'À partir de 57 000 FCFA / Nuit',
+    'room.reserve': 'Réserver',
+    'room.luxe': 'LUXE',
+    'room.luxe-title': 'Chambre de luxe',
     'room.luxe-desc': 'Avec petit déjeuner. Confort haut de gamme pour un séjour raffiné.',
-    'room.luxePrice': 'À partir de 57 000 FCFA / Nuit',
+    'room.luxePrice': 'À partir de 42 000 FCFA / Nuit',
+    'room.reserve': 'Réserver',
     'room.standard-1': 'Standard',
     'room.standard-title': 'Chambres standard',
     'room.standard-desc': 'Sans petit déjeuner. Idéale pour un séjour simple et propre.',
-    'room.standardPrice': 'À partir de 29 000 FCFA / Nuit'
+    'room.standardPrice': 'À partir de 29 000 FCFA / Nuit',
+    'room.reserve': 'Réserver'
   },
   en: {
     'menu.title': 'Hostellerie de la sanaga',
@@ -317,12 +325,17 @@ const translations = {
     'room.suite-desc': 'With breakfast. More space and an elegant ambiance.',
     'room.suitePrice': 'From 67,000 FCFA / Night',
     'room.reserve': 'Reserve',
+    'room.luxe-special': 'Special Luxury',
+    'room.luxe-special-title': 'Special Luxury Room',
+    'room.luxe-special-desc': 'With breakfast. High-end comfort for a refined stay.',
+    'room.luxe-special-price': 'From 57,000 FCFA / Night',
     'room.luxe': 'Luxury',
     'room.luxe-2': 'Luxury',
     'room.luxe-1': 'Luxury',
-    'room.luxe-title': 'Luxury Rooms',
+    'room.luxe-title': 'Luxury Room',
     'room.luxe-desc': 'With breakfast. High-end comfort for a refined stay.',
-    'room.luxePrice': 'From 57,000 FCFA / Night',
+    'room.luxePrice': 'From 42,000 FCFA / Night',
+    'room.reserve': 'Reserve',
     'room.standard': 'Standard',
     'room.standard-title': 'Standard Rooms',
     'room.standard-desc': 'Without breakfast. Ideal for a simple and clean stay.',
@@ -493,9 +506,11 @@ function setLanguage(lang) {
     }
   });
 
-  // Update language label
+  // Update language label when available
   const langLabel = document.getElementById('language-current-label');
-  langLabel.textContent = lang === 'fr' ? 'Français' : 'English';
+  if (langLabel) {
+    langLabel.textContent = lang === 'fr' ? 'Français' : 'English';
+  }
 
   // Update search placeholder
   const searchInput = document.getElementById('search');
@@ -551,28 +566,30 @@ function setLanguage(lang) {
 // Generate QR Code
 function generateQRCode() {
   const qrContainer = document.getElementById('qr-image');
-  if (qrContainer) {
-    // Clear previous QR code
-    qrContainer.innerHTML = '';
-    
-    // Always generate a QR code for the hosted website URL
-    const url = 'https://hostellerie-menu.netlify.app';
-    const qrTarget = document.getElementById('qr-target');
-    if (qrTarget) {
-      qrTarget.textContent = url;
-      qrTarget.setAttribute('href', url);
-    }
-    
-    // Generate QR code
-    new QRCode(qrContainer, {
-      text: url,
-      width: 200,
-      height: 200,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
+  if (!qrContainer || typeof QRCode === 'undefined') {
+    return;
   }
+
+  // Clear previous QR code
+  qrContainer.innerHTML = '';
+  
+  // Always generate a QR code for the hosted website URL
+  const url = 'https://hostellerie-menu.netlify.app';
+  const qrTarget = document.getElementById('qr-target');
+  if (qrTarget) {
+    qrTarget.textContent = url;
+    qrTarget.setAttribute('href', url);
+  }
+  
+  // Generate QR code
+  new QRCode(qrContainer, {
+    text: url,
+    width: 200,
+    height: 200,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
 }
 
 // Add to cart functionality
@@ -775,10 +792,10 @@ const hotelGallerySlides = [
   },
   {
     src: 'Speciallux.png',
-    titleKey: 'room.luxe-title',
-    descriptionKey: 'room.luxe-desc',
-    priceKey: 'room.luxePrice',
-    altKey: 'room.luxe',
+    titleKey: 'room.luxe-special-title',
+    descriptionKey: 'room.luxe-special-desc',
+    priceKey: 'room.luxe-special-price',
+    altKey: 'room.luxe-special',
     images: [
       'luxe special1.png',
       'luxe special2.png',
@@ -791,7 +808,7 @@ const hotelGallerySlides = [
     titleKey: 'room.luxe-title',
     descriptionKey: 'room.luxe-desc',
     priceKey: 'room.luxePrice',
-    altKey: 'room.luxe-2',
+    altKey: 'room.luxe',
     images: [
       'luxe1.png',
       'luxe2.png',
@@ -800,16 +817,17 @@ const hotelGallerySlides = [
     ]
   },
   {
-    src: 'Standart.PNG',
+    src: 'stand1.jpg',
     titleKey: 'room.standard-title',
     descriptionKey: 'room.standard-desc',
     priceKey: 'room.standardPrice',
     altKey: 'room.standard-1',
     images: [
-      'standard-1.jpg',
-      'standard-2.jpg',
-      'standard-3.jpg',
-      'standard-4.jpg',
+      'stand1.jpg',
+      'stand2.jpg',
+      'stand3.jpg',
+      'stand1.jpg'
+
     ]
   }
 ];
