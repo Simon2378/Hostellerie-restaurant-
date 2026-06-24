@@ -9,7 +9,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
- <header class="header">
+  <div id="loader-screen" class="loader-screen" aria-live="polite" aria-label="Loading hostellerie website">
+    <div class="loader-card">
+      <img src="Hostellerie logo.png" alt="Hostellerie de la Sanaga logo" class="loader-logo">
+      <h2>Hostellerie de la Sanaga</h2>
+      <p>Chargement en cours…</p>
+      <div class="loader-bar" aria-hidden="true">
+        <div class="loader-bar-fill" id="loader-bar-fill"></div>
+      </div>
+      <div id="loader-progress" class="loader-progress">0%</div>
+    </div>
+  </div>
+  <header class="header">
     <div class="header-left">
       <img src="Hostellerie logo.png" alt="Hostellerie logo" class="logo">
     </div>

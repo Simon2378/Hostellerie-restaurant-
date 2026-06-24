@@ -358,6 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setupLanguageToggle();
   setupItemCardClickHandlers();
   setupModalCloseHandlers();
+  initLoadingScreen();
   
   // Rotate the hero header text every 3 seconds
   rotateHeroHeader();
@@ -754,6 +755,48 @@ function setupModalCloseHandlers() {
     }
   });
 }
+
+function initLoadingScreen() {
+  const body = document.body;
+  const loader = document.getElementById('loader-screen');
+  if (!loader || !body) return;
+
+  body.classList.add('loading-active');
+  setLoaderProgress(0);
+
+  loaderInterval = window.setInterval(() => {
+    if (loaderProgress < 85) {
+      loaderProgress += Math.floor(Math.random() * 5) + 3;
+      if (loaderProgress > 85) loaderProgress = 85;
+      setLoaderProgress(loaderProgress);
+    }
+  }, 120);
+}
+
+function setLoaderProgress(value) {
+  const progressFill = document.getElementById('loader-bar-fill');
+  const progressText = document.getElementById('loader-progress');
+  if (progressFill) progressFill.style.width = `${value}%`;
+  if (progressText) progressText.textContent = `${value}%`;
+}
+
+function completeLoadingScreen() {
+  const loader = document.getElementById('loader-screen');
+  if (!loader) return;
+
+  window.clearInterval(loaderInterval);
+  loaderProgress = 100;
+  setLoaderProgress(100);
+  loader.classList.add('loaded');
+  document.body.classList.remove('loading-active');
+  window.setTimeout(() => {
+    if (loader.parentNode) loader.parentNode.removeChild(loader);
+  }, 400);
+}
+
+window.addEventListener('load', function() {
+  completeLoadingScreen();
+});
 
 // Add to cart from modal and close
 function addToCartAndClose(itemName, price) {
