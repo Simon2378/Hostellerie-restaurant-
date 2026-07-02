@@ -834,7 +834,7 @@ const hotelGallerySlides = [
     ]
   },
   {
-    src: 'Speciallux.png',
+    src: 'luxe special1.png',
     titleKey: 'room.luxe-special-title',
     descriptionKey: 'room.luxe-special-desc',
     priceKey: 'room.luxe-special-price',
