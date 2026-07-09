@@ -1,6 +1,9 @@
+// Panier de commande de l'utilisateur.
 let cart = [];
+// Langue actuelle de l'interface.
 let currentLanguage = 'fr';
 
+// Textes de remplacement pour l'en-tête hero si aucune traduction n'est disponible.
 const heroHeaderTexts = [
   'Bienvenue à l’Hostellerie de la Sanaga',
   'Un lieu où élégance, saveurs et hospitalité se rencontrent',
@@ -9,6 +12,7 @@ const heroHeaderTexts = [
 ];
 let heroHeaderIndex = 0;
 
+// Fait défiler les textes de l'en-tête principal.
 function rotateHeroHeader() {
   const header = document.getElementById('hero-header');
   if (!header) return;
@@ -18,6 +22,7 @@ function rotateHeroHeader() {
   heroHeaderIndex = (heroHeaderIndex + 1) % texts.length;
 }
 
+// Récupère les textes du hero selon la langue active.
 function getHeroTexts() {
   // Prefer translation keys hero.text1..hero.text4 when available
   const keys = ['hero.text1', 'hero.text2', 'hero.text3', 'hero.text4'];
@@ -31,17 +36,19 @@ function getHeroTexts() {
   return texts.length ? texts : heroHeaderTexts;
 }
 
+// Ouvre la commande WhatsApp.
 function orderNow() {
   window.location.href = 'https://wa.me/237692266713';
 }
 
+// Ouvre WhatsApp avec un message prérempli pour un produit.
 function openWhatsApp(product) {
   const message = encodeURIComponent(`Je souhaite commander: ${product}`);
   const phoneNumber = '237699801830';
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
-// Translation dictionary
+// Dictionnaire des traductions pour la langue française et anglaise.
 const translations = {
   fr: {
     'menu.title': 'Hostellerie de la sanaga',
@@ -99,7 +106,7 @@ const translations = {
     'section.saladesComposees': 'SALADES COMPOSEE',
     'section.snacking': 'Snacking',
     'section.fineBouche': 'FINE BOUCHE',
-    'section.poeles': 'POELES',
+    'section.poeles': 'POÊLES',
     'section.grillades': 'AU CHOIX PLANCHA/GRILLADE',
     'section.specialites': 'Spécialités Maison',
     'section.desserts': 'Desserts',
@@ -108,12 +115,14 @@ const translations = {
     'section.eauxMinerales': 'EAUX MINERALES',
     'section.eauxGazeuses': 'EAUX GAZEUSES',
     'section.jusDeFruits': 'JUS DE FRUITS',
-    'section.softsBieres': 'SOFTS ET BIERRES BRASSERIE',
+    'section.softsBieres': 'SOFTS DRINK ET BIERES',
     'section.suiteAppero': 'SUITE APPERO',
     'section.whiskies': 'WHISKIES ET LIQUEURS',
     'section.digestifs': 'DIGESTIFS',
     'section.eauxDeVie': 'EAUX DE VIE',
     'section.pizzaNote': 'Nos pizzas sont également à emporter au prix majoré de 500 FCFA pour les frais d’emballage.',
+    'modal.foodDescription': 'Découvrez ce délicieux plat de notre menu',
+    'modal.drinkDescription': 'Dégustez cette boisson, à partir de jus de fruits jusqu’aux eaux de vie.',
     'gallery.heading': 'Découvrez l\'Hostellerie de la Sanaga',
     'gallery.intro': 'Cliquez sur une photo pour ouvrir la galerie et naviguer entre les chambres avec les boutons précédent / suivant.',
     'gallery.note': 'Parcourez les images en plein écran et revenez rapidement à la réservation.',
@@ -263,6 +272,8 @@ const translations = {
     'section.digestifs': 'Digestifs',
     'section.eauxDeVie': 'Eaux-de-vie',
     'section.pizzaNote': 'Our pizzas are also available for takeaway with a 500 FCFA packaging fee.',
+    'modal.foodDescription': 'Enjoy this delicious dish from our menu',
+    'modal.drinkDescription': 'Enjoy this drink, from fruit juices to eaux-de-vie.',
     'gallery.heading': 'Discover Hostellerie de la Sanaga',
     'gallery.intro': 'Click any photo to open the gallery and browse rooms with previous / next buttons.',
     'gallery.note': 'Explore the room images full screen and return quickly to booking.',
@@ -593,7 +604,7 @@ function generateQRCode() {
   });
 }
 
-// Add to cart functionality
+// Ajoute un article au panier et affiche un message.
 function addToCart(itemName, price) {
   cart.push({ name: itemName, price: price });
   const message = currentLanguage === 'fr' 
@@ -603,7 +614,84 @@ function addToCart(itemName, price) {
   console.log('Current cart:', cart);
 }
 
-// Scroll to section
+// Ajoute au panier un article avec un accompagnement éventuellement sélectionné.
+function addToCartWithOptionalAccompaniment(itemName, price, cardElement) {
+  const selectedAccompaniment = cardElement?.dataset.selectedAccompaniment || '';
+  const fullItemName = selectedAccompaniment
+    ? `${itemName} • Accompagnement: ${selectedAccompaniment}`
+    : itemName;
+  addToCart(fullItemName, price);
+}
+
+// Ajoute au panier un article avec la portion sélectionnée.
+function addToCartWithSelectedPortion(itemName, cardElement) {
+  const selectedPortion = cardElement?.dataset.selectedPortion || 'Moyenne';
+  const selectedPrice = Number(cardElement?.dataset.selectedPrice || 0);
+  const fullItemName = `${itemName} (${selectedPortion})`;
+  addToCart(fullItemName, selectedPrice);
+}
+
+// Met à jour la portion active et son prix sur la carte.
+function selectPortion(button) {
+  const card = button.closest('.item-card');
+  const buttons = card?.querySelectorAll('.portion-option-btn');
+
+  buttons?.forEach(btn => btn.classList.remove('active'));
+  button.classList.add('active');
+
+  const portion = button.dataset.portion || 'Moyenne';
+  const price = button.dataset.price || '0';
+
+  if (card) {
+    card.dataset.selectedPortion = portion;
+    card.dataset.selectedPrice = price;
+  }
+
+  const label = card?.querySelector('.selected-portion-label span');
+  const priceLabel = card?.querySelector('.item-price');
+
+  if (label) {
+    label.textContent = portion;
+  }
+
+  if (priceLabel) {
+    priceLabel.textContent = `${price} FCFA`;
+  }
+}
+
+// Ouvre/ferme la liste de choix d'accompagnement.
+function toggleAccompanimentPicker(button) {
+  const card = button.closest('.item-card');
+  const picker = card?.querySelector('.accompaniment-picker');
+  if (picker) {
+    picker.hidden = !picker.hidden;
+  }
+}
+
+// Enregistre le choix d'accompagnement sélectionné.
+function selectAccompaniment(button, itemName, accompaniment) {
+  const card = button.closest('.item-card');
+  const toggleButton = card?.querySelector('.choice-toggle-btn');
+  const picker = card?.querySelector('.accompaniment-picker');
+
+  if (card) {
+    card.dataset.selectedAccompaniment = accompaniment;
+  }
+
+  if (toggleButton) {
+    toggleButton.textContent = accompaniment || 'Choisir';
+  }
+
+  if (picker) {
+    picker.hidden = true;
+  }
+
+  if (itemName) {
+    console.log(`${itemName} accompaniment selected: ${accompaniment || 'none'}`);
+  }
+}
+
+// Fait défiler la page jusqu'à la section demandée.
 function scrollToSection(id) {
   const targetId = String(id || '');
   const normalizedTarget = normalizeText(targetId);
@@ -628,7 +716,7 @@ function scrollToSection(id) {
   }
 }
 
-// Setup item card click handlers for modal
+// Associe les cartes de menu au clic pour ouvrir la vue détaillée.
 function setupItemCardClickHandlers() {
   const cards = document.querySelectorAll('.item-card');
   cards.forEach(card => {
@@ -638,22 +726,22 @@ function setupItemCardClickHandlers() {
   });
 }
 
-// Handle card click
+// Gère le clic sur une carte, sauf sur les boutons d'action.
 function handleCardClick(e) {
-  // Prevent action if clicking the button
-  if (e.target.classList.contains('add-to-cart-btn')) {
+  // Prevent action if clicking the action buttons
+  if (e.target.closest('.add-to-cart-btn, .choice-toggle-btn, .accompaniment-option-btn')) {
     return;
   }
   showItemModal(this);
 }
 
-// Function to refresh item handlers (call this after adding new items)
+// Actualise les gestionnaires de clic après un changement du menu.
 function refreshItemHandlers() {
   setupItemCardClickHandlers();
   showAllItems();
 }
 
-// Global function to refresh display (can be called from console or HTML)
+// Permet de rafraîchir l'affichage du menu depuis la console ou le HTML.
 window.refreshMenuDisplay = function() {
   console.log('Refreshing menu display...');
   showAllItems();
@@ -662,7 +750,7 @@ window.refreshMenuDisplay = function() {
   console.log('Menu display refreshed. All items should now be visible.');
 };
 
-// Show item in modal
+// Affiche les détails d'un article dans une modale.
 function showItemModal(cardElement) {
   const itemName = cardElement.querySelector('h3')?.textContent || '';
   const itemImage = cardElement.querySelector('img');
@@ -704,9 +792,14 @@ function showItemModal(cardElement) {
   const priceMatches = itemPrice.match(/(\d{3,})/g);
   const priceValue = priceMatches ? parseInt(priceMatches[priceMatches.length - 1], 10) : 0;
   
-  const itemDescription = translations[currentLanguage]?.['modal.description'] || (currentLanguage === 'fr'
-    ? 'Découvrez ce délicieux plat de notre menu'
-    : 'Enjoy this delicious item from our menu');
+  const sectionElement = cardElement.closest('section');
+  const sectionId = sectionElement?.id || '';
+  const drinkSections = ['Cafe', 'Eaux Mineral', 'Jus de fruits', 'Soft et bierres brasserie', 'Suite Appero', 'Whisky et Liqueurs', 'Digestifs', 'Eaux de Vie'];
+  const isDrinkSection = drinkSections.includes(sectionId);
+
+  const itemDescription = translations[currentLanguage]?.[isDrinkSection ? 'modal.drinkDescription' : 'modal.foodDescription'] || (currentLanguage === 'fr'
+    ? (isDrinkSection ? 'Dégustez cette boisson, à partir de jus de fruits jusqu’aux eaux de vie.' : 'Découvrez ce délicieux plat de notre menu')
+    : (isDrinkSection ? 'Enjoy this drink, from fruit juices to eaux-de-vie.' : 'Enjoy this delicious dish from our menu'));
   const addToCartText = translations[currentLanguage]?.['button.addToCart'] || (currentLanguage === 'fr' ? 'Ajouter au panier' : 'Add to Cart');
   
   modal.innerHTML = `
@@ -732,7 +825,7 @@ function showItemModal(cardElement) {
   modal.classList.add('show');
 }
 
-// Close item modal
+// Ferme la modale de détail d'article.
 function closeItemModal() {
   const modal = document.getElementById('item-modal');
   if (modal) {
@@ -740,7 +833,7 @@ function closeItemModal() {
   }
 }
 
-// Setup modal close handlers
+// Gère la fermeture de la modale au clic ou avec la touche Échap.
 function setupModalCloseHandlers() {
   document.addEventListener('click', function(e) {
     const modal = document.getElementById('item-modal');
@@ -756,6 +849,7 @@ function setupModalCloseHandlers() {
   });
 }
 
+// Initialise l'écran de chargement au démarrage.
 function initLoadingScreen() {
   const body = document.body;
   const loader = document.getElementById('loader-screen');
@@ -773,6 +867,7 @@ function initLoadingScreen() {
   }, 120);
 }
 
+// Met à jour la barre de progression du chargement.
 function setLoaderProgress(value) {
   const progressFill = document.getElementById('loader-bar-fill');
   const progressText = document.getElementById('loader-progress');
@@ -780,6 +875,7 @@ function setLoaderProgress(value) {
   if (progressText) progressText.textContent = `${value}%`;
 }
 
+// Termine l'écran de chargement et retire l'overlay.
 function completeLoadingScreen() {
   const loader = document.getElementById('loader-screen');
   if (!loader) return;
@@ -798,13 +894,13 @@ window.addEventListener('load', function() {
   completeLoadingScreen();
 });
 
-// Add to cart from modal and close
+// Ajoute au panier depuis la modale puis la ferme.
 function addToCartAndClose(itemName, price) {
   addToCart(itemName, price);
   closeItemModal();
 }
 
-// Clear search and show all items
+// Efface la recherche et réaffiche tous les éléments du menu.
 function clearSearch() {
   const searchInput = document.getElementById('search');
   if (searchInput) {
@@ -813,7 +909,7 @@ function clearSearch() {
   }
 }
 
-// Hotel package reservation
+// Ouvre WhatsApp pour réserver un package hôtelier.
 function reservePackage(packageName) {
   const message = `Je suis intéressé par le package ${packageName.toUpperCase()}`;
   window.location.href = `https://wa.me/237699801830?text=${encodeURIComponent(message)}`;
@@ -834,7 +930,7 @@ const hotelGallerySlides = [
     ]
   },
   {
-    src: 'luxe special1.png',
+    src: 'Speciallux.png',
     titleKey: 'room.luxe-special-title',
     descriptionKey: 'room.luxe-special-desc',
     priceKey: 'room.luxe-special-price',

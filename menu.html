@@ -72,28 +72,17 @@
     <!-- SALADES -->
      <section id="salades" class="menu-section">
       <h2 class="section-heading" data-i18n="section.saladesFraicheurs">Salades Fraicheurs</h2>
-        <div class="item-card">
+        <div class="item-card" data-selected-portion="" data-selected-price="0">
           <img src="grande.png" alt="Grande portion Salade" class="item-image">
           <h3>Salade</h3>
-          <table class="portion-table">
-            <tr>
-              <th>Portion</th>
-              <th>Prix</th>
-            </tr>
-            <tr>
-              <td>Petite</td>
-              <td>3500 FCFA</td>
-            </tr>
-            <tr>
-              <td>Moyenne</td>
-              <td>5000 FCFA</td>
-            </tr>
-            <tr>
-              <td>Grande</td>
-              <td>7500 FCFA</td>
-            </tr>
-          </table>
-          <button class="add-to-cart-btn" onclick="addToCart('Grande portion Salade', 7500)">Add to Cart</button>
+          <div class="portion-selector">
+            <button class="portion-option-btn" type="button" data-portion="Petite" data-price="3500" onclick="event.stopPropagation(); selectPortion(this)">Petite</button>
+            <button class="portion-option-btn" type="button" data-portion="Moyenne" data-price="5000" onclick="event.stopPropagation(); selectPortion(this)">Moyenne</button>
+            <button class="portion-option-btn" type="button" data-portion="Grande" data-price="7500" onclick="event.stopPropagation(); selectPortion(this)">Grande</button>
+          </div>
+          <p class="selected-portion-label">Choisissez votre portion</p>
+          <p class="item-price" id="salad-selected-price">Prix selon choix</p>
+          <button class="add-to-cart-btn" onclick="addToCartWithSelectedPortion('Salade', this.closest('.item-card'))">Add to Cart</button>
         </div>
       </div>
       
@@ -120,25 +109,30 @@
       <div class="items-grid">
         <div class="item-card">
           <img src="sauce-avocat.jpg" alt="Avocat sauce vinaigrette" class="item-image">
+          <h3>Avocat vinaigrette</h3>
           <p class="item-price">5000 FCFA</p>
+          <p class="composition-note"><strong>Composition :</strong> avocat nature, sauce vinaigrette</p>
           <button class="add-to-cart-btn" onclick="addToCart('Avocat sauce vinaigrette', 5000)">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="salade de gesiers.jpg" alt="Salade de gesiers" class="item-image">
           <h3>Salade de gesiers</h3>
           <p class="item-price">3500 FCFA</p>
+          <p class="composition-note"><strong>Composition :</strong> gésiers, oignon, poivron, laitue, croûtons</p>
           <button class="add-to-cart-btn" onclick="addToCart('Salade de gesiers', 3500)">Add to Cart</button>
         </div>
           <div class="item-card">
             <img src="salade-piemontaise.png" alt="Salade de piemontaise" class="item-image">
             <h3>Salade de piemontaise</h3>
             <p class="item-price">4000 FCFA</p>
+            <p class="composition-note"><strong>Composition :</strong> pomme de terre, jambon épaule, œuf dur, mayonnaise</p>
             <button class="add-to-cart-btn" onclick="addToCart('Salade de piemontaise', 4000)">Add to Cart</button>
           </div>
           <div class="item-card">
             <img src="avocat aux crevette sauce cocktail.jpg" alt="Avocat aux crevette sauce cocktail" class="item-image">
             <h3>Avocat aux crevette sauce cocktail</h3>
             <p class="item-price">6500 FCFA</p>
+            <p class="composition-note"><strong>Composition :</strong> avocat, oignons, tomates, laitue, crevettes, sauce cocktail</p>
             <button class="add-to-cart-btn" onclick="addToCart('Avocat aux crevette sauce cocktail', 6500)">Add to Cart</button>
           </div>
         </div>
@@ -168,9 +162,9 @@
         </div>
         <div class="item-card">
           <img src="sandwich-fromage.png" alt="Sandwich au jambon/fromage(porc)" class="item-image">
-          <h3>Sandwich au jambon/fromage(porc)</h3>
+          <h3>Sandwich au jambon(épaule)/Fromage</h3>
           <p class="item-price">4500 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Sandwich au jambon/fromage(porc)', 4500)">Add to Cart</button>
+          <button class="add-to-cart-btn" onclick="addToCart('Sandwich au jambon(épaule)/Fromage', 4500)">Add to Cart</button>
         </div>
       <div class="item-card">
         <img src="Assiette de nems.png" alt="Assiette de nems, samoussa et sa salade verte" class="item-image">
@@ -192,53 +186,71 @@
       <div class="items-grid">
         <div class="item-card">
           <img src="Filet-de-bar-au-beurre-blanc-citronne.png" alt="Filet de bar au beurre blanc citronne" class="item-image">
-          <h3>Filet de bar au beurre blanc citronne</h3>
+          <h3>Filet de bar au beurre blanc citronné</h3>
           <p class="item-price">8000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Filet de bar au beurre blanc citronne', 8000)">Add to Cart</button>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Filet de bar au beurre blanc citronné', '')">Sans accompagnement</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Filet de bar au beurre blanc citronné', 'Riz blanc')">Riz blanc</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Filet de bar au beurre blanc citronné', 'Frites de Pommes')">Frites de Pommes</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Filet de bar au beurre blanc citronné', 'Frites de Plantain')">Frites de Plantain</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Filet de bar au beurre blanc citronné', 'Légumes sautés')">Légumes sautés</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Filet de bar au beurre blanc citronné', 'Pommes Vapeur')">Pommes Vapeur</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Filet de bar au beurre blanc citronné', 8000, this.closest('.item-card'))">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="i151055-magret-de-canard-grille-au-feu-de-bois.png" alt="Magret de canard grillé au feu de bois" class="item-image">
           <h3>Magret de canard grillé au feu de bois</h3>
           <p class="item-price">23500 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Magret de canard grillé au feu de bois', 23500)">Add to Cart</button>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Magret de canard grillé au feu de bois', '')">Sans accompagnement</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Magret de canard grillé au feu de bois', 'Riz blanc')">Riz blanc</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Magret de canard grillé au feu de bois', 'Frites de Pommes')">Frites de Pommes</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Magret de canard grillé au feu de bois', 'Frites de Plantain')">Frites de Plantain</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Magret de canard grillé au feu de bois', 'Légumes sautés')">Légumes sautés</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Magret de canard grillé au feu de bois', 'Pommes Vapeur')">Pommes Vapeur</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Magret de canard grillé au feu de bois', 23500, this.closest('.item-card'))">Add to Cart</button>
         </div>
       </div>
-      <!-- Salad Compositions -->
+      <!-- Salad Compositions 
       <div class="compositions-section">
         <h3 class="compositions-heading">ACCOMPAGNEMENTS AU CHOIX</h3>
         <div class="compositions-grid">
-          <div class="composition-item">Riz</div>
+          <div class="composition-item">Riz blanc</div>
           <div class="composition-item">Frites de Pommes</div>
           <div class="composition-item">Frites de Plantain</div>
           <div class="composition-item">Légumes sautés</div>
           <div class="composition-item">Pommes Vapeur</div>
-      </div>
+      </div> -->
       </div>
    </section>
-<!--POELES-->
+<!--POÊLES-->
 <section id="poeles" class="menu-section">
-      <h2 class="section-heading" data-i18n="section.poeles">POELES</h2>
+      <h2 class="section-heading" data-i18n="section.poeles">POÊLÉS</h2>
       <div class="items-grid">
         <div class="item-card">
           <img src="poisson bar.png" alt="Poisson de saison(bar)" class="item-image">
           <h3>Poisson de saison(bar)</h3>
           <p class="item-price">8000 FCFA</p>
           <button class="add-to-cart-btn" onclick="addToCart('Poisson de saison(bar)', 8000)">Add to Cart</button>
-          <p>Sauce au choix; vin, curry, a l'ail</p>
+          <p>SAUCE AU CHOIX: VIN, CURRY,A L'AIL</p>
         </div>
         <div class="item-card">
           <img src="19783_Sole-meuniere.png" alt="Sole entiere, Sauce-meuniere" class="item-image">
           <h3>Sole entiere, Sauce-meuniere</h3>
           <p class="item-price">8500 FCFA</p>
           <button class="add-to-cart-btn" onclick="addToCart('Sole entiere, Sauce-meuniere', 8500)">Add to Cart</button>
-          <p>Sauce au choix; vin, curry, a l'ail</p>
+          <p>SAUCE AU CHOIX: VIN, CURRY, L'AIL</p>
         </div>
         <div class="item-card">
-          <img src="Crevette.png" alt="Crevette du chef flambee" class="item-image">
-          <h3>Crevette du chef flambee</h3>
+          <img src="Crevette four.jpg" alt="Crevette du chef flambee" class="item-image">
+          <h3>Crevette en sauce</h3>
           <p class="item-price">9500 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Crevette du chef flambee', 9500)">Add to Cart</button>
-          <p>Sauce au choix; vin, curry, a l'ail</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Crevette en sauce', 9500)">Add to Cart</button>
+          <p>AU CHOIX: VIN, CURRY, L'AIL</p>
         </div>
       </div>
     </section>
@@ -251,48 +263,86 @@
           <img src="1 poulet.png" alt="1/4 Poulet" class="item-image">
           <h3>1/4 Poulet</h3>
           <p class="item-price">7000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('1/4 Poulet', 7000)">Add to Cart</button>
+          <p class="composition-note"><strong>Composition :</strong> Poulet grillé, salade fraîche, légumes et frites.</p>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/4 Poulet', 'Poivre')">Poivre</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/4 Poulet', 'Provençale')">Provençale</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/4 Poulet', 'Champignons')">Champignons</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/4 Poulet', 'Dijonnaise')">Dijonnaise</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('1/4 Poulet', 7000, this.closest('.item-card'))">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="2 poulet.webp" alt="1/2 Poulet" class="item-image">
           <h3>1/2 Poulet</h3>
           <p class="item-price">12000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('1/2 Poulet', 12000)">Add to Cart</button>
+          <p class="composition-note"><strong>Composition :</strong> Demi-poulet grillé, pommes de terre et légumes de saison.</p>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/2 Poulet', 'Poivre')">Poivre</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/2 Poulet', 'Provençale')">Provençale</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/2 Poulet', 'Champignons')">Champignons</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/2 Poulet', 'Dijonnaise')">Dijonnaise</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('1/2 Poulet', 12000, this.closest('.item-card'))">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="recette-poulet-entier.jpg" alt="Poulet entier" class="item-image">
           <h3>Poulet entier</h3>
           <p class="item-price">21000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Poulet entier', 21000)">Add to Cart</button>
+          <p class="composition-note"><strong>Composition :</strong> Poulet entier grillé, légumes, salade et frites maison.</p>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Poulet entier', 'Poivre')">Poivre</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Poulet entier', 'Provençale')">Provençale</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Poulet entier', 'Champignons')">Champignons</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Poulet entier', 'Dijonnaise')">Dijonnaise</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Poulet entier', 21000, this.closest('.item-card'))">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="Steak.jpg" alt="Steak" class="item-image">
           <h3>Steak</h3>
           <p class="item-price">9000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Steak', 9000)">Add to Cart</button>
+          <p class="composition-note"><strong>Composition :</strong> Steak grillé, frites croustillantes et légumes de saison.</p>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Steak', 'Poivre')">Poivre</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Steak', 'Provençale')">Provençale</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Steak', 'Champignons')">Champignons</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Steak', 'Dijonnaise')">Dijonnaise</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Steak', 9000, this.closest('.item-card'))">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="Bar entier.jpg" alt="Bar entier" class="item-image">
           <h3>Bar entier</h3>
           <p class="item-price">8000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Bar entier', 8000)">Add to Cart</button>
+          <p class="composition-note"><strong>Composition :</strong> Bar entier grillé, riz basmati et légumes frais.</p>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Bar entier', 'Poivre')">Poivre</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Bar entier', 'Provençale')">Provençale</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Bar entier', 'Champignons')">Champignons</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Bar entier', 'Dijonnaise')">Dijonnaise</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Bar entier', 8000, this.closest('.item-card'))">Add to Cart</button>
         </div>
         <div class="item-card">
           <img src="Cotes de porc grillees.webp" alt="Cote de porc grillée" class="item-image">
           <h3>Côte de porc grillée</h3>
           <p class="item-price">7500 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Côte de porc grillée', 7500)">Add to Cart</button>
+          <p class="composition-note"><strong>Composition :</strong> Côte de porc grillée, pommes vapeur et légumes du marché.</p>
+          <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
+          <div class="accompaniment-picker" hidden>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Côte de porc grillée', 'Poivre')">Poivre</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Côte de porc grillée', 'Provençale')">Provençale</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Côte de porc grillée', 'Champignons')">Champignons</button>
+            <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Côte de porc grillée', 'Dijonnaise')">Dijonnaise</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Côte de porc grillée', 7500, this.closest('.item-card'))">Add to Cart</button>
         </div>
-      </div>
-      <!-- Sauce -->
-      <div class="compositions-section">
-        <h3 class="compositions-heading">SAUCE</h3>
-        <div class="compositions-grid">
-          <div class="composition-item">Poivre</div>
-          <div class="composition-item">Provençale</div>
-          <div class="composition-item">Sauce Champignons</div>
-          <div class="composition-item">Dijonnaise</div>
-      </div>
       </div>
     </section>
     <!-- SPECIALITES -->
@@ -307,12 +357,12 @@
         </div>
         <div class="item-card">
           <img src="langue zebu.png" alt="Langue de zébu" class="item-image">
-          <h3>Langue de zébu</h3>
+          <h3>Langue de zébu au porto</h3>
           <p class="item-price">7500 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Langue de zébu', 7500)">Add to Cart</button>
+          <button class="add-to-cart-btn" onclick="addToCart('Langue de zébu au porto', 7500)">Add to Cart</button>
         </div>
         <div class="item-card">
-          <img src="Crevette four.jpg" alt="Crevettes au four" class="item-image">
+          <img src="Crevette.png" alt="Crevettes au four" class="item-image">
           <h3>Crevettes au four</h3>
           <p class="item-price">13500 FCFA</p>
           <button class="add-to-cart-btn" onclick="addToCart('Crevettes au four', 13500)">Add to Cart</button>
@@ -418,13 +468,13 @@
         </div>
         <div class="item-card">
           <img src="Citronelle.png" alt="Café Citronelle" class="item-image">
-          <h3>Café Citronelle</h3>
+          <h3>Citronelle infusion</h3>
           <p class="item-price">1000 FCFA</p>
           <button class="add-to-cart-btn" onclick="addToCart('Café Citronelle', 1000)">Add to Cart</button>
         </div>
           <div class="item-card">
             <img src="Autres.png" alt="Autres divers infusions" class="item-image">
-            <h3>Autres Divers</h3>
+            <h3>Autres infusions</h3>
             <p class="item-price">1000 FCFA</p>
             <button class="add-to-cart-btn" onclick="addToCart('Autres Divers', 1000)">Add to Cart</button>
       </div>
@@ -523,7 +573,7 @@
     </div>
       </section>
       <section id="Soft et bierres brasserie" class="menu-section">
-      <h2 class="section-heading" data-i18n="section.softsBieres">SOFTS ET BIERRES BRASSERIE</h2>
+      <h2 class="section-heading" data-i18n="section.softsBieres">SOFTS DRINK ET BIERES</h2>
       <div class="items-grid">
         <div class="item-card">
           <img src="Cocaco.png" alt="Coca-cola" class="item-image">
@@ -670,7 +720,7 @@
       <!-- appero-->
       </section>
       <section id="Suite Appero" class="menu-section">
-      <h2 class="section-heading" data-i18n="section.suiteAppero">SUITE APPERO</h2>
+      <h2 class="section-heading" data-i18n="section.suiteAppero">APÉRO</h2>
       <div class="items-grid">
         <div class="item-card">
           <img src="R.porto.png" alt="Porto" class="item-image">
@@ -696,23 +746,23 @@
           <p class="item-price">2000 FCFA</p>
           <button class="add-to-cart-btn" onclick="addToCart('Bailleys', 2000)">Add to Cart</button>
     </div>
-    <div class="item-card">
+    <!-- <div class="item-card">
           <img src="R.Amaeula.png" alt="Amarula" class="item-image">
           <h3>Amarula</h3>
           <p class="item-price">2000 FCFA</p>
           <button class="add-to-cart-btn" onclick="addToCart('Amarula', 2000)">Add to Cart</button>
-    </div>
+    </div> -->
     <div class="item-card">
           <img src="DLD.png" alt="Gin Long Drink" class="item-image">
           <h3>Gin Long Drink</h3>
-          <p class="item-price">3000 FCFA</p>
-          <button class="add-to-cart-btn" onclick="addToCart('Gin Long Drink', 3000)">Add to Cart</button>
+          <p class="item-price">2500 FCFA</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Gin Long Drink', 2500)">Add to Cart</button>
     </div>
         <div class="item-card">
         <img src="Campari.png" alt="Campari" class="item-image">
         <h3>Campari Long Drink</h3>
-        <p class="item-price">3000 FCFA</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Campari Long', 2000)">Add to Cart</button>
+        <p class="item-price">2500 FCFA</p>
+        <button class="add-to-cart-btn" onclick="addToCart('Campari Long', 2500)">Add to Cart</button>
       </div>
       <div class="item-card">
         <img src="real martini.png" alt="Martini" class="item-image">
@@ -762,12 +812,12 @@
         <p class="item-price">5000 FCFA</p>
         <button class="add-to-cart-btn" onclick="addToCart('Jack Daniel\'s', 5000)">Add to Cart</button>
       </div>
-      <div class="item-card">
+      <!-- <div class="item-card">
         <img src="Glenfiddch.png" alt="Glenfiddich" class="item-image">
         <h3>Glenfiddich (12ans)</h3>
         <p class="item-price">5000 FCFA</p>
         <button class="add-to-cart-btn" onclick="addToCart('Glenfiddich', 5000)">Add to Cart</button>
-      </div>
+      </div> -->
       <div class="item-card">
         <img src="Get 277.png" alt="Get 27" class="item-image">
         <h3>Get 27</h3>
@@ -827,12 +877,12 @@
           <p class="item-price">6000 FCFA la conso</p>
         <button class="add-to-cart-btn" onclick="addToCart('Armagnac Clés des Ducs', 6000)">Add to Cart</button>
       </div>
-      <div class="item-card">
+      <!-- <div class="item-card">
         <img src="montesquiou.png" alt="Montesquieu" class="item-image">
         <h3>Montesquieu</h3>
           <p class="item-price">6000 FCFA la conso</p>
         <button class="add-to-cart-btn" onclick="addToCart('Montesquieu', 6000)">Add to Cart</button>
-      </div>
+      </div> -->
       <div class="item-card">
         <img src="Remy.png" alt="Rémy Martin" class="item-image">
         <h3>Rémy Martin</h3>
