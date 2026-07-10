@@ -2448,3 +2448,17 @@ header {
   .mariage-header h1 { font-size: 1.4rem; }
   .mariage-header p { font-size: 0.9rem; padding: 6px 10px; }
 }
+
+.mariage-flyer {
+  margin: 0 0 50px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(26, 31, 54, 0.22);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.mariage-flyer img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
