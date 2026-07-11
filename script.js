@@ -97,8 +97,8 @@ const translations = {
     'nav.boissonsChaudes': 'Boissons Chaudes',
     'nav.eauxMinerales': 'Eaux Minérales',
     'nav.jusDeFruits': 'Jus de fruits',
-    'nav.softsBieres': 'Softs et Bières de Brasserie',
-    'nav.suiteAppero': 'Suite Appero',
+    'nav.softsBieres': 'Soft Drink et Bières',
+    'nav.suiteAppero': 'Apéro',
     'nav.whiskies': 'Whiskies et Liqueurs',
     'nav.digestifs': 'Digestifs',
     'nav.eauxDeVie': 'Eaux de Vie',
@@ -115,8 +115,8 @@ const translations = {
     'section.eauxMinerales': 'EAUX MINERALES',
     'section.eauxGazeuses': 'EAUX GAZEUSES',
     'section.jusDeFruits': 'JUS DE FRUITS',
-    'section.softsBieres': 'SOFTS DRINK ET BIERES',
-    'section.suiteAppero': 'SUITE APPERO',
+    'section.softsBieres': 'SOFT DRINK ET BIÈRES',
+    'section.suiteAppero': 'APÉRO',
     'section.whiskies': 'WHISKIES ET LIQUEURS',
     'section.digestifs': 'DIGESTIFS',
     'section.eauxDeVie': 'EAUX DE VIE',
@@ -244,7 +244,7 @@ const translations = {
     'nav.boissonsChaudes': 'Hot Drinks',
     'nav.eauxMinerales': 'Mineral Waters',
     'nav.jusDeFruits': 'Fruit Juices',
-    'nav.softsBieres': 'Soft Drinks & Brewery Beers',
+    'nav.softsBieres': 'Soft Drinks & Beers',
     'nav.suiteAppero': 'Aperitif Selection',
     'nav.whiskies': 'Whiskies & Liqueurs',
     'nav.digestifs': 'Digestifs',
@@ -262,7 +262,7 @@ const translations = {
     'section.eauxMinerales': 'Mineral Waters',
     'section.eauxGazeuses': 'Sparkling Waters',
     'section.jusDeFruits': 'Fruit Juices',
-    'section.softsBieres': 'Soft Drinks & Brewery Beers',
+    'section.softsBieres': 'Soft Drinks & Beers',
     'section.suiteAppero': 'Aperitif Selection',
     'section.whiskies': 'Whiskies & Liqueurs',
     'section.digestifs': 'Digestifs',
@@ -790,7 +790,7 @@ function showItemModal(cardElement) {
   
   const sectionElement = cardElement.closest('section');
   const sectionId = sectionElement?.id || '';
-  const drinkSections = ['Cafe', 'Eaux Mineral', 'Jus de fruits', 'Soft et bierres brasserie', 'Suite Appero', 'Whisky et Liqueurs', 'Digestifs', 'Eaux de Vie'];
+  const drinkSections = ['Cafe', 'Eaux Mineral', 'Jus de fruits', 'Soft drink et bières', 'Apéro', 'Whisky et Liqueurs', 'Digestifs', 'Eaux de Vie'];
   const isDrinkSection = drinkSections.includes(sectionId);
 
   const itemDescription = translations[currentLanguage]?.[isDrinkSection ? 'modal.drinkDescription' : 'modal.foodDescription'] || (currentLanguage === 'fr'
