@@ -582,7 +582,7 @@ function generateQRCode() {
   qrContainer.innerHTML = '';
   
   // Always generate a QR code for the hosted website URL
-  const url = 'https://hostellerie-menu.netlify.app';
+  const url = 'https://hostelleriesanaga.com';
   const qrTarget = document.getElementById('qr-target');
   if (qrTarget) {
     qrTarget.textContent = url;
