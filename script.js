@@ -108,6 +108,8 @@ const translations = {
     'section.fineBouche': 'FINE BOUCHE',
     'section.poeles': 'POÊLES',
     'section.grillades': 'AU CHOIX PLANCHA/GRILLADE',
+    'section.accompagnements': 'ACCOMPAGNEMENTS',
+    'section.accompagnementsNote': 'En option, au choix avec votre grillade',
     'section.specialites': 'Spécialités Maison',
     'section.desserts': 'Desserts',
     'section.pizzas': 'Pizzas',
@@ -255,6 +257,8 @@ const translations = {
     'section.fineBouche': 'FINE TASTE',
     'section.poeles': 'Skillets',
     'section.grillades': 'Grill & Plancha',
+    'section.accompagnements': 'SIDE DISHES',
+    'section.accompagnementsNote': 'Optional, choose one to go with your grill dish',
     'section.specialites': 'House Specialties',
     'section.desserts': 'Desserts',
     'section.pizzas': 'Pizzas',
@@ -684,6 +688,18 @@ function selectAccompaniment(button, itemName, accompaniment) {
 
   if (itemName) {
     console.log(`${itemName} accompaniment selected: ${accompaniment || 'none'}`);
+  }
+}
+
+// Sélectionne (ou désélectionne) un accompagnement optionnel dans la section Accompagnements.
+function selectStandaloneAccompaniment(button) {
+  const grid = button.closest('.compositions-grid');
+  const alreadySelected = button.classList.contains('selected');
+
+  grid?.querySelectorAll('.composition-item').forEach(item => item.classList.remove('selected'));
+
+  if (!alreadySelected) {
+    button.classList.add('selected');
   }
 }
 

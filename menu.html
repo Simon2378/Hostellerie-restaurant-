@@ -276,7 +276,6 @@
           <img src="1 poulet.png" alt="1/4 Poulet" class="item-image">
           <h3>1/4 Poulet</h3>
           <p class="item-price">7000 FCFA</p>
-          <p class="composition-note"><strong>Composition :</strong> Poulet grillé, salade fraîche, légumes et frites.</p>
           <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
           <div class="accompaniment-picker" hidden>
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/4 Poulet', 'Poivre')">Poivre</button>
@@ -290,7 +289,6 @@
           <img src="2 poulet.webp" alt="1/2 Poulet" class="item-image">
           <h3>1/2 Poulet</h3>
           <p class="item-price">12000 FCFA</p>
-          <p class="composition-note"><strong>Composition :</strong> Demi-poulet grillé, pommes de terre et légumes de saison.</p>
           <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
           <div class="accompaniment-picker" hidden>
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, '1/2 Poulet', 'Poivre')">Poivre</button>
@@ -304,7 +302,6 @@
           <img src="recette-poulet-entier.jpg" alt="Poulet entier" class="item-image">
           <h3>Poulet entier</h3>
           <p class="item-price">21000 FCFA</p>
-          <p class="composition-note"><strong>Composition :</strong> Poulet entier grillé, légumes, salade et frites maison.</p>
           <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
           <div class="accompaniment-picker" hidden>
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Poulet entier', 'Poivre')">Poivre</button>
@@ -318,7 +315,6 @@
           <img src="Steak.jpg" alt="Steak" class="item-image">
           <h3>Steak</h3>
           <p class="item-price">9000 FCFA</p>
-          <p class="composition-note"><strong>Composition :</strong> Steak grillé, frites croustillantes et légumes de saison.</p>
           <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
           <div class="accompaniment-picker" hidden>
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Steak', 'Poivre')">Poivre</button>
@@ -332,7 +328,6 @@
           <img src="Bar entier.jpg" alt="Bar entier" class="item-image">
           <h3>Bar entier</h3>
           <p class="item-price">8000 FCFA</p>
-          <p class="composition-note"><strong>Composition :</strong> Bar entier grillé, riz basmati et légumes frais.</p>
           <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
           <div class="accompaniment-picker" hidden>
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Bar entier', 'Poivre')">Poivre</button>
@@ -346,7 +341,6 @@
           <img src="Cotes de porc grillees.webp" alt="Cote de porc grillée" class="item-image">
           <h3>Côte de porc grillée</h3>
           <p class="item-price">7500 FCFA</p>
-          <p class="composition-note"><strong>Composition :</strong> Côte de porc grillée, pommes vapeur et légumes du marché.</p>
           <button class="choice-toggle-btn" type="button" onclick="event.stopPropagation(); toggleAccompanimentPicker(this)">Choisir la sauce</button>
           <div class="accompaniment-picker" hidden>
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Côte de porc grillée', 'Poivre')">Poivre</button>
@@ -355,6 +349,19 @@
             <button class="accompaniment-option-btn" type="button" onclick="event.stopPropagation(); selectAccompaniment(this, 'Côte de porc grillée', 'Dijonnaise')">Dijonnaise</button>
           </div>
           <button class="add-to-cart-btn" onclick="addToCartWithOptionalAccompaniment('Côte de porc grillée', 7500, this.closest('.item-card'))">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <!-- ACCOMPAGNEMENTS -->
+    <section id="accompagnements" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.accompagnements">ACCOMPAGNEMENTS</h2>
+      <div class="compositions-section">
+        <h3 class="compositions-heading" data-i18n="section.accompagnementsNote">En option, au choix avec votre grillade</h3>
+        <div class="compositions-grid">
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Riz blanc</button>
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Frites de Pommes</button>
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Frites de Plantain</button>
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Jardinière de Légumes</button>
         </div>
       </div>
     </section>
@@ -382,6 +389,17 @@
         </div>
       </div>
     </section>
+    <!-- ACCOMPAGNEMENTS -->
+    <section id="accompagnements" class="menu-section">
+      <h2 class="section-heading" data-i18n="section.accompagnements">ACCOMPAGNEMENTS</h2>
+      <div class="compositions-section">
+        <h3 class="compositions-heading" data-i18n="section.accompagnementsNote">En option, au choix de nos Spécialités </h3>
+        <div class="compositions-grid">
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Riz blanc</button>
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Frites de Pommes</button>
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Frites de Plantain</button>
+          <button type="button" class="composition-item" onclick="selectStandaloneAccompaniment(this)">Jardinière de Légumes</button>
+        </div>
     <!-- DESSERTS -->
     <section id="desserts" class="menu-section">
       <h2 class="section-heading" data-i18n="section.desserts">Desserts</h2>

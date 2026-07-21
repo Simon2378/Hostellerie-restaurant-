@@ -1152,16 +1152,30 @@ header {
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   font-size: 14px;
+  font-family: inherit;
   color: #1a1f36;
   transition: all 0.3s ease;
   font-weight: 500;
+  border: none;
   border-left: 4px solid #d4af37;
+  cursor: pointer;
 }
 
 .composition-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   background: #f8f9fa;
+}
+
+.composition-item.selected {
+  background: #d4af37;
+  color: #1a1f36;
+  border-left-color: #1a1f36;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.composition-item.selected:hover {
+  background: #c9a227;
 }
 
 /* Modal for item preview */
