@@ -1367,11 +1367,17 @@ header {
   .hero-video-container {
     width: 100%;
     height: 36vh;
-    object-fit: cover;
     border-radius: 20px;
+    overflow: hidden;
+    position: relative;
   }
-  video{
-    height: 36vh;
+  .hero-video-container video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .hero-text {
@@ -1546,9 +1552,7 @@ header {
 
 .hero video {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1557,9 +1561,10 @@ header {
 .hero-video-container {
   position: relative;
   width: 100%;
-  min-height: 65vh;
-  max-height: 85vh;
+  height: 36vh;
+  max-height: 54vh;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
 }
 
 .hero-video-container::before {
