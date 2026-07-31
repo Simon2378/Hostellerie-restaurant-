@@ -36,6 +36,9 @@ function getHeroTexts() {
   return texts.length ? texts : heroHeaderTexts;
 }
 
+// Numéro WhatsApp utilisé pour les commandes passées depuis le menu.
+const MENU_WHATSAPP_NUMBER = '237692266713';
+
 // Ouvre la commande WhatsApp.
 function orderNow() {
   window.location.href = 'https://wa.me/237692266713';
@@ -44,8 +47,25 @@ function orderNow() {
 // Ouvre WhatsApp avec un message prérempli pour un produit.
 function openWhatsApp(product) {
   const message = encodeURIComponent(`Je souhaite commander: ${product}`);
-  const phoneNumber = '237699801830';
+  const phoneNumber = '237692266713';
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+}
+
+// Ouvre WhatsApp avec un message de commande prérempli pour l'article choisi.
+function orderItemOnWhatsApp(itemName, itemPriceText) {
+  const details = itemPriceText ? ` (${itemPriceText})` : '';
+  const message = currentLanguage === 'fr'
+    ? `Bonjour, je souhaite commander : ${itemName}${details}.`
+    : `Hello, I would like to order: ${itemName}${details}.`;
+  window.open(`https://wa.me/${MENU_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// Ouvre WhatsApp pour passer une commande générale depuis le menu.
+function orderGeneralOnWhatsApp() {
+  const message = currentLanguage === 'fr'
+    ? 'Bonjour, je souhaite passer une commande depuis le menu.'
+    : 'Hello, I would like to place an order from the menu.';
+  window.open(`https://wa.me/${MENU_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 // Dictionnaire des traductions pour la langue française et anglaise.
@@ -801,9 +821,6 @@ function showItemModal(cardElement) {
   // Build modal content
   const imageTag = imageSrc ? `<img src="${imageSrc}" class="modal-image" alt="${itemName}">` : `<div class="modal-image">🍽️</div>`;
   
-  const priceMatches = itemPrice.match(/(\d{3,})/g);
-  const priceValue = priceMatches ? parseInt(priceMatches[priceMatches.length - 1], 10) : 0;
-  
   const sectionElement = cardElement.closest('section');
   const sectionId = sectionElement?.id || '';
   const drinkSections = ['Cafe', 'Eaux Mineral', 'Jus de fruits', 'Soft drink et bières', 'Apéro', 'Whisky et Liqueurs', 'Digestifs', 'Eaux de Vie'];
@@ -812,8 +829,8 @@ function showItemModal(cardElement) {
   const itemDescription = translations[currentLanguage]?.[isDrinkSection ? 'modal.drinkDescription' : 'modal.foodDescription'] || (currentLanguage === 'fr'
     ? (isDrinkSection ? 'Dégustez cette boisson, à partir de jus de fruits jusqu’aux eaux de vie.' : 'Découvrez ce délicieux plat de notre menu')
     : (isDrinkSection ? 'Enjoy this drink, from fruit juices to eaux-de-vie.' : 'Enjoy this delicious dish from our menu'));
-  const addToCartText = translations[currentLanguage]?.['button.addToCart'] || (currentLanguage === 'fr' ? 'Ajouter au panier' : 'Add to Cart');
-  
+  const orderNowText = translations[currentLanguage]?.['hero.orderNow'] || (currentLanguage === 'fr' ? 'Commander maintenant' : 'Order now');
+
   modal.innerHTML = `
     <div class="modal-content">
       <div class="modal-header">
@@ -827,14 +844,22 @@ function showItemModal(cardElement) {
           <p>${itemDescription}</p>
           <div class="modal-price">${itemPrice}</div>
         </div>
-        <button class="modal-btn" onclick="addToCartAndClose('${itemName}', ${priceValue})">
-          ${addToCartText}
+        <button class="modal-btn" id="modal-order-btn" type="button">
+          ${orderNowText}
         </button>
       </div>
     </div>
   `;
-  
+
   modal.classList.add('show');
+
+  const orderButton = modal.querySelector('#modal-order-btn');
+  if (orderButton) {
+    orderButton.onclick = function() {
+      orderItemOnWhatsApp(itemName, itemPrice);
+      closeItemModal();
+    };
+  }
 }
 
 // Ferme la modale de détail d'article.
@@ -906,12 +931,6 @@ window.addEventListener('load', function() {
   completeLoadingScreen();
 });
 
-// Ajoute au panier depuis la modale puis la ferme.
-function addToCartAndClose(itemName, price) {
-  addToCart(itemName, price);
-  closeItemModal();
-}
-
 // Efface la recherche et réaffiche tous les éléments du menu.
 function clearSearch() {
   const searchInput = document.getElementById('search');
@@ -924,7 +943,7 @@ function clearSearch() {
 // Ouvre WhatsApp pour réserver un package hôtelier.
 function reservePackage(packageName) {
   const message = `Je suis intéressé par le package ${packageName.toUpperCase()}`;
-  window.location.href = `https://wa.me/237699801830?text=${encodeURIComponent(message)}`;
+  window.location.href = `https://wa.me/237692266713?text=${encodeURIComponent(message)}`;
 }
 
 const hotelGallerySlides = [
