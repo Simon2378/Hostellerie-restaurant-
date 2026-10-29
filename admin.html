@@ -5,197 +5,679 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
   <link rel="icon" type="image/png" href="images/Hostellerie logo.png">
-  <title>Admin | Hostellerie de la Sanaga</title>
+  <title>Admin Dashboard | Hostellerie de la Sanaga</title>
   <style>
     :root {
       --navy: #1a1f36;
       --navy-2: #2d3561;
       --gold: #d4af37;
-      --bg: #f8f9fa;
-      --card: #ffffff;
-      --text: #333;
-      --muted: #6b7280;
-      --border: #e5e7eb;
+      --gold-soft: rgba(212, 175, 55, 0.14);
+      --bg: #f4f5f8;
+      --surface: #ffffff;
+      --surface-2: #f8f9fb;
+      --text: #1a1f36;
+      --text-2: #4b5168;
+      --muted: #7a8099;
+      --border: #e6e8ef;
+      --grid: #eef0f4;
+      --bar: #2d3561;
+      --bar-hover: #d4af37;
+      --good: #15803d;
+      --good-bg: #e8f6ee;
+      --bad: #b91c1c;
+      --bad-bg: #fdecec;
+      --shadow: 0 1px 2px rgba(26, 31, 54, 0.04), 0 4px 16px rgba(26, 31, 54, 0.05);
+      --radius: 14px;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1222;
+        --surface: #171b30;
+        --surface-2: #1d2238;
+        --text: #eef0f7;
+        --text-2: #c3c7d8;
+        --muted: #8c92ab;
+        --border: #2a2f49;
+        --grid: #242943;
+        --bar: #8b95d6;
+        --good: #4ade80;
+        --good-bg: rgba(74, 222, 128, 0.12);
+        --bad: #f87171;
+        --bad-bg: rgba(248, 113, 113, 0.12);
+        --shadow: none;
+      }
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
-    header {
-      background: var(--navy);
-      color: #fff;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    header img { width: 44px; height: 44px; object-fit: contain; }
-    header h1 { font-size: 1.15rem; font-weight: 600; }
-    header p { font-size: 0.85rem; color: var(--gold); }
-    #logout { margin-left: auto; }
-    main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; }
+    [hidden] { display: none !important; }
 
-    button {
-      font: inherit;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 18px;
-      background: var(--gold);
-      color: var(--navy);
-      font-weight: 600;
+    /* ---------- Login ---------- */
+    .login-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.18), transparent 40%),
+        linear-gradient(135deg, #1a1f36 0%, #2d3561 100%);
     }
-    button.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; }
-
-    .login {
-      max-width: 360px;
-      margin: 48px auto;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 36px 32px 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
     }
-    .login h2 { font-size: 1.1rem; margin-bottom: 16px; color: var(--navy); }
-    .login input {
+    .login-card img { width: 72px; height: 72px; object-fit: contain; margin: 0 auto 12px; }
+    .login-card h1 { font-size: 1.35rem; color: var(--text); }
+    .login-card .subtitle { color: var(--muted); font-size: 0.92rem; margin: 4px 0 26px; }
+    .field { text-align: left; margin-bottom: 16px; }
+    .field label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+    .password-wrap { position: relative; }
+    .field input {
       width: 100%;
       font: inherit;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-    .error { color: #b91c1c; font-size: 0.9rem; margin-top: 10px; min-height: 1.2em; }
-
-    .section-title { font-size: 1rem; color: var(--navy); margin: 28px 0 12px; }
-    .section-title:first-child { margin-top: 0; }
-    .note { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 12px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--gold);
-      border-radius: 10px;
-      padding: 14px 16px;
-    }
-    .card .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-    .card .value { font-size: 1.8rem; font-weight: 700; color: var(--navy); margin-top: 4px; font-variant-numeric: tabular-nums; }
-
-    .panel {
-      background: var(--card);
+      padding: 12px 44px 12px 14px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 16px;
+      background: var(--surface-2);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .chart {
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 180px;
+    .field input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+    .toggle-pw {
+      position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--muted); font-size: 0.8rem; padding: 6px 8px;
     }
-    .bar {
-      flex: 1;
-      background: var(--navy-2);
-      border-radius: 3px 3px 0 0;
-      min-height: 2px;
-      position: relative;
+    .btn-primary {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      background: var(--gold);
+      color: #1a1f36;
+      font-weight: 700;
+      transition: filter 0.15s;
     }
-    .bar:hover { background: var(--gold); }
-    .bar:hover::after {
-      content: attr(data-tip);
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
+    .btn-primary:hover { filter: brightness(1.05); }
+    .btn-primary:disabled { opacity: 0.7; cursor: wait; }
+    .login-error { color: var(--bad); font-size: 0.88rem; margin-top: 12px; min-height: 1.2em; }
+    .login-foot { margin-top: 18px; font-size: 0.8rem; color: var(--muted); }
+
+    /* ---------- App layout ---------- */
+    .app { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100vh; }
+    .sidebar {
       background: var(--navy);
       color: #fff;
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 4px;
-      white-space: nowrap;
-      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
     }
-    .chart-axis { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.75rem; margin-top: 6px; }
+    .brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 22px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .brand img { width: 40px; height: 40px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; }
+    .brand strong { display: block; font-size: 0.95rem; line-height: 1.2; }
+    .brand span { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.04em; text-transform: uppercase; }
+    .nav { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+    .nav a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 10px;
+      text-decoration: none; color: rgba(255,255,255,0.72); font-size: 0.92rem;
+    }
+    .nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav a.active { background: rgba(212,175,55,0.16); color: var(--gold); font-weight: 600; }
+    .nav svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .account {
+      margin-top: auto;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+      padding: 16px 8px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      display: grid; place-items: center; font-weight: 700; flex-shrink: 0;
+    }
+    .account-info { min-width: 0; flex: 1; }
+    .account-info strong { display: block; font-size: 0.9rem; }
+    .account-info span { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+    .logout {
+      flex-basis: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.85);
+      border-radius: 9px; padding: 8px 10px; font-size: 0.85rem;
+    }
+    .logout svg { width: 16px; height: 16px; }
+    .logout:hover { border-color: var(--gold); color: var(--gold); }
 
-    table { width: 100%; border-collapse: collapse; }
-    th, td { text-align: left; padding: 8px 4px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
-    th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-    td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+    .main { padding: 28px 32px 48px; min-width: 0; }
+    .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .topbar h2 { font-size: 1.5rem; }
+    .topbar p { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+    .topbar-actions { display: flex; align-items: center; gap: 12px; }
+    .updated { color: var(--muted); font-size: 0.82rem; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 14px; font-size: 0.88rem; font-weight: 600;
+    }
+    .btn-ghost:hover { border-color: var(--gold); }
+    .btn-ghost svg { width: 16px; height: 16px; }
+    .btn-ghost.loading svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-    .updated { color: var(--muted); font-size: 0.85rem; }
-    [hidden] { display: none !important; }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+
+    /* Rolling totals strip */
+    .rolling { display: grid; grid-template-columns: repeat(5, 1fr); margin-bottom: 28px; }
+    .rolling div { padding: 16px 18px; border-left: 1px solid var(--border); }
+    .rolling div:first-child { border-left: none; }
+    .rolling span { display: block; font-size: 0.8rem; color: var(--muted); }
+    .rolling strong { display: block; font-size: 1.35rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+    /* Period controls */
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .segmented { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+    .segmented button {
+      border: none; background: none; color: var(--text-2);
+      padding: 7px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 600;
+    }
+    .segmented button.active { background: var(--navy); color: #fff; }
+    @media (prefers-color-scheme: dark) { .segmented button.active { background: var(--gold); color: var(--navy); } }
+    .stepper { display: inline-flex; align-items: center; gap: 6px; }
+    .stepper .arrow {
+      width: 34px; height: 34px; display: grid; place-items: center; padding: 0;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      border-radius: 9px; font-size: 1rem;
+    }
+    .stepper .arrow svg { width: 16px; height: 16px; }
+    .stepper .arrow:hover:not(:disabled) { border-color: var(--gold); }
+    .stepper .arrow:disabled { opacity: 0.35; cursor: default; }
+    .stepper .period-label { min-width: 170px; text-align: center; font-weight: 700; }
+    .stepper .today-btn { border: none; background: none; color: var(--gold); font-weight: 700; font-size: 0.85rem; padding: 6px 8px; }
+
+    /* KPI cards */
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
+    .kpi { padding: 18px 20px; }
+    .kpi .label { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+    .kpi .value { font-size: 2rem; font-weight: 700; margin-top: 6px; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+    .kpi .sub { font-size: 0.8rem; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 3px; font-weight: 700; font-size: 0.78rem; padding: 2px 7px; border-radius: 999px; }
+    .badge.up { color: var(--good); background: var(--good-bg); }
+    .badge.down { color: var(--bad); background: var(--bad-bg); }
+    .badge.flat { color: var(--muted); background: var(--surface-2); }
+
+    /* Chart */
+    .chart-panel { padding: 20px 20px 14px; margin-bottom: 16px; }
+    .chart-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .chart-head h3 { font-size: 1rem; }
+    .chart-head span { font-size: 0.82rem; color: var(--muted); }
+    .chart { position: relative; display: grid; grid-template-columns: 40px 1fr; grid-template-rows: 1fr 26px; height: 290px; }
+    .y-axis { position: relative; }
+    .y-axis span { position: absolute; right: 8px; transform: translateY(50%); font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .plot { position: relative; border-bottom: 1px solid var(--border); }
+    .gridline { position: absolute; left: 0; right: 0; border-top: 1px solid var(--grid); }
+    .bars { position: absolute; inset: 0; display: flex; align-items: stretch; gap: 2px; }
+    .col { flex: 1; display: flex; align-items: flex-end; justify-content: center; cursor: default; min-width: 0; }
+    .bar { width: 100%; max-width: 44px; background: var(--bar); border-radius: 4px 4px 0 0; transition: background 0.12s; }
+    .col:hover .bar, .col:focus .bar { background: var(--bar-hover); }
+    .col.future .bar { background: transparent; }
+    .x-axis { grid-column: 2; display: flex; gap: 2px; padding-top: 8px; }
+    .x-axis span { flex: 1; text-align: center; font-size: 0.72rem; color: var(--muted); white-space: nowrap; overflow: visible; min-width: 0; }
+    .tooltip {
+      position: absolute; pointer-events: none; z-index: 5;
+      background: var(--navy); color: #fff; border-radius: 8px;
+      padding: 8px 10px; font-size: 0.8rem; white-space: nowrap;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transform: translate(-50%, calc(-100% - 10px));
+    }
+    .tooltip strong { display: block; font-size: 1rem; }
+    .empty-note { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 0.9rem; pointer-events: none; }
+
+    /* Breakdown table */
+    .table-panel { padding: 8px 20px 12px; }
+    .table-scroll { max-height: 440px; overflow-y: auto; }
+    thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+    .table-panel h3 { font-size: 1rem; padding: 12px 0 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 10px 4px; border-bottom: 1px solid var(--border); text-align: left; }
+    tr:last-child td { border-bottom: none; }
+    th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .share { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+    .share-track { width: 80px; height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; }
+    .share-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+    td.muted { color: var(--muted); }
+
+    .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 18px; line-height: 1.5; }
+    .error-banner { background: var(--bad-bg); color: var(--bad); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.9rem; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1100px) {
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .app { grid-template-columns: minmax(0, 1fr); }
+      .sidebar { position: static; height: auto; flex-direction: row; align-items: center; padding: 12px 16px; gap: 12px; }
+      .brand { border: none; padding: 0; flex: 1; min-width: 0; }
+      .brand span { display: none; }
+      .nav { display: none; }
+      .account { margin: 0; padding: 0; border: none; flex-wrap: nowrap; }
+      .logout { flex-basis: auto; padding: 6px 10px; }
+      .account-info { display: none; }
+      .main { padding: 20px 16px 40px; }
+      .rolling { grid-template-columns: repeat(3, 1fr); }
+      .rolling div:nth-child(4) { border-left: none; }
+      .rolling div:nth-child(n+4) { border-top: 1px solid var(--border); }
+    }
+    @media (max-width: 560px) {
+      .rolling { grid-template-columns: repeat(2, 1fr); }
+      .rolling div { border-left: none !important; border-top: 1px solid var(--border); }
+      .rolling div:nth-child(-n+2) { border-top: none; }
+      .rolling div:nth-child(even) { border-left: 1px solid var(--border) !important; }
+      .rolling div:last-child { grid-column: span 2; border-left: none !important; }
+      .kpis { gap: 10px; }
+      .kpi { padding: 14px; }
+      .kpi .value { font-size: 1.5rem; }
+      .segmented { width: 100%; }
+      .segmented button { flex: 1; padding: 7px 4px; font-size: 0.8rem; }
+      .stepper { width: 100%; justify-content: space-between; }
+      .stepper .period-label { min-width: 0; flex: 1; font-size: 0.92rem; }
+      .chart { height: 220px; grid-template-columns: 32px 1fr; }
+      .share-track { display: none; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <img src="images/Hostellerie logo.png" alt="Hostellerie logo">
-    <div>
-      <h1>Hostellerie de la Sanaga</h1>
-      <p>Admin · QR code scans</p>
-    </div>
-    <button id="logout" class="secondary" type="button" hidden>Log out</button>
-  </header>
-
-  <main>
-    <form id="login-form" class="login">
-      <h2>Admin login</h2>
-      <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
-      <button type="submit" style="width:100%">Log in</button>
-      <p id="login-error" class="error"></p>
+  <!-- ---------- Login ---------- -->
+  <div class="login-page" id="login-page">
+    <form class="login-card" id="login-form">
+      <img src="images/Hostellerie logo.png" alt="Hostellerie de la Sanaga">
+      <h1>Admin account</h1>
+      <p class="subtitle">Sign in to view your website statistics</p>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input id="password" type="password" autocomplete="current-password" required autofocus>
+          <button type="button" class="toggle-pw" id="toggle-pw">Show</button>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="login-btn">Sign in</button>
+      <p class="login-error" id="login-error" role="alert"></p>
+      <p class="login-foot">Hostellerie de la Sanaga · Edea, Cameroon</p>
     </form>
+  </div>
 
-    <div id="dashboard" hidden>
-      <div class="toolbar">
-        <span id="updated" class="updated"></span>
-        <button id="refresh" type="button">Refresh</button>
+  <!-- ---------- Dashboard ---------- -->
+  <div class="app" id="app" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="images/Hostellerie logo.png" alt="">
+        <div>
+          <strong>Hostellerie de la Sanaga</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#" class="active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+          Dashboard
+        </a>
+        <a href="/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg>
+          View website
+        </a>
+      </nav>
+      <div class="account">
+        <div class="avatar">A</div>
+        <div class="account-info">
+          <strong>Administrator</strong>
+          <span>Signed in</span>
+        </div>
+        <button type="button" class="logout" id="logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          Log out
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h2>Dashboard</h2>
+          <p>QR code scans &amp; homepage visits</p>
+        </div>
+        <div class="topbar-actions">
+          <span class="updated" id="updated"></span>
+          <button type="button" class="btn-ghost" id="refresh">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+            Refresh
+          </button>
+        </div>
       </div>
 
-      <h2 class="section-title">QR scans / homepage visits</h2>
-      <div class="cards" id="cards"></div>
-      <p class="note" id="since-note"></p>
+      <div class="error-banner" id="error-banner" hidden></div>
 
-      <h2 class="section-title">Last 30 days</h2>
-      <div class="panel">
-        <div class="chart" id="chart"></div>
-        <div class="chart-axis"><span id="axis-start"></span><span id="axis-end">Today</span></div>
+      <p class="section-label">Rolling totals</p>
+      <div class="panel rolling" id="rolling"></div>
+
+      <div class="controls">
+        <div class="segmented" id="modes" role="tablist">
+          <button type="button" data-mode="week">Week</button>
+          <button type="button" data-mode="month">Month</button>
+          <button type="button" data-mode="quarter">3 months</button>
+          <button type="button" data-mode="half">6 months</button>
+          <button type="button" data-mode="year">Year</button>
+        </div>
+        <div class="stepper">
+          <button type="button" class="arrow" id="prev" aria-label="Previous period"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <span class="period-label" id="period-label"></span>
+          <button type="button" class="arrow" id="next" aria-label="Next period"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          <button type="button" class="today-btn" id="today-btn">Current</button>
+        </div>
       </div>
 
-      <h2 class="section-title">By month</h2>
-      <div class="panel">
+      <div class="kpis">
+        <div class="panel kpi">
+          <div class="label">Total visits</div>
+          <div class="value" id="kpi-total">0</div>
+          <div class="sub" id="kpi-change"></div>
+        </div>
+        <div class="panel kpi">
+          <div class="label">Daily average</div>
+          <div class="value" id="kpi-avg">0</div>
+          <div class="sub" id="kpi-avg-sub"></div>
+        </div>
+        <div class="panel kpi">
+          <div class="label">Busiest day</div>
+          <div class="value" id="kpi-best">–</div>
+          <div class="sub" id="kpi-best-sub"></div>
+        </div>
+        <div class="panel kpi">
+          <div class="label">Today</div>
+          <div class="value" id="kpi-today">0</div>
+          <div class="sub" id="kpi-today-sub"></div>
+        </div>
+      </div>
+
+      <div class="panel chart-panel">
+        <div class="chart-head">
+          <h3 id="chart-title">Visits</h3>
+          <span id="chart-range"></span>
+        </div>
+        <div class="chart">
+          <div class="y-axis" id="y-axis"></div>
+          <div class="plot" id="plot"></div>
+          <div class="x-axis" id="x-axis"></div>
+        </div>
+      </div>
+
+      <div class="panel table-panel">
+        <h3>Breakdown</h3>
+        <div class="table-scroll">
         <table>
-          <thead><tr><th>Month</th><th>Visits</th></tr></thead>
-          <tbody id="months"></tbody>
+          <thead><tr><th id="th-period">Period</th><th class="num">Visits</th><th class="num">Share</th></tr></thead>
+          <tbody id="breakdown"></tbody>
         </table>
+        </div>
       </div>
-    </div>
-  </main>
+
+      <p class="footnote">
+        Visits are counted when someone opens the homepage, which is where the printed QR codes lead.
+        Each visitor is counted once per browser session, and search-engine robots are ignored.
+        Times follow Cameroon time (WAT).
+      </p>
+    </main>
+  </div>
 
   <script>
-    const PERIODS = [
-      { label: 'Today', days: 1 },
-      { label: '7 days', days: 7 },
-      { label: '30 days', days: 30 },
-      { label: '3 months', days: 90 },
-      { label: '6 months', days: 182 },
-      { label: '12 months', days: 365 }
-    ];
+    const DAY = 86400000;
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const MONTHS_SHORT = MONTHS.map(m => m.slice(0, 3));
+    const WEEKDAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const MODE_NAMES = { week: 'week', month: 'month', quarter: '3 months', half: '6 months', year: 'year' };
 
-    const loginForm = document.getElementById('login-form');
-    const dashboard = document.getElementById('dashboard');
-    const loginError = document.getElementById('login-error');
-    const logoutBtn = document.getElementById('logout');
+    const state = { counts: new Map(), today: 0, earliest: 0, mode: 'month', anchor: 0 };
+    let password = '';
 
-    function getSavedPassword() {
-      try { return sessionStorage.getItem('adminPassword') || ''; } catch (err) { return ''; }
+    const $ = id => document.getElementById(id);
+
+    // ---------- Date helpers (all dates are UTC midnights representing Cameroon calendar days) ----------
+    function parseISO(iso) { const [y, m, d] = iso.split('-').map(Number); return Date.UTC(y, m - 1, d); }
+    function toISO(t) { return new Date(t).toISOString().slice(0, 10); }
+    function parts(t) { const d = new Date(t); return { y: d.getUTCFullYear(), m: d.getUTCMonth(), d: d.getUTCDate(), wd: d.getUTCDay() }; }
+    function monthStart(y, m) { return Date.UTC(y, m, 1); }
+    function fmtDay(t, withYear) {
+      const p = parts(t);
+      return `${p.d} ${MONTHS_SHORT[p.m]}${withYear ? ' ' + p.y : ''}`;
     }
+    function fmtNum(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    function countOn(t) { return state.counts.get(toISO(t)) || 0; }
+    function sumRange(start, end) {
+      let total = 0;
+      for (let t = start; t <= end; t += DAY) total += countOn(t);
+      return total;
+    }
+
+    // ---------- Periods ----------
+    function periodFor(mode, anchor) {
+      const p = parts(anchor);
+      if (mode === 'week') {
+        const start = anchor - ((p.wd + 6) % 7) * DAY; // Monday
+        return { start, end: start + 6 * DAY };
+      }
+      const span = { month: 1, quarter: 3, half: 6, year: 12 }[mode];
+      const firstMonth = Math.floor(p.m / span) * span;
+      const start = monthStart(p.y, firstMonth);
+      const end = monthStart(p.y, firstMonth + span) - DAY;
+      return { start, end };
+    }
+
+    function shiftAnchor(mode, anchor, dir) {
+      if (mode === 'week') return anchor + dir * 7 * DAY;
+      const span = { month: 1, quarter: 3, half: 6, year: 12 }[mode];
+      const { start } = periodFor(mode, anchor);
+      const p = parts(start);
+      return monthStart(p.y, p.m + dir * span);
+    }
+
+    function periodLabel(mode, { start, end }) {
+      const s = parts(start), e = parts(end);
+      switch (mode) {
+        case 'week': return `${fmtDay(start, s.y !== e.y)} – ${fmtDay(end, true)}`;
+        case 'month': return `${MONTHS[s.m]} ${s.y}`;
+        case 'quarter': return `${MONTHS_SHORT[s.m]} – ${MONTHS_SHORT[e.m]} ${s.y}`;
+        case 'half': return `${MONTHS_SHORT[s.m]} – ${MONTHS_SHORT[e.m]} ${s.y}`;
+        case 'year': return String(s.y);
+      }
+    }
+
+    // Split a period into the bars of the chart
+    function bucketsFor(mode, { start, end }) {
+      const buckets = [];
+      if (mode === 'week' || mode === 'month') {
+        for (let t = start; t <= end; t += DAY) {
+          const p = parts(t);
+          buckets.push({
+            start: t, end: t,
+            axis: mode === 'week' ? WEEKDAYS_SHORT[p.wd] : String(p.d),
+            name: `${WEEKDAYS_SHORT[p.wd]} ${fmtDay(t, true)}`
+          });
+        }
+      } else if (mode === 'year') {
+        const y = parts(start).y;
+        for (let m = 0; m < 12; m++) {
+          const s = monthStart(y, m);
+          buckets.push({ start: s, end: monthStart(y, m + 1) - DAY, axis: MONTHS_SHORT[m], name: `${MONTHS[m]} ${y}` });
+        }
+      } else {
+        // 3 / 6 months: one bar per week (Monday–Sunday, clipped to the period)
+        let s = start;
+        while (s <= end) {
+          const wd = parts(s).wd;
+          const e = Math.min(end, s + ((7 - wd) % 7) * DAY);
+          buckets.push({ start: s, end: e, axis: fmtDay(s), name: `${fmtDay(s)} – ${fmtDay(e, true)}` });
+          s = e + DAY;
+        }
+      }
+      buckets.forEach(b => {
+        b.future = b.start > state.today;
+        b.count = b.future ? 0 : sumRange(b.start, Math.min(b.end, state.today));
+      });
+      return buckets;
+    }
+
+    // ---------- Rendering ----------
+    function renderRolling() {
+      const items = [['Last 7 days', 7], ['Last 30 days', 30], ['Last 3 months', 90], ['Last 6 months', 182], ['Last 12 months', 365]];
+      $('rolling').innerHTML = items.map(([label, days]) =>
+        `<div><span>${label}</span><strong>${fmtNum(sumRange(state.today - (days - 1) * DAY, state.today))}</strong></div>`
+      ).join('');
+    }
+
+    function changeBadge(current, previous) {
+      if (previous === 0 && current === 0) return '<span class="badge flat">0%</span>';
+      if (previous === 0) return '<span class="badge up">▲ New</span>';
+      const pct = ((current - previous) / previous) * 100;
+      if (Math.abs(pct) < 0.5) return '<span class="badge flat">0%</span>';
+      const cls = pct > 0 ? 'up' : 'down';
+      return `<span class="badge ${cls}">${pct > 0 ? '▲' : '▼'} ${Math.abs(pct).toFixed(pct > -10 && pct < 10 ? 1 : 0)}%</span>`;
+    }
+
+    function niceMax(value) {
+      if (value <= 4) return 4;
+      const pow = Math.pow(10, Math.floor(Math.log10(value)));
+      for (const step of [1, 2, 2.5, 5, 10]) {
+        const max = step * pow;
+        if (max >= value) return max % 4 === 0 || max >= 20 ? max : Math.ceil(max / 4) * 4;
+      }
+      return value;
+    }
+
+    function renderChart(mode, buckets) {
+      const max = niceMax(Math.max(0, ...buckets.map(b => b.count)));
+      const ticks = [0, 0.25, 0.5, 0.75, 1].map(f => f * max);
+
+      $('y-axis').innerHTML = ticks.map(v => `<span style="bottom:${(v / max) * 100}%">${fmtNum(v)}</span>`).join('');
+
+      const grid = ticks.slice(1).map(v => `<div class="gridline" style="bottom:${(v / max) * 100}%"></div>`).join('');
+      const cols = buckets.map((b, i) => `
+        <div class="col${b.future ? ' future' : ''}" data-i="${i}" tabindex="0" aria-label="${b.name}: ${b.future ? 'upcoming' : b.count + ' visits'}">
+          <div class="bar" style="height:${b.future ? 0 : Math.max((b.count / max) * 100, b.count ? 1.5 : 0)}%"></div>
+        </div>`).join('');
+      const allZero = buckets.every(b => b.count === 0);
+      $('plot').innerHTML = grid + `<div class="bars">${cols}</div>` +
+        (allZero ? '<div class="empty-note">No visits recorded in this period</div>' : '') +
+        '<div class="tooltip" id="tooltip" hidden></div>';
+
+      // Only label every n-th bar so labels never collide
+      const plotWidth = $('plot').clientWidth || 600;
+      const labelWidth = mode === 'quarter' || mode === 'half' ? 48 : 26;
+      const every = Math.max(1, Math.ceil(buckets.length / Math.floor(plotWidth / labelWidth)));
+      $('x-axis').innerHTML = buckets.map((b, i) => `<span>${i % every === 0 ? b.axis : ''}</span>`).join('');
+
+      const tooltip = $('tooltip');
+      $('plot').querySelectorAll('.col').forEach(col => {
+        const show = () => {
+          const b = buckets[col.dataset.i];
+          tooltip.innerHTML = `${b.name}<strong>${b.future ? 'Upcoming' : fmtNum(b.count) + (b.count === 1 ? ' visit' : ' visits')}</strong>`;
+          tooltip.hidden = false;
+          const plotRect = $('plot').getBoundingClientRect();
+          const colRect = col.getBoundingClientRect();
+          const bar = col.querySelector('.bar').getBoundingClientRect();
+          let x = colRect.left + colRect.width / 2 - plotRect.left;
+          const half = tooltip.offsetWidth / 2;
+          x = Math.min(Math.max(x, half), plotRect.width - half);
+          tooltip.style.left = x + 'px';
+          tooltip.style.top = Math.min(bar.top - plotRect.top, plotRect.height - 4) + 'px';
+        };
+        col.addEventListener('mouseenter', show);
+        col.addEventListener('focus', show);
+        col.addEventListener('mouseleave', () => { tooltip.hidden = true; });
+        col.addEventListener('blur', () => { tooltip.hidden = true; });
+      });
+    }
+
+    function renderBreakdown(mode, buckets, total) {
+      $('th-period').textContent = { week: 'Day', month: 'Day', quarter: 'Week', half: 'Week', year: 'Month' }[mode];
+      const rows = buckets.filter(b => !b.future).reverse();
+      $('breakdown').innerHTML = rows.length ? rows.map(b => {
+        const share = total ? (b.count / total) * 100 : 0;
+        return `<tr>
+          <td>${b.name}</td>
+          <td class="num">${fmtNum(b.count)}</td>
+          <td class="num"><div class="share"><div class="share-track"><div class="share-fill" style="width:${share}%"></div></div>${share.toFixed(0)}%</div></td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="3" class="muted">This period has not started yet.</td></tr>';
+    }
+
+    function render() {
+      const { mode } = state;
+      const period = periodFor(mode, state.anchor);
+      const elapsedEnd = Math.min(period.end, state.today);
+      const elapsedDays = Math.max(0, Math.round((elapsedEnd - period.start) / DAY) + 1);
+      const isCurrent = period.start <= state.today && state.today <= period.end;
+
+      document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+      $('period-label').textContent = periodLabel(mode, period);
+      $('next').disabled = period.end >= state.today;
+      $('prev').disabled = period.start <= state.earliest;
+      $('today-btn').hidden = isCurrent;
+      renderRolling();
+
+      // Totals and comparison with the same stretch of the previous period
+      const total = elapsedDays ? sumRange(period.start, elapsedEnd) : 0;
+      const prev = periodFor(mode, shiftAnchor(mode, state.anchor, -1));
+      const prevEnd = Math.min(prev.end, prev.start + (elapsedDays - 1) * DAY);
+      const prevTotal = elapsedDays ? sumRange(prev.start, prevEnd) : 0;
+      $('kpi-total').textContent = fmtNum(total);
+      $('kpi-change').innerHTML = `${changeBadge(total, prevTotal)} vs ${isCurrent ? 'same point last ' + MODE_NAMES[mode] : 'previous ' + MODE_NAMES[mode]} (${fmtNum(prevTotal)})`;
+
+      $('kpi-avg').textContent = elapsedDays ? (total / elapsedDays).toFixed(total / elapsedDays < 10 ? 1 : 0) : '0';
+      $('kpi-avg-sub').textContent = `visits per day over ${elapsedDays} day${elapsedDays === 1 ? '' : 's'}`;
+
+      let best = null;
+      for (let t = period.start; t <= elapsedEnd; t += DAY) {
+        const c = countOn(t);
+        if (c > 0 && (!best || c > best.count)) best = { t, count: c };
+      }
+      $('kpi-best').textContent = best ? fmtNum(best.count) : '–';
+      $('kpi-best-sub').textContent = best ? `${WEEKDAYS_SHORT[parts(best.t).wd]} ${fmtDay(best.t, true)}` : 'No visits in this period';
+
+      const todayCount = countOn(state.today);
+      const yesterdayCount = countOn(state.today - DAY);
+      $('kpi-today').textContent = fmtNum(todayCount);
+      $('kpi-today-sub').innerHTML = `${changeBadge(todayCount, yesterdayCount)} vs yesterday (${fmtNum(yesterdayCount)})`;
+
+      const buckets = bucketsFor(mode, period);
+      $('chart-title').textContent = { week: 'Visits per day', month: 'Visits per day', quarter: 'Visits per week', half: 'Visits per week', year: 'Visits per month' }[mode];
+      $('chart-range').textContent = `${fmtDay(period.start, true)} – ${fmtDay(period.end, true)}`;
+      renderChart(mode, buckets);
+      renderBreakdown(mode, buckets, total);
+    }
+
+    // ---------- Data & auth ----------
     function savePassword(value) {
       try {
         if (value) sessionStorage.setItem('adminPassword', value);
@@ -203,88 +685,108 @@
       } catch (err) {}
     }
 
-    let password = getSavedPassword();
-
     async function loadStats() {
       const response = await fetch('/api/stats', { headers: { 'x-admin-password': password } });
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || 'Could not load statistics');
-      return data.days;
+      if (!response.ok) {
+        const err = new Error(data.error || 'Could not load statistics');
+        err.status = response.status;
+        throw err;
+      }
+      state.counts = new Map(data.days.map(d => [d.date, d.count]));
+      state.earliest = parseISO(data.days[0].date);
+      const today = parseISO(data.days[data.days.length - 1].date);
+      if (!state.today) state.anchor = today;
+      state.today = today;
+      $('updated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
     }
 
-    function sum(days) {
-      return days.reduce((total, day) => total + day.count, 0);
+    function showLogin(message) {
+      $('app').hidden = true;
+      $('login-page').hidden = false;
+      $('login-error').textContent = message || '';
+      $('password').value = '';
+      $('password').focus();
     }
 
-    function formatDate(isoDate, options) {
-      return new Date(isoDate + 'T12:00:00').toLocaleDateString('en-GB', options);
-    }
-
-    function render(days) {
-      document.getElementById('cards').innerHTML = PERIODS.map(period => `
-        <div class="card">
-          <div class="label">${period.label}</div>
-          <div class="value">${sum(days.slice(-period.days)).toLocaleString('en-US')}</div>
-        </div>`).join('');
-
-      const first = days.find(day => day.count > 0);
-      document.getElementById('since-note').textContent = first
-        ? `First recorded visit: ${formatDate(first.date, { day: 'numeric', month: 'long', year: 'numeric' })}. Counts include everyone who opens the homepage (the QR codes link there).`
-        : 'No visits recorded yet. Counting starts from the day this was set up.';
-
-      const last30 = days.slice(-30);
-      const max = Math.max(1, ...last30.map(day => day.count));
-      document.getElementById('chart').innerHTML = last30.map(day => `
-        <div class="bar" style="height:${(day.count / max) * 100}%"
-             data-tip="${formatDate(day.date, { day: 'numeric', month: 'short' })}: ${day.count}"></div>`).join('');
-      document.getElementById('axis-start').textContent = formatDate(last30[0].date, { day: 'numeric', month: 'short' });
-
-      const months = new Map();
-      days.forEach(day => {
-        const key = day.date.slice(0, 7);
-        months.set(key, (months.get(key) || 0) + day.count);
-      });
-      document.getElementById('months').innerHTML = [...months.entries()].reverse().map(([month, count]) => `
-        <tr><td>${formatDate(month + '-01', { month: 'long', year: 'numeric' })}</td><td>${count.toLocaleString('en-US')}</td></tr>`).join('');
-
-      document.getElementById('updated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-    }
-
-    async function showDashboard() {
+    async function signIn() {
+      const btn = $('login-btn');
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
       try {
-        render(await loadStats());
-        loginForm.hidden = true;
-        dashboard.hidden = false;
-        logoutBtn.hidden = false;
+        await loadStats();
         savePassword(password);
+        $('login-page').hidden = true;
+        $('app').hidden = false;
+        render();
       } catch (err) {
-        loginError.textContent = err.message;
-        loginForm.hidden = false;
-        dashboard.hidden = true;
-        logoutBtn.hidden = true;
         savePassword('');
+        showLogin(err.status === 401 ? 'Incorrect password. Please try again.' : err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
       }
     }
 
-    loginForm.addEventListener('submit', event => {
-      event.preventDefault();
-      loginError.textContent = '';
-      password = document.getElementById('password').value;
-      showDashboard();
+    async function refresh() {
+      const btn = $('refresh');
+      btn.classList.add('loading');
+      $('error-banner').hidden = true;
+      try {
+        await loadStats();
+        render();
+      } catch (err) {
+        if (err.status === 401) { savePassword(''); showLogin('Your session has ended. Please sign in again.'); return; }
+        $('error-banner').textContent = err.message;
+        $('error-banner').hidden = false;
+      } finally {
+        btn.classList.remove('loading');
+      }
+    }
+
+    // ---------- Events ----------
+    $('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      password = $('password').value;
+      signIn();
     });
-
-    document.getElementById('refresh').addEventListener('click', showDashboard);
-
-    logoutBtn.addEventListener('click', () => {
+    $('toggle-pw').addEventListener('click', () => {
+      const input = $('password');
+      input.type = input.type === 'password' ? 'text' : 'password';
+      $('toggle-pw').textContent = input.type === 'password' ? 'Show' : 'Hide';
+    });
+    $('logout').addEventListener('click', () => {
       password = '';
       savePassword('');
-      document.getElementById('password').value = '';
-      dashboard.hidden = true;
-      loginForm.hidden = false;
-      logoutBtn.hidden = true;
+      showLogin();
+    });
+    $('refresh').addEventListener('click', refresh);
+    $('modes').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-mode]');
+      if (!btn) return;
+      state.mode = btn.dataset.mode;
+      state.anchor = state.today;
+      render();
+    });
+    $('prev').addEventListener('click', () => { state.anchor = shiftAnchor(state.mode, state.anchor, -1); render(); });
+    $('next').addEventListener('click', () => {
+      const next = shiftAnchor(state.mode, state.anchor, 1);
+      state.anchor = Math.min(next, state.today);
+      render();
+    });
+    $('today-btn').addEventListener('click', () => { state.anchor = state.today; render(); });
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (!$('app').hidden) render(); }, 150);
     });
 
-    if (password) showDashboard();
+    // Stay signed in for this browser tab
+    try { password = sessionStorage.getItem('adminPassword') || ''; } catch (err) {}
+    if (password) {
+      $('login-page').hidden = true;
+      signIn();
+    }
   </script>
 </body>
 </html>

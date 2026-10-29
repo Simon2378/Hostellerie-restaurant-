@@ -1,4 +1,4 @@
-// Returns daily visit counts for the last 365 days. Protected by the ADMIN_PASSWORD env var.
+// Returns daily visit counts for the last 3 years (enough to compare a year with the one before). Protected by the ADMIN_PASSWORD env var.
 const { redis, lastDays } = require('./_redis');
 
 module.exports = async (req, res) => {
@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const days = lastDays(365);
+    const days = lastDays(1096);
     const counts = await redis(['MGET', ...days.map(day => `visits:${day}`)]);
     res.status(200).json({
       days: days.map((date, i) => ({ date, count: Number(counts[i]) || 0 }))
