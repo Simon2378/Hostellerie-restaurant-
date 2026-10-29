@@ -2408,7 +2408,7 @@ header {
 /* Wedding page header banner (uses Marriage.png) */
 .mariage-header {
   position: relative;
-  background-image: url('Marriage.png');
+  background-image: url('images/Marriage.png');
   background-size: cover;
   background-position: center center;
   height: 440px;

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" href="images/Hostellerie logo.png">
+  <title>Admin | Hostellerie de la Sanaga</title>
+  <style>
+    :root {
+      --navy: #1a1f36;
+      --navy-2: #2d3561;
+      --gold: #d4af37;
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #333;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header img { width: 44px; height: 44px; object-fit: contain; }
+    header h1 { font-size: 1.15rem; font-weight: 600; }
+    header p { font-size: 0.85rem; color: var(--gold); }
+    #logout { margin-left: auto; }
+    main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    button.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; }
+
+    .login {
+      max-width: 360px;
+      margin: 48px auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .login h2 { font-size: 1.1rem; margin-bottom: 16px; color: var(--navy); }
+    .login input {
+      width: 100%;
+      font: inherit;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .error { color: #b91c1c; font-size: 0.9rem; margin-top: 10px; min-height: 1.2em; }
+
+    .section-title { font-size: 1rem; color: var(--navy); margin: 28px 0 12px; }
+    .section-title:first-child { margin-top: 0; }
+    .note { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .card .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .card .value { font-size: 1.8rem; font-weight: 700; color: var(--navy); margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 180px;
+    }
+    .bar {
+      flex: 1;
+      background: var(--navy-2);
+      border-radius: 3px 3px 0 0;
+      min-height: 2px;
+      position: relative;
+    }
+    .bar:hover { background: var(--gold); }
+    .bar:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      z-index: 1;
+    }
+    .chart-axis { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.75rem; margin-top: 6px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px 4px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+    td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .updated { color: var(--muted); font-size: 0.85rem; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/Hostellerie logo.png" alt="Hostellerie logo">
+    <div>
+      <h1>Hostellerie de la Sanaga</h1>
+      <p>Admin · QR code scans</p>
+    </div>
+    <button id="logout" class="secondary" type="button" hidden>Log out</button>
+  </header>
+
+  <main>
+    <form id="login-form" class="login">
+      <h2>Admin login</h2>
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+      <button type="submit" style="width:100%">Log in</button>
+      <p id="login-error" class="error"></p>
+    </form>
+
+    <div id="dashboard" hidden>
+      <div class="toolbar">
+        <span id="updated" class="updated"></span>
+        <button id="refresh" type="button">Refresh</button>
+      </div>
+
+      <h2 class="section-title">QR scans / homepage visits</h2>
+      <div class="cards" id="cards"></div>
+      <p class="note" id="since-note"></p>
+
+      <h2 class="section-title">Last 30 days</h2>
+      <div class="panel">
+        <div class="chart" id="chart"></div>
+        <div class="chart-axis"><span id="axis-start"></span><span id="axis-end">Today</span></div>
+      </div>
+
+      <h2 class="section-title">By month</h2>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Month</th><th>Visits</th></tr></thead>
+          <tbody id="months"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const PERIODS = [
+      { label: 'Today', days: 1 },
+      { label: '7 days', days: 7 },
+      { label: '30 days', days: 30 },
+      { label: '3 months', days: 90 },
+      { label: '6 months', days: 182 },
+      { label: '12 months', days: 365 }
+    ];
+
+    const loginForm = document.getElementById('login-form');
+    const dashboard = document.getElementById('dashboard');
+    const loginError = document.getElementById('login-error');
+    const logoutBtn = document.getElementById('logout');
+
+    function getSavedPassword() {
+      try { return sessionStorage.getItem('adminPassword') || ''; } catch (err) { return ''; }
+    }
+    function savePassword(value) {
+      try {
+        if (value) sessionStorage.setItem('adminPassword', value);
+        else sessionStorage.removeItem('adminPassword');
+      } catch (err) {}
+    }
+
+    let password = getSavedPassword();
+
+    async function loadStats() {
+      const response = await fetch('/api/stats', { headers: { 'x-admin-password': password } });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Could not load statistics');
+      return data.days;
+    }
+
+    function sum(days) {
+      return days.reduce((total, day) => total + day.count, 0);
+    }
+
+    function formatDate(isoDate, options) {
+      return new Date(isoDate + 'T12:00:00').toLocaleDateString('en-GB', options);
+    }
+
+    function render(days) {
+      document.getElementById('cards').innerHTML = PERIODS.map(period => `
+        <div class="card">
+          <div class="label">${period.label}</div>
+          <div class="value">${sum(days.slice(-period.days)).toLocaleString('en-US')}</div>
+        </div>`).join('');
+
+      const first = days.find(day => day.count > 0);
+      document.getElementById('since-note').textContent = first
+        ? `First recorded visit: ${formatDate(first.date, { day: 'numeric', month: 'long', year: 'numeric' })}. Counts include everyone who opens the homepage (the QR codes link there).`
+        : 'No visits recorded yet. Counting starts from the day this was set up.';
+
+      const last30 = days.slice(-30);
+      const max = Math.max(1, ...last30.map(day => day.count));
+      document.getElementById('chart').innerHTML = last30.map(day => `
+        <div class="bar" style="height:${(day.count / max) * 100}%"
+             data-tip="${formatDate(day.date, { day: 'numeric', month: 'short' })}: ${day.count}"></div>`).join('');
+      document.getElementById('axis-start').textContent = formatDate(last30[0].date, { day: 'numeric', month: 'short' });
+
+      const months = new Map();
+      days.forEach(day => {
+        const key = day.date.slice(0, 7);
+        months.set(key, (months.get(key) || 0) + day.count);
+      });
+      document.getElementById('months').innerHTML = [...months.entries()].reverse().map(([month, count]) => `
+        <tr><td>${formatDate(month + '-01', { month: 'long', year: 'numeric' })}</td><td>${count.toLocaleString('en-US')}</td></tr>`).join('');
+
+      document.getElementById('updated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    async function showDashboard() {
+      try {
+        render(await loadStats());
+        loginForm.hidden = true;
+        dashboard.hidden = false;
+        logoutBtn.hidden = false;
+        savePassword(password);
+      } catch (err) {
+        loginError.textContent = err.message;
+        loginForm.hidden = false;
+        dashboard.hidden = true;
+        logoutBtn.hidden = true;
+        savePassword('');
+      }
+    }
+
+    loginForm.addEventListener('submit', event => {
+      event.preventDefault();
+      loginError.textContent = '';
+      password = document.getElementById('password').value;
+      showDashboard();
+    });
+
+    document.getElementById('refresh').addEventListener('click', showDashboard);
+
+    logoutBtn.addEventListener('click', () => {
+      password = '';
+      savePassword('');
+      document.getElementById('password').value = '';
+      dashboard.hidden = true;
+      loginForm.hidden = false;
+      logoutBtn.hidden = true;
+    });
+
+    if (password) showDashboard();
+  </script>
+</body>
+</html>

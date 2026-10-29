@@ -948,55 +948,55 @@ function reservePackage(packageName) {
 
 const hotelGallerySlides = [
   {
-    src: 'suite.jpg',
+    src: 'images/suite.jpg',
     titleKey: 'room.suite-title',
     descriptionKey: 'room.suite-desc',
     priceKey: 'room.suitePrice',
     altKey: 'room.suite',
     images: [
-      'suite1.png',
-      'suite2.png',
-      'suite3.png',
-      'suite4.png',
+      'images/suite1.png',
+      'images/suite2.png',
+      'images/suite3.png',
+      'images/suite4.png',
     ]
   },
   {
-    src: 'Speciallux.png',
+    src: 'images/Speciallux.png',
     titleKey: 'room.luxe-special-title',
     descriptionKey: 'room.luxe-special-desc',
     priceKey: 'room.luxe-special-price',
     altKey: 'room.luxe-special',
     images: [
-      'luxe special1.png',
-      'luxe special2.png',
-      'luxe special3.png',
-      'luxe special4.png',
+      'images/luxe special1.png',
+      'images/luxe special2.png',
+      'images/luxe special3.png',
+      'images/luxe special4.png',
     ]
   },
   {
-    src: 'luxe.PNG',
+    src: 'images/luxe.PNG',
     titleKey: 'room.luxe-title',
     descriptionKey: 'room.luxe-desc',
     priceKey: 'room.luxePrice',
     altKey: 'room.luxe',
     images: [
-      'luxe1.png',
-      'luxe2.png',
-      'luxe3.png',
-      'luxe4.png',
+      'images/luxe1.png',
+      'images/luxe2.png',
+      'images/luxe3.png',
+      'images/luxe4.png',
     ]
   },
   {
-    src: 'stand1.jpg',
+    src: 'images/stand1.jpg',
     titleKey: 'room.standard-title',
     descriptionKey: 'room.standard-desc',
     priceKey: 'room.standardPrice',
     altKey: 'room.standard-1',
     images: [
-      'stand1.jpg',
-      'stand2.jpg',
-      'stand3.jpg',
-      'stand1.jpg'
+      'images/stand1.jpg',
+      'images/stand2.jpg',
+      'images/stand3.jpg',
+      'images/stand1.jpg'
 
     ]
   }
