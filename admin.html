@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
   <link rel="icon" type="image/png" href="images/Hostellerie logo.png">
-  <title>Admin Dashboard | Hostellerie de la Sanaga</title>
+  <title>Tableau de bord | Hostellerie de la Sanaga</title>
   <style>
     :root {
       --navy: #1a1f36;
@@ -365,25 +365,40 @@
       .list-row .track { grid-column: 1 / -1; grid-row: 2; }
       th, td { padding: 9px 3px; font-size: 0.82rem; }
     }
+    /* Language switch */
+    .lang-switch { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 2px; }
+    .lang-switch button { border: none; background: none; color: var(--muted); font-size: 0.78rem; font-weight: 700; padding: 5px 9px; border-radius: 7px; letter-spacing: 0.04em; }
+    .lang-switch button.active { background: var(--navy); color: #fff; }
+    @media (prefers-color-scheme: dark) { .lang-switch button.active { background: var(--gold); color: var(--navy); } }
+    .login-card { position: relative; }
+    .login-card .lang-switch { position: absolute; top: 14px; right: 14px; }
+    @media (max-width: 560px) {
+      .topbar-actions { width: 100%; flex-wrap: wrap; }
+      .topbar-actions .lang-switch { margin-left: auto; }
+    }
   </style>
 </head>
 <body>
   <!-- ---------- Login ---------- -->
   <div class="login-page" id="login-page">
     <form class="login-card" id="login-form">
+      <div class="lang-switch" data-lang-switch>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
       <img src="images/Hostellerie logo.png" alt="Hostellerie de la Sanaga">
-      <h1>Admin account</h1>
-      <p class="subtitle">Sign in to view your website statistics</p>
+      <h1 data-i18n="loginTitle"></h1>
+      <p class="subtitle" data-i18n="loginSubtitle"></p>
       <div class="field">
-        <label for="password">Password</label>
+        <label for="password" data-i18n="password"></label>
         <div class="password-wrap">
           <input id="password" type="password" autocomplete="current-password" required autofocus>
-          <button type="button" class="toggle-pw" id="toggle-pw">Show</button>
+          <button type="button" class="toggle-pw" id="toggle-pw" data-i18n="show"></button>
         </div>
       </div>
-      <button type="submit" class="btn-primary" id="login-btn">Sign in</button>
+      <button type="submit" class="btn-primary" id="login-btn" data-i18n="signIn"></button>
       <p class="login-error" id="login-error" role="alert"></p>
-      <p class="login-foot">Hostellerie de la Sanaga · Edea, Cameroon</p>
+      <p class="login-foot" data-i18n="loginFoot"></p>
     </form>
   </div>
 
@@ -398,34 +413,34 @@
         </div>
       </div>
       <nav class="nav" id="side-nav">
-        <div class="nav-title">Analytics</div>
+        <div class="nav-title" data-i18n="navAnalytics"></div>
         <a href="#" data-channel="all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
-          All visitors
+          <span data-i18n="chAll"></span>
         </a>
         <a href="#" data-channel="qr">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
-          QR scans
+          <span data-i18n="chQr"></span>
         </a>
         <a href="#" data-channel="links">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          Search &amp; links
+          <span data-i18n="chLinks"></span>
         </a>
-        <div class="nav-title">Website</div>
+        <div class="nav-title" data-i18n="navWebsite"></div>
         <a href="/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg>
-          View website
+          <span data-i18n="viewWebsite"></span>
         </a>
       </nav>
       <div class="account">
         <div class="avatar">A</div>
         <div class="account-info">
-          <strong>Administrator</strong>
-          <span>Signed in</span>
+          <strong data-i18n="administrator"></strong>
+          <span data-i18n="signedIn"></span>
         </div>
         <button type="button" class="logout" id="logout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-          Log out
+          <span data-i18n="logOut"></span>
         </button>
       </div>
     </aside>
@@ -433,15 +448,19 @@
     <main class="main">
       <div class="topbar">
         <div>
-          <h2 id="page-title">All visitors</h2>
-          <p id="page-subtitle">Everyone who visited the website, from every source</p>
+          <h2 id="page-title"></h2>
+          <p id="page-subtitle"></p>
         </div>
         <div class="topbar-actions">
           <span class="updated" id="updated"></span>
           <button type="button" class="btn-ghost" id="refresh">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
-            Refresh
+            <span data-i18n="refresh"></span>
           </button>
+          <div class="lang-switch" data-lang-switch>
+            <button type="button" data-lang="fr">FR</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
         </div>
       </div>
 
@@ -449,17 +468,17 @@
 
       <div class="controls">
         <div class="segmented" id="modes">
-          <button type="button" data-mode="week">Week</button>
-          <button type="button" data-mode="month">Month</button>
-          <button type="button" data-mode="quarter">3 months</button>
-          <button type="button" data-mode="half">6 months</button>
-          <button type="button" data-mode="year">Year</button>
+          <button type="button" data-mode="week" data-i18n="modeWeek"></button>
+          <button type="button" data-mode="month" data-i18n="modeMonth"></button>
+          <button type="button" data-mode="quarter" data-i18n="modeQuarter"></button>
+          <button type="button" data-mode="half" data-i18n="modeHalf"></button>
+          <button type="button" data-mode="year" data-i18n="modeYear"></button>
         </div>
         <div class="stepper">
-          <button type="button" class="arrow" id="prev" aria-label="Previous period"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button type="button" class="arrow" id="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
           <span class="period-label" id="period-label"></span>
-          <button type="button" class="arrow" id="next" aria-label="Next period"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <button type="button" class="today-btn" id="today-btn">Current</button>
+          <button type="button" class="arrow" id="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          <button type="button" class="today-btn" id="today-btn" data-i18n="current"></button>
         </div>
       </div>
 
@@ -467,7 +486,7 @@
         <button type="button" class="channel" data-channel="all">
           <div class="head">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
-            All visitors
+            <span data-i18n="chAll"></span>
           </div>
           <div class="value" data-value>0</div>
           <div class="meta" data-meta></div>
@@ -476,7 +495,7 @@
         <button type="button" class="channel" data-channel="qr">
           <div class="head">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></span>
-            QR scans
+            <span data-i18n="chQr"></span>
           </div>
           <div class="value" data-value>0</div>
           <div class="meta" data-meta></div>
@@ -485,7 +504,7 @@
         <button type="button" class="channel" data-channel="links">
           <div class="head">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
-            Search &amp; links
+            <span data-i18n="chLinks"></span>
           </div>
           <div class="value" data-value>0</div>
           <div class="meta" data-meta></div>
@@ -495,22 +514,22 @@
 
       <div class="kpis">
         <div class="panel kpi">
-          <div class="label" id="kpi-total-label">Total visits</div>
+          <div class="label" id="kpi-total-label"></div>
           <div class="value" id="kpi-total">0</div>
           <div class="sub" id="kpi-change"></div>
         </div>
         <div class="panel kpi">
-          <div class="label">Daily average</div>
+          <div class="label" data-i18n="kpiAvg"></div>
           <div class="value" id="kpi-avg">0</div>
           <div class="sub" id="kpi-avg-sub"></div>
         </div>
         <div class="panel kpi">
-          <div class="label">Busiest day</div>
+          <div class="label" data-i18n="kpiBest"></div>
           <div class="value" id="kpi-best">–</div>
           <div class="sub" id="kpi-best-sub"></div>
         </div>
         <div class="panel kpi">
-          <div class="label">Today</div>
+          <div class="label" data-i18n="kpiToday"></div>
           <div class="value" id="kpi-today">0</div>
           <div class="sub" id="kpi-today-sub"></div>
         </div>
@@ -518,7 +537,7 @@
 
       <div class="panel chart-panel">
         <div class="panel-head">
-          <h3 id="chart-title">Visits</h3>
+          <h3 id="chart-title"></h3>
           <div class="legend" id="legend"></div>
         </div>
         <div class="chart">
@@ -530,11 +549,11 @@
 
       <div class="insights" id="insights"></div>
 
-      <p class="section-label">Rolling totals</p>
+      <p class="section-label" data-i18n="rolling"></p>
       <div class="panel rolling" id="rolling"></div>
 
       <div class="panel table-panel">
-        <h3>Breakdown</h3>
+        <h3 data-i18n="breakdown"></h3>
         <div class="table-scroll">
           <table>
             <thead id="breakdown-head"></thead>
@@ -549,63 +568,198 @@
 
   <script>
     const DAY = 86400000;
-    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const MONTHS_SHORT = MONTHS.map(m => m.slice(0, 3));
-    const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const WEEKDAYS_SHORT = WEEKDAYS.map(d => d.slice(0, 3));
-    const MODE_NAMES = { week: 'week', month: 'month', quarter: '3 months', half: '6 months', year: 'year' };
 
-    const CHANNELS = {
-      all: {
-        title: 'All visitors',
-        subtitle: 'Everyone who visited the website, from every source',
-        noun: ['visit', 'visits'],
-        footnote: 'Each visitor is counted once per browser session, on the first page they open. Search-engine robots are ignored. Times follow Cameroon time (WAT).'
+    // ---------- Translations ----------
+    const I18N = {
+      fr: {
+        pageTitle: 'Tableau de bord | Hostellerie de la Sanaga',
+        loginTitle: 'Espace administrateur',
+        loginSubtitle: 'Connectez-vous pour consulter les statistiques du site',
+        password: 'Mot de passe',
+        show: 'Afficher',
+        hide: 'Masquer',
+        signIn: 'Se connecter',
+        signingIn: 'Connexion…',
+        loginFoot: 'Hostellerie de la Sanaga · Edéa, Cameroun',
+        wrongPassword: 'Mot de passe incorrect. Veuillez réessayer.',
+        sessionEnded: 'Votre session a expiré. Veuillez vous reconnecter.',
+        loadError: 'Impossible de charger les statistiques.',
+        navAnalytics: 'Statistiques',
+        navWebsite: 'Site web',
+        viewWebsite: 'Voir le site',
+        administrator: 'Administrateur',
+        signedIn: 'Connecté',
+        logOut: 'Se déconnecter',
+        refresh: 'Actualiser',
+        updated: 'Mis à jour à {time}',
+        modeWeek: 'Semaine',
+        modeMonth: 'Mois',
+        modeQuarter: '3 mois',
+        modeHalf: '6 mois',
+        modeYear: 'Année',
+        current: 'Période actuelle',
+        prevPeriod: 'Période précédente',
+        nextPeriod: 'Période suivante',
+        chAll: 'Tous les visiteurs',
+        chQr: 'Scans QR',
+        chLinks: 'Recherche & liens',
+        subAll: 'Tous les visiteurs du site, quelle que soit leur provenance',
+        subQr: 'Personnes ayant ouvert le site en scannant un code QR imprimé',
+        subLinks: 'Personnes ayant trouvé le site sur Google, les réseaux sociaux ou un autre site',
+        footAll: 'Chaque visiteur est compté une fois par session de navigation, sur la première page ouverte. Les robots des moteurs de recherche sont ignorés. Heures à l’heure du Cameroun (WAT).',
+        footQr: 'Les scans sont reconnus grâce à l’adresse contenue dans le code QR (hostelleriesanaga.com sans « www »). Les visites de la page d’accueil sans provenance connue sont aussi comptées ici, ce qui peut inclure quelques personnes qui tapent l’adresse à la main. Chaque visiteur est compté une fois par session de navigation. Heures à l’heure du Cameroun (WAT).',
+        footLinks: 'La source est le site d’où vient le visiteur. Les liens ouverts dans certaines applications (comme WhatsApp) n’indiquent pas leur provenance : s’ils ouvrent une autre page que l’accueil, ils apparaissent dans « Liens partagés & favoris ». Chaque visiteur est compté une fois par session de navigation. Heures à l’heure du Cameroun (WAT).',
+        periodMeta: '{period}',
+        shareOfAll: '{pct} de tous les visiteurs',
+        kpiTotalVisits: 'Total des visites',
+        kpiTotalScans: 'Total des scans',
+        kpiAvg: 'Moyenne par jour',
+        kpiBest: 'Meilleur jour',
+        kpiToday: 'Aujourd’hui',
+        vsSame: { week: 'vs même moment la semaine dernière', month: 'vs même moment le mois dernier', quarter: 'vs même moment des 3 mois précédents', half: 'vs même moment des 6 mois précédents', year: 'vs même moment l’année dernière' },
+        vsPrev: { week: 'vs semaine précédente', month: 'vs mois précédent', quarter: 'vs 3 mois précédents', half: 'vs 6 mois précédents', year: 'vs année précédente' },
+        vsYesterday: 'vs hier',
+        badgeNew: 'Nouveau',
+        perDayOver: '{noun} par jour sur {n} {days}',
+        day: 'jour', days: 'jours',
+        nothing: 'Aucune donnée pour cette période',
+        nothingYet: 'Aucune donnée pour cette période pour le moment.',
+        notStarted: 'Cette période n’a pas encore commencé.',
+        upcoming: 'À venir',
+        visit: 'visite', visits: 'visites', scan: 'scan', scans: 'scans',
+        chartTitle: { visits: 'Visites', scans: 'Scans', day: 'par jour', week: 'par semaine', month: 'par mois' },
+        whereFrom: 'Provenance des visiteurs',
+        pagesFirst: 'Pages d’arrivée',
+        busiestDays: 'Jours les plus fréquentés',
+        topSources: 'Principales sources',
+        howCountedTitle: 'Comment les scans sont comptés',
+        howCounted1: 'Les codes QR imprimés ouvrent <code>hostelleriesanaga.com</code> (sans « www »). Le site redirige cette adresse vers la page d’accueil avec une étiquette cachée (<code>?src=qr</code>) : chaque scan est ainsi reconnu.',
+        howCounted2: 'Les codes QR générés depuis la page Menu portent la même étiquette. Les visites de la page d’accueil qui ne viennent ni de Google, ni des réseaux sociaux, ni d’un autre site sont aussi comptées comme des scans.',
+        rolling: 'Totaux récents',
+        rollingItems: ['7 derniers jours', '30 derniers jours', '3 derniers mois', '6 derniers mois', '12 derniers mois'],
+        breakdown: 'Détail',
+        unit: { day: 'Jour', week: 'Semaine', month: 'Mois' },
+        colVisits: 'Visites', colScans: 'Scans', colShare: 'Part', colTotal: 'Total',
+        months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+        monthsShort: ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
+        weekdays: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+        weekdaysShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+        sources: { google: 'Google', search: 'Autres moteurs de recherche', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', whatsapp: 'WhatsApp', social: 'Autres réseaux sociaux', website: 'Autres sites web', direct: 'Liens partagés & favoris' },
+        pages: { home: 'Accueil', menu: 'Menu', hotel: 'Chambres', mariage: 'Mariages', gateau: 'Gâteaux' },
+        locale: 'fr-FR'
       },
-      qr: {
-        title: 'QR scans',
-        subtitle: 'People who opened the website by scanning a printed QR code',
-        noun: ['scan', 'scans'],
-        footnote: 'Scans are recognised by the address inside the QR code (hostelleriesanaga.com without "www"). Homepage visits with no known source are also counted here, which can include a few people who type the address by hand. Each visitor is counted once per browser session. Times follow Cameroon time (WAT).'
-      },
-      links: {
-        title: 'Search & links',
-        subtitle: 'People who found the website on Google, social media or another website',
-        noun: ['visit', 'visits'],
-        footnote: 'The source is the website the visitor came from. Links opened inside some apps (such as WhatsApp) do not say where they came from: if they open a page other than the homepage they appear as "Shared links & bookmarks". Each visitor is counted once per browser session. Times follow Cameroon time (WAT).'
+      en: {
+        pageTitle: 'Admin Dashboard | Hostellerie de la Sanaga',
+        loginTitle: 'Admin account',
+        loginSubtitle: 'Sign in to view your website statistics',
+        password: 'Password',
+        show: 'Show',
+        hide: 'Hide',
+        signIn: 'Sign in',
+        signingIn: 'Signing in…',
+        loginFoot: 'Hostellerie de la Sanaga · Edea, Cameroon',
+        wrongPassword: 'Incorrect password. Please try again.',
+        sessionEnded: 'Your session has ended. Please sign in again.',
+        loadError: 'Could not load statistics.',
+        navAnalytics: 'Analytics',
+        navWebsite: 'Website',
+        viewWebsite: 'View website',
+        administrator: 'Administrator',
+        signedIn: 'Signed in',
+        logOut: 'Log out',
+        refresh: 'Refresh',
+        updated: 'Updated {time}',
+        modeWeek: 'Week',
+        modeMonth: 'Month',
+        modeQuarter: '3 months',
+        modeHalf: '6 months',
+        modeYear: 'Year',
+        current: 'Current',
+        prevPeriod: 'Previous period',
+        nextPeriod: 'Next period',
+        chAll: 'All visitors',
+        chQr: 'QR scans',
+        chLinks: 'Search & links',
+        subAll: 'Everyone who visited the website, from every source',
+        subQr: 'People who opened the website by scanning a printed QR code',
+        subLinks: 'People who found the website on Google, social media or another website',
+        footAll: 'Each visitor is counted once per browser session, on the first page they open. Search-engine robots are ignored. Times follow Cameroon time (WAT).',
+        footQr: 'Scans are recognised by the address inside the QR code (hostelleriesanaga.com without "www"). Homepage visits with no known source are also counted here, which can include a few people who type the address by hand. Each visitor is counted once per browser session. Times follow Cameroon time (WAT).',
+        footLinks: 'The source is the website the visitor came from. Links opened inside some apps (such as WhatsApp) do not say where they came from: if they open a page other than the homepage they appear as "Shared links & bookmarks". Each visitor is counted once per browser session. Times follow Cameroon time (WAT).',
+        periodMeta: 'in {period}',
+        shareOfAll: '{pct} of all visitors',
+        kpiTotalVisits: 'Total visits',
+        kpiTotalScans: 'Total scans',
+        kpiAvg: 'Daily average',
+        kpiBest: 'Busiest day',
+        kpiToday: 'Today',
+        vsSame: { week: 'vs same point last week', month: 'vs same point last month', quarter: 'vs same point last 3 months', half: 'vs same point last 6 months', year: 'vs same point last year' },
+        vsPrev: { week: 'vs previous week', month: 'vs previous month', quarter: 'vs previous 3 months', half: 'vs previous 6 months', year: 'vs previous year' },
+        vsYesterday: 'vs yesterday',
+        badgeNew: 'New',
+        perDayOver: '{noun} per day over {n} {days}',
+        day: 'day', days: 'days',
+        nothing: 'Nothing recorded in this period',
+        nothingYet: 'Nothing recorded in this period yet.',
+        notStarted: 'This period has not started yet.',
+        upcoming: 'Upcoming',
+        visit: 'visit', visits: 'visits', scan: 'scan', scans: 'scans',
+        chartTitle: { visits: 'Visits', scans: 'Scans', day: 'per day', week: 'per week', month: 'per month' },
+        whereFrom: 'Where visitors come from',
+        pagesFirst: 'Pages people open first',
+        busiestDays: 'Busiest days of the week',
+        topSources: 'Top sources',
+        howCountedTitle: 'How scans are counted',
+        howCounted1: 'The printed QR codes open <code>hostelleriesanaga.com</code> (without "www"). The website forwards that address to the homepage with a hidden tag (<code>?src=qr</code>), so every scan is recognised.',
+        howCounted2: 'QR codes generated from the Menu page carry the same tag. Homepage visits that don\'t come from Google, social media or another website are also counted as scans.',
+        rolling: 'Rolling totals',
+        rollingItems: ['Last 7 days', 'Last 30 days', 'Last 3 months', 'Last 6 months', 'Last 12 months'],
+        breakdown: 'Breakdown',
+        unit: { day: 'Day', week: 'Week', month: 'Month' },
+        colVisits: 'Visits', colScans: 'Scans', colShare: 'Share', colTotal: 'Total',
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        sources: { google: 'Google', search: 'Other search engines', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', whatsapp: 'WhatsApp', social: 'Other social media', website: 'Other websites', direct: 'Shared links & bookmarks' },
+        pages: { home: 'Home', menu: 'Menu', hotel: 'Hotel rooms', mariage: 'Weddings', gateau: 'Cakes' },
+        locale: 'en-GB'
       }
     };
+    const SOURCE_KEYS = ['google', 'search', 'facebook', 'instagram', 'tiktok', 'whatsapp', 'social', 'website', 'direct'];
+    const PAGE_KEYS = ['home', 'menu', 'hotel', 'mariage', 'gateau'];
 
-    const SOURCES = {
-      google: 'Google',
-      search: 'Other search engines',
-      facebook: 'Facebook',
-      instagram: 'Instagram',
-      tiktok: 'TikTok',
-      whatsapp: 'WhatsApp',
-      social: 'Other social media',
-      website: 'Other websites',
-      direct: 'Shared links & bookmarks'
-    };
-    const PAGES = { home: 'Home', menu: 'Menu', hotel: 'Hotel rooms', mariage: 'Weddings', gateau: 'Cakes' };
+    let lang = 'fr';
+    const L = () => I18N[lang];
+    function t(key, vars) {
+      let text = L()[key];
+      if (vars) for (const k in vars) text = text.replace('{' + k + '}', vars[k]);
+      return text;
+    }
+    const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
 
     const state = { days: {}, today: 0, earliest: 0, mode: 'month', anchor: 0, channel: 'all' };
     let password = '';
 
     const $ = id => document.getElementById(id);
+    const escapeHtml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-    // ---------- Date helpers (UTC midnights that stand for Cameroon calendar days) ----------
+    // ---------- Formatting ----------
     function parseISO(iso) { const [y, m, d] = iso.split('-').map(Number); return Date.UTC(y, m - 1, d); }
     function toISO(t) { return new Date(t).toISOString().slice(0, 10); }
     function parts(t) { const d = new Date(t); return { y: d.getUTCFullYear(), m: d.getUTCMonth(), d: d.getUTCDate(), wd: d.getUTCDay() }; }
     function monthStart(y, m) { return Date.UTC(y, m, 1); }
     function fmtDay(t, withYear) {
       const p = parts(t);
-      return `${p.d} ${MONTHS_SHORT[p.m]}${withYear ? ' ' + p.y : ''}`;
+      return `${p.d} ${L().monthsShort[p.m]}${withYear ? ' ' + p.y : ''}`;
     }
-    function fmtNum(n) { return Math.round(n).toLocaleString('en-US'); }
+    function fmtWeekday(t) { return capitalize(L().weekdaysShort[parts(t).wd]); }
+    function fmtNum(n) { return Math.round(n).toLocaleString(L().locale); }
     function pct(part, whole) { return whole ? Math.round((part / whole) * 100) : 0; }
-    function noun(n, channel = state.channel) { return CHANNELS[channel].noun[n === 1 ? 0 : 1]; }
+    function fmtPct(n) { return lang === 'fr' ? `${n} %` : `${n}%`; }
+    function noun(n, channel = state.channel) {
+      return channel === 'qr' ? t(n === 1 ? 'scan' : 'scans') : t(n === 1 ? 'visit' : 'visits');
+    }
 
     // ---------- Reading the data ----------
     function sumValues(obj) { let s = 0; for (const k in obj) s += obj[k]; return s; }
@@ -646,31 +800,32 @@
     }
 
     // ---------- Periods ----------
+    const SPANS = { month: 1, quarter: 3, half: 6, year: 12 };
+
     function periodFor(mode, anchor) {
       const p = parts(anchor);
       if (mode === 'week') {
         const start = anchor - ((p.wd + 6) % 7) * DAY; // Monday
         return { start, end: start + 6 * DAY };
       }
-      const span = { month: 1, quarter: 3, half: 6, year: 12 }[mode];
+      const span = SPANS[mode];
       const firstMonth = Math.floor(p.m / span) * span;
       return { start: monthStart(p.y, firstMonth), end: monthStart(p.y, firstMonth + span) - DAY };
     }
 
     function shiftAnchor(mode, anchor, dir) {
       if (mode === 'week') return anchor + dir * 7 * DAY;
-      const span = { month: 1, quarter: 3, half: 6, year: 12 }[mode];
       const p = parts(periodFor(mode, anchor).start);
-      return monthStart(p.y, p.m + dir * span);
+      return monthStart(p.y, p.m + dir * SPANS[mode]);
     }
 
     function periodLabel(mode, { start, end }) {
       const s = parts(start), e = parts(end);
       switch (mode) {
         case 'week': return `${fmtDay(start, s.y !== e.y)} – ${fmtDay(end, true)}`;
-        case 'month': return `${MONTHS[s.m]} ${s.y}`;
+        case 'month': return `${capitalize(L().months[s.m])} ${s.y}`;
         case 'year': return String(s.y);
-        default: return `${MONTHS_SHORT[s.m]} – ${MONTHS_SHORT[e.m]} ${s.y}`;
+        default: return `${capitalize(L().monthsShort[s.m])} – ${L().monthsShort[e.m]} ${s.y}`;
       }
     }
 
@@ -679,13 +834,12 @@
       const buckets = [];
       if (mode === 'week' || mode === 'month') {
         for (let t = start; t <= end; t += DAY) {
-          const p = parts(t);
-          buckets.push({ start: t, end: t, axis: mode === 'week' ? WEEKDAYS_SHORT[p.wd] : String(p.d), name: `${WEEKDAYS_SHORT[p.wd]} ${fmtDay(t, true)}` });
+          buckets.push({ start: t, end: t, axis: mode === 'week' ? fmtWeekday(t) : String(parts(t).d), name: `${fmtWeekday(t)} ${fmtDay(t, true)}` });
         }
       } else if (mode === 'year') {
         const y = parts(start).y;
         for (let m = 0; m < 12; m++) {
-          buckets.push({ start: monthStart(y, m), end: monthStart(y, m + 1) - DAY, axis: MONTHS_SHORT[m], name: `${MONTHS[m]} ${y}` });
+          buckets.push({ start: monthStart(y, m), end: monthStart(y, m + 1) - DAY, axis: capitalize(L().monthsShort[m]), name: `${capitalize(L().months[m])} ${y}` });
         }
       } else {
         // 3 / 6 months: one bar per week (Monday–Sunday, clipped to the period)
@@ -707,13 +861,23 @@
     }
 
     // ---------- Rendering ----------
+    function applyStaticText() {
+      document.documentElement.lang = lang;
+      document.title = t('pageTitle');
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+      document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      $('toggle-pw').textContent = t($('password').type === 'password' ? 'show' : 'hide');
+      $('prev').setAttribute('aria-label', t('prevPeriod'));
+      $('next').setAttribute('aria-label', t('nextPeriod'));
+    }
+
     function changeBadge(current, previous) {
-      if (previous === 0 && current === 0) return '<span class="badge flat">0%</span>';
-      if (previous === 0) return '<span class="badge up">▲ New</span>';
+      if (previous === 0 && current === 0) return `<span class="badge flat">${fmtPct(0)}</span>`;
+      if (previous === 0) return `<span class="badge up">▲ ${t('badgeNew')}</span>`;
       const change = ((current - previous) / previous) * 100;
-      if (Math.abs(change) < 0.5) return '<span class="badge flat">0%</span>';
-      const digits = Math.abs(change) < 10 ? 1 : 0;
-      return `<span class="badge ${change > 0 ? 'up' : 'down'}">${change > 0 ? '▲' : '▼'} ${Math.abs(change).toFixed(digits)}%</span>`;
+      if (Math.abs(change) < 0.5) return `<span class="badge flat">${fmtPct(0)}</span>`;
+      const value = Math.abs(change).toLocaleString(L().locale, { maximumFractionDigits: Math.abs(change) < 10 ? 1 : 0 });
+      return `<span class="badge ${change > 0 ? 'up' : 'down'}">${change > 0 ? '▲' : '▼'} ${fmtPct(value)}</span>`;
     }
 
     // Top of the y-axis: 4 gridlines with round, whole-number steps, always above the tallest bar
@@ -728,11 +892,11 @@
     }
 
     function renderSectionChrome() {
-      const ch = CHANNELS[state.channel];
-      $('page-title').textContent = ch.title;
-      $('page-subtitle').textContent = ch.subtitle;
-      $('footnote').textContent = ch.footnote;
-      $('kpi-total-label').textContent = state.channel === 'qr' ? 'Total scans' : 'Total visits';
+      const key = { all: 'All', qr: 'Qr', links: 'Links' }[state.channel];
+      $('page-title').textContent = t('ch' + key);
+      $('page-subtitle').textContent = t('sub' + key);
+      $('footnote').textContent = t('foot' + key);
+      $('kpi-total-label').textContent = t(state.channel === 'qr' ? 'kpiTotalScans' : 'kpiTotalVisits');
       document.querySelectorAll('[data-channel]').forEach(el => el.classList.toggle('active', el.dataset.channel === state.channel));
     }
 
@@ -746,17 +910,17 @@
         const key = card.dataset.channel;
         card.querySelector('[data-value]').textContent = fmtNum(totals[key]);
         card.querySelector('[data-meta]').textContent = key === 'all'
-          ? `in ${periodLabel(state.mode, period)}`
-          : `${pct(totals[key], totals.all)}% of all visitors`;
+          ? t('periodMeta', { period: periodLabel(state.mode, period) })
+          : t('shareOfAll', { pct: fmtPct(pct(totals[key], totals.all)) });
         const share = card.querySelector('[data-share]');
         if (share) share.style.width = pct(totals[key], totals.all) + '%';
       });
     }
 
     function renderRolling() {
-      const items = [['Last 7 days', 7], ['Last 30 days', 30], ['Last 3 months', 90], ['Last 6 months', 182], ['Last 12 months', 365]];
-      $('rolling').innerHTML = items.map(([label, days]) =>
-        `<div><span>${label}</span><strong>${fmtNum(sumRange(state.today - (days - 1) * DAY, state.today))}</strong></div>`
+      const lengths = [7, 30, 90, 182, 365];
+      $('rolling').innerHTML = lengths.map((days, i) =>
+        `<div><span>${L().rollingItems[i]}</span><strong>${fmtNum(sumRange(state.today - (days - 1) * DAY, state.today))}</strong></div>`
       ).join('');
     }
 
@@ -765,11 +929,12 @@
       const max = niceMax(Math.max(0, ...buckets.map(b => b.count)));
       const ticks = [0, 0.25, 0.5, 0.75, 1].map(f => f * max);
       const h = n => (n / max) * 100;
+      const ct = L().chartTitle;
 
-      $('chart-title').textContent = (channel === 'qr' ? 'Scans' : 'Visits') + ' per ' + { week: 'day', month: 'day', quarter: 'week', half: 'week', year: 'month' }[mode];
+      $('chart-title').textContent = `${channel === 'qr' ? ct.scans : ct.visits} ${ct[{ week: 'day', month: 'day', quarter: 'week', half: 'week', year: 'month' }[mode]]}`;
       $('legend').innerHTML = channel === 'all'
-        ? '<span><i class="swatch qr"></i>QR scans</span><span><i class="swatch links"></i>Search &amp; links</span>'
-        : `<span><i class="swatch ${channel}"></i>${CHANNELS[channel].title}</span>`;
+        ? `<span><i class="swatch qr"></i>${escapeHtml(t('chQr'))}</span><span><i class="swatch links"></i>${escapeHtml(t('chLinks'))}</span>`
+        : `<span><i class="swatch ${channel}"></i>${escapeHtml(t(channel === 'qr' ? 'chQr' : 'chLinks'))}</span>`;
 
       $('y-axis').innerHTML = ticks.map(v => `<span style="bottom:${h(v)}%">${fmtNum(v)}</span>`).join('');
 
@@ -778,18 +943,18 @@
         const segs = [];
         if (channel !== 'links' && b.qr) segs.push(`<div class="seg qr" style="height:${h(b.qr)}%"></div>`);
         if (channel !== 'qr' && b.links) segs.push(`<div class="seg links" style="height:${h(b.links)}%"></div>`);
-        return `<div class="col" data-i="${i}" tabindex="0" aria-label="${b.name}: ${b.future ? 'upcoming' : b.count + ' ' + noun(b.count)}">
+        return `<div class="col" data-i="${i}" tabindex="0" aria-label="${b.name}: ${b.future ? t('upcoming') : fmtNum(b.count) + ' ' + noun(b.count)}">
           <div class="stack" style="height:100%">${segs.join('')}</div>
         </div>`;
       }).join('');
       const empty = buckets.every(b => b.count === 0);
       $('plot').innerHTML = grid + `<div class="bars">${cols}</div>` +
-        (empty ? '<div class="empty-note">Nothing recorded in this period yet</div>' : '') +
+        (empty ? `<div class="empty-note">${t('nothing')}</div>` : '') +
         '<div class="tooltip" id="tooltip" hidden></div>';
 
       // Label only every n-th bar so the labels never collide
       const plotWidth = $('plot').clientWidth || 600;
-      const labelWidth = mode === 'quarter' || mode === 'half' ? 48 : 26;
+      const labelWidth = mode === 'quarter' || mode === 'half' ? 52 : mode === 'week' ? 36 : 26;
       const every = Math.max(1, Math.ceil(buckets.length / Math.floor(plotWidth / labelWidth)));
       $('x-axis').innerHTML = buckets.map((b, i) => `<span>${i % every === 0 ? b.axis : ''}</span>`).join('');
 
@@ -798,12 +963,12 @@
         const show = () => {
           const b = buckets[col.dataset.i];
           let html = `<div class="tt-title">${b.name}</div>`;
-          if (b.future) html += '<strong>Upcoming</strong>';
+          if (b.future) html += `<strong>${t('upcoming')}</strong>`;
           else {
             html += `<strong>${fmtNum(b.count)} ${noun(b.count)}</strong>`;
             if (channel === 'all') {
-              html += `<div class="tt-row"><i class="swatch qr"></i>QR scans<b>${fmtNum(b.qr)}</b></div>` +
-                      `<div class="tt-row"><i class="swatch links"></i>Search &amp; links<b>${fmtNum(b.links)}</b></div>`;
+              html += `<div class="tt-row"><i class="swatch qr"></i>${escapeHtml(t('chQr'))}<b>${fmtNum(b.qr)}</b></div>` +
+                      `<div class="tt-row"><i class="swatch links"></i>${escapeHtml(t('chLinks'))}<b>${fmtNum(b.links)}</b></div>`;
             }
           }
           tooltip.innerHTML = html;
@@ -832,13 +997,13 @@
       const body = total
         ? rows.map(r => `
             <div class="list-row${options.highlightTop && r.value === best ? ' top' : ''}">
-              <div class="name">${r.swatch ? `<i class="swatch ${r.swatch}"></i>` : ''}<span>${r.label}</span></div>
+              <div class="name">${r.swatch ? `<i class="swatch ${r.swatch}"></i>` : ''}<span>${escapeHtml(r.label)}</span></div>
               <div class="track"><div class="fill" style="width:${(r.value / max) * 100}%; background:${r.color || `var(--${state.channel === 'all' ? 'qr' : state.channel})`}"></div></div>
-              <div class="num">${fmtNum(r.value)}<small>${pct(r.value, total)}%</small></div>
+              <div class="num">${fmtNum(r.value)}<small>${fmtPct(pct(r.value, total))}</small></div>
             </div>`).join('')
-        : '<p class="list-empty">Nothing recorded in this period yet.</p>';
+        : `<p class="list-empty">${t('nothingYet')}</p>`;
       return `<div class="panel list-panel${options.wide ? ' wide' : ''}">
-        <div class="panel-head"><h3>${title}</h3><span class="hint">${hint}</span></div>
+        <div class="panel-head"><h3>${escapeHtml(title)}</h3><span class="hint">${hint}</span></div>
         ${body}
       </div>`;
     }
@@ -850,57 +1015,57 @@
 
       const pageRows = () => {
         const pages = range ? tally(range[0], range[1], 'pages') : {};
-        return Object.keys(PAGES).map(k => ({ label: PAGES[k], value: pages[k] || 0 })).sort((a, b) => b.value - a.value);
+        return PAGE_KEYS.map(k => ({ label: L().pages[k], value: pages[k] || 0 })).sort((a, b) => b.value - a.value);
       };
       const weekdayRows = () => {
         const counts = [0, 0, 0, 0, 0, 0, 0];
-        if (range) for (let t = range[0]; t <= range[1]; t += DAY) counts[parts(t).wd] += countOn(t);
-        return [1, 2, 3, 4, 5, 6, 0].map(wd => ({ label: WEEKDAYS[wd], value: counts[wd] }));
+        if (range) for (let d = range[0]; d <= range[1]; d += DAY) counts[parts(d).wd] += countOn(d);
+        return [1, 2, 3, 4, 5, 6, 0].map(wd => ({ label: capitalize(L().weekdays[wd]), value: counts[wd] }));
       };
 
       if (state.channel === 'all') {
         const qr = range ? sumRange(range[0], range[1], 'qr') : 0;
         const links = range ? sumRange(range[0], range[1], 'links') : 0;
-        panels.push(listPanel('Where visitors come from', label, [
-          { label: 'QR scans', value: qr, swatch: 'qr', color: 'var(--qr)' },
-          { label: 'Search & links', value: links, swatch: 'links', color: 'var(--links)' }
+        panels.push(listPanel(t('whereFrom'), label, [
+          { label: t('chQr'), value: qr, swatch: 'qr', color: 'var(--qr)' },
+          { label: t('chLinks'), value: links, swatch: 'links', color: 'var(--links)' }
         ]));
-        panels.push(listPanel('Pages people open first', label, pageRows(), { highlightTop: true }));
-        panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { wide: true, highlightTop: true }));
+        panels.push(listPanel(t('pagesFirst'), label, pageRows(), { highlightTop: true }));
+        panels.push(listPanel(t('busiestDays'), label, weekdayRows(), { wide: true, highlightTop: true }));
       } else if (state.channel === 'links') {
         const sources = range ? tally(range[0], range[1], 'sources') : {};
-        const rows = Object.keys(SOURCES).map(k => ({ label: SOURCES[k], value: sources[k] || 0 }))
+        const rows = SOURCE_KEYS.map(k => ({ label: L().sources[k], value: sources[k] || 0 }))
           .filter(r => r.value > 0).sort((a, b) => b.value - a.value);
-        panels.push(listPanel('Top sources', label, rows.length ? rows : [{ label: 'Google', value: 0 }], { highlightTop: true }));
-        panels.push(listPanel('Pages they open first', label, pageRows(), { highlightTop: true }));
-        panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { wide: true, highlightTop: true }));
+        panels.push(listPanel(t('topSources'), label, rows.length ? rows : [{ label: 'Google', value: 0 }], { highlightTop: true }));
+        panels.push(listPanel(t('pagesFirst'), label, pageRows(), { highlightTop: true }));
+        panels.push(listPanel(t('busiestDays'), label, weekdayRows(), { wide: true, highlightTop: true }));
       } else {
-        panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { highlightTop: true }));
+        panels.push(listPanel(t('busiestDays'), label, weekdayRows(), { highlightTop: true }));
         panels.push(`<div class="panel info-panel">
-          <h3>How scans are counted</h3>
-          <p>The printed QR codes open <code>hostelleriesanaga.com</code> (without "www"). The website forwards that address to the homepage with a hidden tag (<code>?src=qr</code>), so every scan is recognised.</p>
-          <p>QR codes generated from the Menu page carry the same tag. Homepage visits that don't come from Google, social media or another website are also counted as scans.</p>
+          <h3>${t('howCountedTitle')}</h3>
+          <p>${t('howCounted1')}</p>
+          <p>${t('howCounted2')}</p>
         </div>`);
       }
       $('insights').innerHTML = panels.join('');
     }
 
     function renderBreakdown(mode, buckets, total) {
-      const unit = { week: 'Day', month: 'Day', quarter: 'Week', half: 'Week', year: 'Month' }[mode];
+      const unit = L().unit[{ week: 'day', month: 'day', quarter: 'week', half: 'week', year: 'month' }[mode]];
       const rows = buckets.filter(b => !b.future).reverse();
       if (state.channel === 'all') {
         $('breakdown-head').innerHTML = `<tr><th>${unit}</th>
-          <th class="num"><span class="th-inner"><i class="swatch qr"></i>QR scans</span></th>
-          <th class="num"><span class="th-inner"><i class="swatch links"></i>Search &amp; links</span></th>
-          <th class="num">Total</th></tr>`;
+          <th class="num"><span class="th-inner"><i class="swatch qr"></i>${escapeHtml(t('chQr'))}</span></th>
+          <th class="num"><span class="th-inner"><i class="swatch links"></i>${escapeHtml(t('chLinks'))}</span></th>
+          <th class="num">${t('colTotal')}</th></tr>`;
         $('breakdown').innerHTML = rows.length ? rows.map(b => `<tr>
           <td>${b.name}</td><td class="num">${fmtNum(b.qr)}</td><td class="num">${fmtNum(b.links)}</td><td class="num total">${fmtNum(b.count)}</td>
-        </tr>`).join('') : '<tr><td colspan="4" class="muted">This period has not started yet.</td></tr>';
+        </tr>`).join('') : `<tr><td colspan="4" class="muted">${t('notStarted')}</td></tr>`;
       } else {
-        $('breakdown-head').innerHTML = `<tr><th>${unit}</th><th class="num">${state.channel === 'qr' ? 'Scans' : 'Visits'}</th><th class="num">Share</th></tr>`;
+        $('breakdown-head').innerHTML = `<tr><th>${unit}</th><th class="num">${t(state.channel === 'qr' ? 'colScans' : 'colVisits')}</th><th class="num">${t('colShare')}</th></tr>`;
         $('breakdown').innerHTML = rows.length ? rows.map(b => `<tr>
-          <td>${b.name}</td><td class="num">${fmtNum(b.count)}</td><td class="num">${pct(b.count, total)}%</td>
-        </tr>`).join('') : '<tr><td colspan="3" class="muted">This period has not started yet.</td></tr>';
+          <td>${b.name}</td><td class="num">${fmtNum(b.count)}</td><td class="num">${fmtPct(pct(b.count, total))}</td>
+        </tr>`).join('') : `<tr><td colspan="3" class="muted">${t('notStarted')}</td></tr>`;
       }
     }
 
@@ -926,30 +1091,45 @@
       const prevEnd = Math.min(prev.end, prev.start + (elapsedDays - 1) * DAY);
       const prevTotal = elapsedDays ? sumRange(prev.start, prevEnd) : 0;
       $('kpi-total').textContent = fmtNum(total);
-      $('kpi-change').innerHTML = `${changeBadge(total, prevTotal)} vs ${isCurrent ? 'same point last ' + MODE_NAMES[mode] : 'previous ' + MODE_NAMES[mode]} (${fmtNum(prevTotal)})`;
+      $('kpi-change').innerHTML = `${changeBadge(total, prevTotal)} ${(isCurrent ? L().vsSame : L().vsPrev)[mode]} (${fmtNum(prevTotal)})`;
 
       const avg = elapsedDays ? total / elapsedDays : 0;
-      $('kpi-avg').textContent = avg < 10 ? avg.toFixed(1) : fmtNum(avg);
-      $('kpi-avg-sub').textContent = `${noun(2)} per day over ${elapsedDays} day${elapsedDays === 1 ? '' : 's'}`;
+      $('kpi-avg').textContent = avg < 10 ? avg.toLocaleString(L().locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : fmtNum(avg);
+      $('kpi-avg-sub').textContent = t('perDayOver', { noun: noun(2), n: elapsedDays, days: t(elapsedDays === 1 ? 'day' : 'days') });
 
       let best = null;
-      for (let t = period.start; t <= elapsedEnd; t += DAY) {
-        const c = countOn(t);
-        if (c > 0 && (!best || c > best.count)) best = { t, count: c };
+      for (let d = period.start; d <= elapsedEnd; d += DAY) {
+        const c = countOn(d);
+        if (c > 0 && (!best || c > best.count)) best = { d, count: c };
       }
       $('kpi-best').textContent = best ? fmtNum(best.count) : '–';
-      $('kpi-best-sub').textContent = best ? `${WEEKDAYS_SHORT[parts(best.t).wd]} ${fmtDay(best.t, true)}` : 'Nothing recorded in this period';
+      $('kpi-best-sub').textContent = best ? `${fmtWeekday(best.d)} ${fmtDay(best.d, true)}` : t('nothing');
 
       const todayCount = countOn(state.today);
       const yesterdayCount = countOn(state.today - DAY);
       $('kpi-today').textContent = fmtNum(todayCount);
-      $('kpi-today-sub').innerHTML = `${changeBadge(todayCount, yesterdayCount)} vs yesterday (${fmtNum(yesterdayCount)})`;
+      $('kpi-today-sub').innerHTML = `${changeBadge(todayCount, yesterdayCount)} ${t('vsYesterday')} (${fmtNum(yesterdayCount)})`;
 
       const buckets = bucketsFor(mode, period);
       renderChart(mode, buckets);
       renderInsights(period, elapsedEnd, elapsedDays);
       renderRolling();
       renderBreakdown(mode, buckets, total);
+      renderUpdated();
+    }
+
+    let lastUpdated = null;
+    function renderUpdated() {
+      $('updated').textContent = lastUpdated
+        ? t('updated', { time: lastUpdated.toLocaleTimeString(L().locale, { hour: '2-digit', minute: '2-digit' }) })
+        : '';
+    }
+
+    function setLanguage(next) {
+      lang = I18N[next] ? next : 'fr';
+      try { localStorage.setItem('siteLanguage', lang); } catch (err) {}
+      applyStaticText();
+      if (!$('app').hidden) render();
     }
 
     // ---------- Data & sign-in ----------
@@ -964,7 +1144,7 @@
       const response = await fetch('/api/stats', { headers: { 'x-admin-password': password } });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        const err = new Error(data.error || 'Could not load statistics');
+        const err = new Error(data.error || '');
         err.status = response.status;
         throw err;
       }
@@ -973,7 +1153,12 @@
       const today = parseISO(data.today);
       if (!state.today) state.anchor = today;
       state.today = today;
-      $('updated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      lastUpdated = new Date();
+    }
+
+    // Our own message, plus the server's detail when there is one (e.g. a missing setting)
+    function errorText(err) {
+      return err.message ? `${t('loadError')} (${err.message})` : t('loadError');
     }
 
     function showLogin(message) {
@@ -987,7 +1172,7 @@
     async function signIn() {
       const btn = $('login-btn');
       btn.disabled = true;
-      btn.textContent = 'Signing in…';
+      btn.textContent = t('signingIn');
       try {
         await loadStats();
         savePassword(password);
@@ -996,10 +1181,10 @@
         render();
       } catch (err) {
         savePassword('');
-        showLogin(err.status === 401 ? 'Incorrect password. Please try again.' : err.message);
+        showLogin(err.status === 401 ? t('wrongPassword') : errorText(err));
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Sign in';
+        btn.textContent = t('signIn');
       }
     }
 
@@ -1011,8 +1196,8 @@
         await loadStats();
         render();
       } catch (err) {
-        if (err.status === 401) { savePassword(''); showLogin('Your session has ended. Please sign in again.'); return; }
-        $('error-banner').textContent = err.message;
+        if (err.status === 401) { savePassword(''); showLogin(t('sessionEnded')); return; }
+        $('error-banner').textContent = errorText(err);
         $('error-banner').hidden = false;
       } finally {
         btn.classList.remove('loading');
@@ -1034,7 +1219,7 @@
     $('toggle-pw').addEventListener('click', () => {
       const input = $('password');
       input.type = input.type === 'password' ? 'text' : 'password';
-      $('toggle-pw').textContent = input.type === 'password' ? 'Show' : 'Hide';
+      $('toggle-pw').textContent = t(input.type === 'password' ? 'show' : 'hide');
     });
     $('logout').addEventListener('click', () => {
       password = '';
@@ -1042,6 +1227,7 @@
       showLogin();
     });
     $('refresh').addEventListener('click', refresh);
+    document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.lang)));
     document.querySelectorAll('[data-channel]').forEach(el => el.addEventListener('click', e => {
       e.preventDefault();
       setChannel(el.dataset.channel);
@@ -1062,10 +1248,14 @@
       resizeTimer = setTimeout(() => { if (!$('app').hidden) render(); }, 150);
     });
 
+    // French by default; follows the language chosen on the main website
+    try { lang = localStorage.getItem('siteLanguage') === 'en' ? 'en' : 'fr'; } catch (err) {}
+    applyStaticText();
+
     // Remember the last section viewed, and stay signed in for this browser tab
     try {
       const saved = localStorage.getItem('adminChannel');
-      if (CHANNELS[saved]) state.channel = saved;
+      if (['all', 'qr', 'links'].includes(saved)) state.channel = saved;
     } catch (err) {}
     try { password = sessionStorage.getItem('adminPassword') || ''; } catch (err) {}
     if (password) {
