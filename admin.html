@@ -566,7 +566,7 @@
         title: 'QR scans',
         subtitle: 'People who opened the website by scanning a printed QR code',
         noun: ['scan', 'scans'],
-        footnote: 'Your printed QR codes open the homepage, so people who open the homepage without coming from another website are counted here. This also includes the few people who type the address by hand. Each visitor is counted once per browser session. Times follow Cameroon time (WAT).'
+        footnote: 'Scans are recognised by the address inside the QR code (hostelleriesanaga.com without "www"). Homepage visits with no known source are also counted here, which can include a few people who type the address by hand. Each visitor is counted once per browser session. Times follow Cameroon time (WAT).'
       },
       links: {
         title: 'Search & links',
@@ -878,8 +878,8 @@
         panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { highlightTop: true }));
         panels.push(`<div class="panel info-panel">
           <h3>How scans are counted</h3>
-          <p>Every printed QR code opens the homepage. When someone opens the homepage without coming from Google, social media or another website, the visit is counted as a scan.</p>
-          <p>QR codes generated from now on carry a hidden tag (<code>?src=qr</code>), so scans of newly printed codes are always counted exactly.</p>
+          <p>The printed QR codes open <code>hostelleriesanaga.com</code> (without "www"). The website forwards that address to the homepage with a hidden tag (<code>?src=qr</code>), so every scan is recognised.</p>
+          <p>QR codes generated from the Menu page carry the same tag. Homepage visits that don't come from Google, social media or another website are also counted as scans.</p>
         </div>`);
       }
       $('insights').innerHTML = panels.join('');

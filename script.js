@@ -1,5 +1,14 @@
 // Compte une visite par session : la source (QR, Google, Facebook…) et la première page ouverte.
 (function trackVisit() {
+  const params = new URLSearchParams(location.search);
+  const qr = params.get('src') === 'qr';
+  // Retire ?src=qr de la barre d'adresse pour qu'un lien partagé ne compte pas comme un scan
+  if (qr) {
+    params.delete('src');
+    const query = params.toString();
+    try { history.replaceState(null, '', location.pathname + (query ? '?' + query : '') + location.hash); } catch (err) {}
+  }
+
   try {
     if (sessionStorage.getItem('visitCounted')) return;
     sessionStorage.setItem('visitCounted', '1');
@@ -10,7 +19,6 @@
   const page = file === '' || file === 'index' ? 'home' : file;
   let ref = '';
   try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (err) {}
-  const qr = new URLSearchParams(location.search).get('src') === 'qr';
 
   fetch('/api/track', {
     method: 'POST',

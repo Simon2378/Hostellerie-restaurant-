@@ -1,4 +1,18 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "hostelleriesanaga.com" }],
+      "destination": "https://www.hostelleriesanaga.com/?src=qr",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "hostelleriesanaga.com" }],
+      "destination": "https://www.hostelleriesanaga.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" }
   ]
