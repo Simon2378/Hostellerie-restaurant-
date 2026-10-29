@@ -1,3 +1,25 @@
+// Compte une visite par session : la source (QR, Google, Facebook…) et la première page ouverte.
+(function trackVisit() {
+  try {
+    if (sessionStorage.getItem('visitCounted')) return;
+    sessionStorage.setItem('visitCounted', '1');
+  } catch (err) {}
+  if (navigator.webdriver) return;
+
+  const file = location.pathname.split('/').pop().toLowerCase().replace('.html', '');
+  const page = file === '' || file === 'index' ? 'home' : file;
+  let ref = '';
+  try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (err) {}
+  const qr = new URLSearchParams(location.search).get('src') === 'qr';
+
+  fetch('/api/track', {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ page, ref, qr })
+  }).catch(() => {});
+})();
+
 // Panier de commande de l'utilisateur.
 let cart = [];
 // Langue actuelle de l'interface.
@@ -605,12 +627,12 @@ function generateQRCode() {
   // Clear previous QR code
   qrContainer.innerHTML = '';
   
-  // Always generate a QR code for the hosted website URL
-  const url = 'https://www.hostelleriesanaga.com';
+  // Always generate a QR code for the hosted website URL (?src=qr lets the admin dashboard count scans exactly)
+  const url = 'https://www.hostelleriesanaga.com/?src=qr';
   const qrTarget = document.getElementById('qr-target');
   if (qrTarget) {
-    qrTarget.textContent = url;
-    qrTarget.setAttribute('href', url);
+    qrTarget.textContent = 'https://www.hostelleriesanaga.com';
+    qrTarget.setAttribute('href', 'https://www.hostelleriesanaga.com');
   }
   
   // Generate QR code

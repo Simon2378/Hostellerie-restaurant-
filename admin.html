@@ -9,7 +9,6 @@
   <style>
     :root {
       --navy: #1a1f36;
-      --navy-2: #2d3561;
       --gold: #d4af37;
       --gold-soft: rgba(212, 175, 55, 0.14);
       --bg: #f4f5f8;
@@ -17,11 +16,12 @@
       --surface-2: #f8f9fb;
       --text: #1a1f36;
       --text-2: #4b5168;
-      --muted: #7a8099;
+      --muted: #6f7590;
       --border: #e6e8ef;
       --grid: #eef0f4;
-      --bar: #2d3561;
-      --bar-hover: #d4af37;
+      --qr: #3f51b5;
+      --links: #b8860b;
+      --hover-ring: rgba(26, 31, 54, 0.12);
       --good: #15803d;
       --good-bg: #e8f6ee;
       --bad: #b91c1c;
@@ -39,7 +39,9 @@
         --muted: #8c92ab;
         --border: #2a2f49;
         --grid: #242943;
-        --bar: #8b95d6;
+        --qr: #6373e0;
+        --links: #b8860b;
+        --hover-ring: rgba(255, 255, 255, 0.08);
         --good: #4ade80;
         --good-bg: rgba(74, 222, 128, 0.12);
         --bad: #f87171;
@@ -88,7 +90,7 @@
     .field input {
       width: 100%;
       font: inherit;
-      padding: 12px 44px 12px 14px;
+      padding: 12px 52px 12px 14px;
       border: 1px solid var(--border);
       border-radius: 10px;
       background: var(--surface-2);
@@ -133,6 +135,7 @@
     .brand strong { display: block; font-size: 0.95rem; line-height: 1.2; }
     .brand span { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.04em; text-transform: uppercase; }
     .nav { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+    .nav-title { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); padding: 10px 12px 4px; }
     .nav a {
       display: flex; align-items: center; gap: 10px;
       padding: 10px 12px; border-radius: 10px;
@@ -165,7 +168,7 @@
     .logout:hover { border-color: var(--gold); color: var(--gold); }
 
     .main { padding: 28px 32px 48px; min-width: 0; }
-    .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
     .topbar h2 { font-size: 1.5rem; }
     .topbar p { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
     .topbar-actions { display: flex; align-items: center; gap: 12px; }
@@ -187,9 +190,31 @@
       box-shadow: var(--shadow);
     }
     .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+    .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .swatch.qr { background: var(--qr); }
+    .swatch.links { background: var(--links); }
+    .swatch.all { background: linear-gradient(135deg, var(--qr) 50%, var(--links) 50%); }
+
+    /* Channel switcher: the three sections */
+    .channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+    .channel {
+      text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+      position: relative; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .channel:hover { border-color: var(--muted); }
+    .channel.active { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft), var(--shadow); }
+    .channel .head { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 700; color: var(--text-2); }
+    .channel .icon { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); }
+    .channel .icon svg { width: 17px; height: 17px; }
+    .channel.active .icon { background: var(--gold-soft); color: var(--gold); }
+    .channel .value { font-size: 1.9rem; font-weight: 700; margin-top: 10px; font-variant-numeric: tabular-nums; }
+    .channel .meta { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .channel .share-line { height: 4px; border-radius: 2px; background: var(--grid); margin-top: 12px; overflow: hidden; }
+    .channel .share-line div { height: 100%; border-radius: 2px; }
 
     /* Rolling totals strip */
-    .rolling { display: grid; grid-template-columns: repeat(5, 1fr); margin-bottom: 28px; }
+    .rolling { display: grid; grid-template-columns: repeat(5, 1fr); margin-bottom: 24px; }
     .rolling div { padding: 16px 18px; border-left: 1px solid var(--border); }
     .rolling div:first-child { border-left: none; }
     .rolling span { display: block; font-size: 0.8rem; color: var(--muted); }
@@ -208,7 +233,7 @@
     .stepper .arrow {
       width: 34px; height: 34px; display: grid; place-items: center; padding: 0;
       border: 1px solid var(--border); background: var(--surface); color: var(--text);
-      border-radius: 9px; font-size: 1rem;
+      border-radius: 9px;
     }
     .stepper .arrow svg { width: 16px; height: 16px; }
     .stepper .arrow:hover:not(:disabled) { border-color: var(--gold); }
@@ -229,19 +254,24 @@
 
     /* Chart */
     .chart-panel { padding: 20px 20px 14px; margin-bottom: 16px; }
-    .chart-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
-    .chart-head h3 { font-size: 1rem; }
-    .chart-head span { font-size: 0.82rem; color: var(--muted); }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .panel-head h3 { font-size: 1rem; }
+    .panel-head .hint { font-size: 0.82rem; color: var(--muted); }
+    .legend { display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-2); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
     .chart { position: relative; display: grid; grid-template-columns: 40px 1fr; grid-template-rows: 1fr 26px; height: 290px; }
     .y-axis { position: relative; }
     .y-axis span { position: absolute; right: 8px; transform: translateY(50%); font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
     .plot { position: relative; border-bottom: 1px solid var(--border); }
     .gridline { position: absolute; left: 0; right: 0; border-top: 1px solid var(--grid); }
     .bars { position: absolute; inset: 0; display: flex; align-items: stretch; gap: 2px; }
-    .col { flex: 1; display: flex; align-items: flex-end; justify-content: center; cursor: default; min-width: 0; }
-    .bar { width: 100%; max-width: 44px; background: var(--bar); border-radius: 4px 4px 0 0; transition: background 0.12s; }
-    .col:hover .bar, .col:focus .bar { background: var(--bar-hover); }
-    .col.future .bar { background: transparent; }
+    .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; min-width: 0; border-radius: 6px 6px 0 0; outline: none; }
+    .col:hover, .col:focus-visible { background: var(--hover-ring); }
+    .stack { width: 100%; max-width: 44px; display: flex; flex-direction: column-reverse; gap: 2px; }
+    .seg { width: 100%; }
+    .seg.qr { background: var(--qr); }
+    .seg.links { background: var(--links); }
+    .stack .seg:last-child { border-radius: 4px 4px 0 0; }
     .x-axis { grid-column: 2; display: flex; gap: 2px; padding-top: 8px; }
     .x-axis span { flex: 1; text-align: center; font-size: 0.72rem; color: var(--muted); white-space: nowrap; overflow: visible; min-width: 0; }
     .tooltip {
@@ -250,23 +280,44 @@
       padding: 8px 10px; font-size: 0.8rem; white-space: nowrap;
       box-shadow: 0 6px 20px rgba(0,0,0,0.2);
       transform: translate(-50%, calc(-100% - 10px));
+      border: 1px solid rgba(255,255,255,0.1);
     }
+    .tooltip .tt-title { color: rgba(255,255,255,0.7); }
     .tooltip strong { display: block; font-size: 1rem; }
+    .tooltip .tt-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+    .tooltip .tt-row b { margin-left: auto; padding-left: 12px; font-variant-numeric: tabular-nums; }
     .empty-note { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 0.9rem; pointer-events: none; }
+
+    /* Analysis panels */
+    .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .insights .wide { grid-column: 1 / -1; }
+    .list-panel { padding: 20px; }
+    .list-row { display: grid; grid-template-columns: minmax(170px, 1.3fr) 2fr auto; align-items: center; gap: 12px; padding: 7px 0; font-size: 0.9rem; }
+    .list-row .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .list-row .name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .list-row .track { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+    .list-row .fill { height: 100%; border-radius: 4px; }
+    .list-row .num { font-variant-numeric: tabular-nums; text-align: right; min-width: 78px; }
+    .list-row .num small { color: var(--muted); margin-left: 6px; }
+    .list-row.top .name { font-weight: 700; }
+    .list-empty { color: var(--muted); font-size: 0.9rem; padding: 6px 0; }
+    .info-panel { padding: 20px; font-size: 0.9rem; color: var(--text-2); line-height: 1.55; }
+    .info-panel h3 { font-size: 1rem; color: var(--text); margin-bottom: 8px; }
+    .info-panel p + p { margin-top: 8px; }
+    .info-panel code { background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; padding: 1px 5px; font-size: 0.85em; }
 
     /* Breakdown table */
     .table-panel { padding: 8px 20px 12px; }
-    .table-scroll { max-height: 440px; overflow-y: auto; }
-    thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
     .table-panel h3 { font-size: 1rem; padding: 12px 0 6px; }
+    .table-scroll { max-height: 440px; overflow-y: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     th, td { padding: 10px 4px; border-bottom: 1px solid var(--border); text-align: left; }
+    thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
     tr:last-child td { border-bottom: none; }
     th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
     td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-    .share { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
-    .share-track { width: 80px; height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; }
-    .share-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+    th .th-inner { display: inline-flex; align-items: center; gap: 6px; }
+    td.total { font-weight: 700; }
     td.muted { color: var(--muted); }
 
     .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 18px; line-height: 1.5; }
@@ -283,14 +334,20 @@
       .brand span { display: none; }
       .nav { display: none; }
       .account { margin: 0; padding: 0; border: none; flex-wrap: nowrap; }
-      .logout { flex-basis: auto; padding: 6px 10px; }
       .account-info { display: none; }
+      .logout { flex-basis: auto; padding: 6px 10px; }
       .main { padding: 20px 16px 40px; }
+      .insights { grid-template-columns: 1fr; }
       .rolling { grid-template-columns: repeat(3, 1fr); }
       .rolling div:nth-child(4) { border-left: none; }
       .rolling div:nth-child(n+4) { border-top: 1px solid var(--border); }
     }
     @media (max-width: 560px) {
+      .channels { grid-template-columns: 1fr; gap: 10px; }
+      .channel { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 12px 14px; }
+      .channel .value { margin: 0; font-size: 1.4rem; grid-row: span 2; }
+      .channel .meta { grid-column: 1; }
+      .channel .share-line { display: none; }
       .rolling { grid-template-columns: repeat(2, 1fr); }
       .rolling div { border-left: none !important; border-top: 1px solid var(--border); }
       .rolling div:nth-child(-n+2) { border-top: none; }
@@ -304,7 +361,9 @@
       .stepper { width: 100%; justify-content: space-between; }
       .stepper .period-label { min-width: 0; flex: 1; font-size: 0.92rem; }
       .chart { height: 220px; grid-template-columns: 32px 1fr; }
-      .share-track { display: none; }
+      .list-row { grid-template-columns: 1fr auto; }
+      .list-row .track { grid-column: 1 / -1; grid-row: 2; }
+      th, td { padding: 9px 3px; font-size: 0.82rem; }
     }
   </style>
 </head>
@@ -338,11 +397,21 @@
           <span>Admin</span>
         </div>
       </div>
-      <nav class="nav">
-        <a href="#" class="active">
+      <nav class="nav" id="side-nav">
+        <div class="nav-title">Analytics</div>
+        <a href="#" data-channel="all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
-          Dashboard
+          All visitors
         </a>
+        <a href="#" data-channel="qr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+          QR scans
+        </a>
+        <a href="#" data-channel="links">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Search &amp; links
+        </a>
+        <div class="nav-title">Website</div>
         <a href="/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg>
           View website
@@ -364,8 +433,8 @@
     <main class="main">
       <div class="topbar">
         <div>
-          <h2>Dashboard</h2>
-          <p>QR code scans &amp; homepage visits</p>
+          <h2 id="page-title">All visitors</h2>
+          <p id="page-subtitle">Everyone who visited the website, from every source</p>
         </div>
         <div class="topbar-actions">
           <span class="updated" id="updated"></span>
@@ -378,11 +447,8 @@
 
       <div class="error-banner" id="error-banner" hidden></div>
 
-      <p class="section-label">Rolling totals</p>
-      <div class="panel rolling" id="rolling"></div>
-
       <div class="controls">
-        <div class="segmented" id="modes" role="tablist">
+        <div class="segmented" id="modes">
           <button type="button" data-mode="week">Week</button>
           <button type="button" data-mode="month">Month</button>
           <button type="button" data-mode="quarter">3 months</button>
@@ -397,9 +463,39 @@
         </div>
       </div>
 
+      <div class="channels" id="channels">
+        <button type="button" class="channel" data-channel="all">
+          <div class="head">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+            All visitors
+          </div>
+          <div class="value" data-value>0</div>
+          <div class="meta" data-meta></div>
+          <div class="share-line"><div style="width:100%; background: linear-gradient(90deg, var(--qr), var(--links))"></div></div>
+        </button>
+        <button type="button" class="channel" data-channel="qr">
+          <div class="head">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></span>
+            QR scans
+          </div>
+          <div class="value" data-value>0</div>
+          <div class="meta" data-meta></div>
+          <div class="share-line"><div data-share style="background: var(--qr)"></div></div>
+        </button>
+        <button type="button" class="channel" data-channel="links">
+          <div class="head">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+            Search &amp; links
+          </div>
+          <div class="value" data-value>0</div>
+          <div class="meta" data-meta></div>
+          <div class="share-line"><div data-share style="background: var(--links)"></div></div>
+        </button>
+      </div>
+
       <div class="kpis">
         <div class="panel kpi">
-          <div class="label">Total visits</div>
+          <div class="label" id="kpi-total-label">Total visits</div>
           <div class="value" id="kpi-total">0</div>
           <div class="sub" id="kpi-change"></div>
         </div>
@@ -421,9 +517,9 @@
       </div>
 
       <div class="panel chart-panel">
-        <div class="chart-head">
+        <div class="panel-head">
           <h3 id="chart-title">Visits</h3>
-          <span id="chart-range"></span>
+          <div class="legend" id="legend"></div>
         </div>
         <div class="chart">
           <div class="y-axis" id="y-axis"></div>
@@ -432,21 +528,22 @@
         </div>
       </div>
 
+      <div class="insights" id="insights"></div>
+
+      <p class="section-label">Rolling totals</p>
+      <div class="panel rolling" id="rolling"></div>
+
       <div class="panel table-panel">
         <h3>Breakdown</h3>
         <div class="table-scroll">
-        <table>
-          <thead><tr><th id="th-period">Period</th><th class="num">Visits</th><th class="num">Share</th></tr></thead>
-          <tbody id="breakdown"></tbody>
-        </table>
+          <table>
+            <thead id="breakdown-head"></thead>
+            <tbody id="breakdown"></tbody>
+          </table>
         </div>
       </div>
 
-      <p class="footnote">
-        Visits are counted when someone opens the homepage, which is where the printed QR codes lead.
-        Each visitor is counted once per browser session, and search-engine robots are ignored.
-        Times follow Cameroon time (WAT).
-      </p>
+      <p class="footnote" id="footnote"></p>
     </main>
   </div>
 
@@ -454,15 +551,50 @@
     const DAY = 86400000;
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const MONTHS_SHORT = MONTHS.map(m => m.slice(0, 3));
-    const WEEKDAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const WEEKDAYS_SHORT = WEEKDAYS.map(d => d.slice(0, 3));
     const MODE_NAMES = { week: 'week', month: 'month', quarter: '3 months', half: '6 months', year: 'year' };
 
-    const state = { counts: new Map(), today: 0, earliest: 0, mode: 'month', anchor: 0 };
+    const CHANNELS = {
+      all: {
+        title: 'All visitors',
+        subtitle: 'Everyone who visited the website, from every source',
+        noun: ['visit', 'visits'],
+        footnote: 'Each visitor is counted once per browser session, on the first page they open. Search-engine robots are ignored. Times follow Cameroon time (WAT).'
+      },
+      qr: {
+        title: 'QR scans',
+        subtitle: 'People who opened the website by scanning a printed QR code',
+        noun: ['scan', 'scans'],
+        footnote: 'Your printed QR codes open the homepage, so people who open the homepage without coming from another website are counted here. This also includes the few people who type the address by hand. Each visitor is counted once per browser session. Times follow Cameroon time (WAT).'
+      },
+      links: {
+        title: 'Search & links',
+        subtitle: 'People who found the website on Google, social media or another website',
+        noun: ['visit', 'visits'],
+        footnote: 'The source is the website the visitor came from. Links opened inside some apps (such as WhatsApp) do not say where they came from: if they open a page other than the homepage they appear as "Shared links & bookmarks". Each visitor is counted once per browser session. Times follow Cameroon time (WAT).'
+      }
+    };
+
+    const SOURCES = {
+      google: 'Google',
+      search: 'Other search engines',
+      facebook: 'Facebook',
+      instagram: 'Instagram',
+      tiktok: 'TikTok',
+      whatsapp: 'WhatsApp',
+      social: 'Other social media',
+      website: 'Other websites',
+      direct: 'Shared links & bookmarks'
+    };
+    const PAGES = { home: 'Home', menu: 'Menu', hotel: 'Hotel rooms', mariage: 'Weddings', gateau: 'Cakes' };
+
+    const state = { days: {}, today: 0, earliest: 0, mode: 'month', anchor: 0, channel: 'all' };
     let password = '';
 
     const $ = id => document.getElementById(id);
 
-    // ---------- Date helpers (all dates are UTC midnights representing Cameroon calendar days) ----------
+    // ---------- Date helpers (UTC midnights that stand for Cameroon calendar days) ----------
     function parseISO(iso) { const [y, m, d] = iso.split('-').map(Number); return Date.UTC(y, m - 1, d); }
     function toISO(t) { return new Date(t).toISOString().slice(0, 10); }
     function parts(t) { const d = new Date(t); return { y: d.getUTCFullYear(), m: d.getUTCMonth(), d: d.getUTCDate(), wd: d.getUTCDay() }; }
@@ -472,12 +604,45 @@
       return `${p.d} ${MONTHS_SHORT[p.m]}${withYear ? ' ' + p.y : ''}`;
     }
     function fmtNum(n) { return Math.round(n).toLocaleString('en-US'); }
+    function pct(part, whole) { return whole ? Math.round((part / whole) * 100) : 0; }
+    function noun(n, channel = state.channel) { return CHANNELS[channel].noun[n === 1 ? 0 : 1]; }
 
-    function countOn(t) { return state.counts.get(toISO(t)) || 0; }
-    function sumRange(start, end) {
+    // ---------- Reading the data ----------
+    function sumValues(obj) { let s = 0; for (const k in obj) s += obj[k]; return s; }
+
+    function countOn(t, channel = state.channel) {
+      const day = state.days[toISO(t)];
+      if (!day) return 0;
+      const qr = day.s.qr || 0;
+      if (channel === 'qr') return qr;
+      const total = sumValues(day.s);
+      return channel === 'links' ? total - qr : total;
+    }
+
+    function sumRange(start, end, channel = state.channel) {
       let total = 0;
-      for (let t = start; t <= end; t += DAY) total += countOn(t);
+      for (let t = start; t <= end; t += DAY) total += countOn(t, channel);
       return total;
+    }
+
+    // Totals per source or per landing page between two dates, for the current section
+    function tally(start, end, kind) {
+      const out = {};
+      const add = (key, n) => { if (n) out[key] = (out[key] || 0) + n; };
+      for (let t = start; t <= end; t += DAY) {
+        const day = state.days[toISO(t)];
+        if (!day) continue;
+        if (kind === 'sources') {
+          for (const k in day.s) if (k !== 'qr') add(k, day.s[k]);
+        } else if (state.channel === 'all') {
+          for (const k in day.p) add(k, day.p[k]);
+        } else if (state.channel === 'links') {
+          for (const k in day.l) add(k, day.l[k]);
+        } else {
+          for (const k in day.p) add(k, day.p[k] - ((day.l && day.l[k]) || 0));
+        }
+      }
+      return out;
     }
 
     // ---------- Periods ----------
@@ -489,16 +654,13 @@
       }
       const span = { month: 1, quarter: 3, half: 6, year: 12 }[mode];
       const firstMonth = Math.floor(p.m / span) * span;
-      const start = monthStart(p.y, firstMonth);
-      const end = monthStart(p.y, firstMonth + span) - DAY;
-      return { start, end };
+      return { start: monthStart(p.y, firstMonth), end: monthStart(p.y, firstMonth + span) - DAY };
     }
 
     function shiftAnchor(mode, anchor, dir) {
       if (mode === 'week') return anchor + dir * 7 * DAY;
       const span = { month: 1, quarter: 3, half: 6, year: 12 }[mode];
-      const { start } = periodFor(mode, anchor);
-      const p = parts(start);
+      const p = parts(periodFor(mode, anchor).start);
       return monthStart(p.y, p.m + dir * span);
     }
 
@@ -507,9 +669,8 @@
       switch (mode) {
         case 'week': return `${fmtDay(start, s.y !== e.y)} – ${fmtDay(end, true)}`;
         case 'month': return `${MONTHS[s.m]} ${s.y}`;
-        case 'quarter': return `${MONTHS_SHORT[s.m]} – ${MONTHS_SHORT[e.m]} ${s.y}`;
-        case 'half': return `${MONTHS_SHORT[s.m]} – ${MONTHS_SHORT[e.m]} ${s.y}`;
         case 'year': return String(s.y);
+        default: return `${MONTHS_SHORT[s.m]} – ${MONTHS_SHORT[e.m]} ${s.y}`;
       }
     }
 
@@ -519,36 +680,79 @@
       if (mode === 'week' || mode === 'month') {
         for (let t = start; t <= end; t += DAY) {
           const p = parts(t);
-          buckets.push({
-            start: t, end: t,
-            axis: mode === 'week' ? WEEKDAYS_SHORT[p.wd] : String(p.d),
-            name: `${WEEKDAYS_SHORT[p.wd]} ${fmtDay(t, true)}`
-          });
+          buckets.push({ start: t, end: t, axis: mode === 'week' ? WEEKDAYS_SHORT[p.wd] : String(p.d), name: `${WEEKDAYS_SHORT[p.wd]} ${fmtDay(t, true)}` });
         }
       } else if (mode === 'year') {
         const y = parts(start).y;
         for (let m = 0; m < 12; m++) {
-          const s = monthStart(y, m);
-          buckets.push({ start: s, end: monthStart(y, m + 1) - DAY, axis: MONTHS_SHORT[m], name: `${MONTHS[m]} ${y}` });
+          buckets.push({ start: monthStart(y, m), end: monthStart(y, m + 1) - DAY, axis: MONTHS_SHORT[m], name: `${MONTHS[m]} ${y}` });
         }
       } else {
         // 3 / 6 months: one bar per week (Monday–Sunday, clipped to the period)
         let s = start;
         while (s <= end) {
-          const wd = parts(s).wd;
-          const e = Math.min(end, s + ((7 - wd) % 7) * DAY);
+          const e = Math.min(end, s + ((7 - parts(s).wd) % 7) * DAY);
           buckets.push({ start: s, end: e, axis: fmtDay(s), name: `${fmtDay(s)} – ${fmtDay(e, true)}` });
           s = e + DAY;
         }
       }
       buckets.forEach(b => {
         b.future = b.start > state.today;
-        b.count = b.future ? 0 : sumRange(b.start, Math.min(b.end, state.today));
+        const last = Math.min(b.end, state.today);
+        b.qr = b.future ? 0 : sumRange(b.start, last, 'qr');
+        b.links = b.future ? 0 : sumRange(b.start, last, 'links');
+        b.count = state.channel === 'qr' ? b.qr : state.channel === 'links' ? b.links : b.qr + b.links;
       });
       return buckets;
     }
 
     // ---------- Rendering ----------
+    function changeBadge(current, previous) {
+      if (previous === 0 && current === 0) return '<span class="badge flat">0%</span>';
+      if (previous === 0) return '<span class="badge up">▲ New</span>';
+      const change = ((current - previous) / previous) * 100;
+      if (Math.abs(change) < 0.5) return '<span class="badge flat">0%</span>';
+      const digits = Math.abs(change) < 10 ? 1 : 0;
+      return `<span class="badge ${change > 0 ? 'up' : 'down'}">${change > 0 ? '▲' : '▼'} ${Math.abs(change).toFixed(digits)}%</span>`;
+    }
+
+    // Top of the y-axis: 4 gridlines with round, whole-number steps, always above the tallest bar
+    function niceMax(value) {
+      const raw = Math.max(1, value * 1.08 / 4);
+      const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+      for (const step of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) {
+        const tick = step * pow;
+        if (tick >= raw && Number.isInteger(tick)) return tick * 4;
+      }
+      return Math.ceil(raw) * 4;
+    }
+
+    function renderSectionChrome() {
+      const ch = CHANNELS[state.channel];
+      $('page-title').textContent = ch.title;
+      $('page-subtitle').textContent = ch.subtitle;
+      $('footnote').textContent = ch.footnote;
+      $('kpi-total-label').textContent = state.channel === 'qr' ? 'Total scans' : 'Total visits';
+      document.querySelectorAll('[data-channel]').forEach(el => el.classList.toggle('active', el.dataset.channel === state.channel));
+    }
+
+    function renderChannels(period, elapsedEnd, elapsedDays) {
+      const totals = {
+        qr: elapsedDays ? sumRange(period.start, elapsedEnd, 'qr') : 0,
+        links: elapsedDays ? sumRange(period.start, elapsedEnd, 'links') : 0
+      };
+      totals.all = totals.qr + totals.links;
+      document.querySelectorAll('.channel').forEach(card => {
+        const key = card.dataset.channel;
+        card.querySelector('[data-value]').textContent = fmtNum(totals[key]);
+        card.querySelector('[data-meta]').textContent = key === 'all'
+          ? `in ${periodLabel(state.mode, period)}`
+          : `${pct(totals[key], totals.all)}% of all visitors`;
+        const share = card.querySelector('[data-share]');
+        if (share) share.style.width = pct(totals[key], totals.all) + '%';
+      });
+    }
+
     function renderRolling() {
       const items = [['Last 7 days', 7], ['Last 30 days', 30], ['Last 3 months', 90], ['Last 6 months', 182], ['Last 12 months', 365]];
       $('rolling').innerHTML = items.map(([label, days]) =>
@@ -556,42 +760,34 @@
       ).join('');
     }
 
-    function changeBadge(current, previous) {
-      if (previous === 0 && current === 0) return '<span class="badge flat">0%</span>';
-      if (previous === 0) return '<span class="badge up">▲ New</span>';
-      const pct = ((current - previous) / previous) * 100;
-      if (Math.abs(pct) < 0.5) return '<span class="badge flat">0%</span>';
-      const cls = pct > 0 ? 'up' : 'down';
-      return `<span class="badge ${cls}">${pct > 0 ? '▲' : '▼'} ${Math.abs(pct).toFixed(pct > -10 && pct < 10 ? 1 : 0)}%</span>`;
-    }
-
-    function niceMax(value) {
-      if (value <= 4) return 4;
-      const pow = Math.pow(10, Math.floor(Math.log10(value)));
-      for (const step of [1, 2, 2.5, 5, 10]) {
-        const max = step * pow;
-        if (max >= value) return max % 4 === 0 || max >= 20 ? max : Math.ceil(max / 4) * 4;
-      }
-      return value;
-    }
-
     function renderChart(mode, buckets) {
+      const channel = state.channel;
       const max = niceMax(Math.max(0, ...buckets.map(b => b.count)));
       const ticks = [0, 0.25, 0.5, 0.75, 1].map(f => f * max);
+      const h = n => (n / max) * 100;
 
-      $('y-axis').innerHTML = ticks.map(v => `<span style="bottom:${(v / max) * 100}%">${fmtNum(v)}</span>`).join('');
+      $('chart-title').textContent = (channel === 'qr' ? 'Scans' : 'Visits') + ' per ' + { week: 'day', month: 'day', quarter: 'week', half: 'week', year: 'month' }[mode];
+      $('legend').innerHTML = channel === 'all'
+        ? '<span><i class="swatch qr"></i>QR scans</span><span><i class="swatch links"></i>Search &amp; links</span>'
+        : `<span><i class="swatch ${channel}"></i>${CHANNELS[channel].title}</span>`;
 
-      const grid = ticks.slice(1).map(v => `<div class="gridline" style="bottom:${(v / max) * 100}%"></div>`).join('');
-      const cols = buckets.map((b, i) => `
-        <div class="col${b.future ? ' future' : ''}" data-i="${i}" tabindex="0" aria-label="${b.name}: ${b.future ? 'upcoming' : b.count + ' visits'}">
-          <div class="bar" style="height:${b.future ? 0 : Math.max((b.count / max) * 100, b.count ? 1.5 : 0)}%"></div>
-        </div>`).join('');
-      const allZero = buckets.every(b => b.count === 0);
+      $('y-axis').innerHTML = ticks.map(v => `<span style="bottom:${h(v)}%">${fmtNum(v)}</span>`).join('');
+
+      const grid = ticks.slice(1).map(v => `<div class="gridline" style="bottom:${h(v)}%"></div>`).join('');
+      const cols = buckets.map((b, i) => {
+        const segs = [];
+        if (channel !== 'links' && b.qr) segs.push(`<div class="seg qr" style="height:${h(b.qr)}%"></div>`);
+        if (channel !== 'qr' && b.links) segs.push(`<div class="seg links" style="height:${h(b.links)}%"></div>`);
+        return `<div class="col" data-i="${i}" tabindex="0" aria-label="${b.name}: ${b.future ? 'upcoming' : b.count + ' ' + noun(b.count)}">
+          <div class="stack" style="height:100%">${segs.join('')}</div>
+        </div>`;
+      }).join('');
+      const empty = buckets.every(b => b.count === 0);
       $('plot').innerHTML = grid + `<div class="bars">${cols}</div>` +
-        (allZero ? '<div class="empty-note">No visits recorded in this period</div>' : '') +
+        (empty ? '<div class="empty-note">Nothing recorded in this period yet</div>' : '') +
         '<div class="tooltip" id="tooltip" hidden></div>';
 
-      // Only label every n-th bar so labels never collide
+      // Label only every n-th bar so the labels never collide
       const plotWidth = $('plot').clientWidth || 600;
       const labelWidth = mode === 'quarter' || mode === 'half' ? 48 : 26;
       const every = Math.max(1, Math.ceil(buckets.length / Math.floor(plotWidth / labelWidth)));
@@ -601,16 +797,25 @@
       $('plot').querySelectorAll('.col').forEach(col => {
         const show = () => {
           const b = buckets[col.dataset.i];
-          tooltip.innerHTML = `${b.name}<strong>${b.future ? 'Upcoming' : fmtNum(b.count) + (b.count === 1 ? ' visit' : ' visits')}</strong>`;
+          let html = `<div class="tt-title">${b.name}</div>`;
+          if (b.future) html += '<strong>Upcoming</strong>';
+          else {
+            html += `<strong>${fmtNum(b.count)} ${noun(b.count)}</strong>`;
+            if (channel === 'all') {
+              html += `<div class="tt-row"><i class="swatch qr"></i>QR scans<b>${fmtNum(b.qr)}</b></div>` +
+                      `<div class="tt-row"><i class="swatch links"></i>Search &amp; links<b>${fmtNum(b.links)}</b></div>`;
+            }
+          }
+          tooltip.innerHTML = html;
           tooltip.hidden = false;
           const plotRect = $('plot').getBoundingClientRect();
           const colRect = col.getBoundingClientRect();
-          const bar = col.querySelector('.bar').getBoundingClientRect();
-          let x = colRect.left + colRect.width / 2 - plotRect.left;
+          const segTop = col.querySelector('.seg:last-child');
+          const top = segTop ? segTop.getBoundingClientRect().top - plotRect.top : plotRect.height;
           const half = tooltip.offsetWidth / 2;
-          x = Math.min(Math.max(x, half), plotRect.width - half);
+          const x = Math.min(Math.max(colRect.left + colRect.width / 2 - plotRect.left, half), plotRect.width - half);
           tooltip.style.left = x + 'px';
-          tooltip.style.top = Math.min(bar.top - plotRect.top, plotRect.height - 4) + 'px';
+          tooltip.style.top = Math.max(Math.min(top, plotRect.height - 4), tooltip.offsetHeight + 10) + 'px';
         };
         col.addEventListener('mouseenter', show);
         col.addEventListener('focus', show);
@@ -619,17 +824,84 @@
       });
     }
 
+    // A ranked list with bars, used for sources, pages, weekdays and channels
+    function listPanel(title, hint, rows, options = {}) {
+      const total = rows.reduce((s, r) => s + r.value, 0);
+      const max = Math.max(1, ...rows.map(r => r.value));
+      const best = Math.max(...rows.map(r => r.value));
+      const body = total
+        ? rows.map(r => `
+            <div class="list-row${options.highlightTop && r.value === best ? ' top' : ''}">
+              <div class="name">${r.swatch ? `<i class="swatch ${r.swatch}"></i>` : ''}<span>${r.label}</span></div>
+              <div class="track"><div class="fill" style="width:${(r.value / max) * 100}%; background:${r.color || `var(--${state.channel === 'all' ? 'qr' : state.channel})`}"></div></div>
+              <div class="num">${fmtNum(r.value)}<small>${pct(r.value, total)}%</small></div>
+            </div>`).join('')
+        : '<p class="list-empty">Nothing recorded in this period yet.</p>';
+      return `<div class="panel list-panel${options.wide ? ' wide' : ''}">
+        <div class="panel-head"><h3>${title}</h3><span class="hint">${hint}</span></div>
+        ${body}
+      </div>`;
+    }
+
+    function renderInsights(period, elapsedEnd, elapsedDays) {
+      const label = periodLabel(state.mode, period);
+      const panels = [];
+      const range = elapsedDays ? [period.start, elapsedEnd] : null;
+
+      const pageRows = () => {
+        const pages = range ? tally(range[0], range[1], 'pages') : {};
+        return Object.keys(PAGES).map(k => ({ label: PAGES[k], value: pages[k] || 0 })).sort((a, b) => b.value - a.value);
+      };
+      const weekdayRows = () => {
+        const counts = [0, 0, 0, 0, 0, 0, 0];
+        if (range) for (let t = range[0]; t <= range[1]; t += DAY) counts[parts(t).wd] += countOn(t);
+        return [1, 2, 3, 4, 5, 6, 0].map(wd => ({ label: WEEKDAYS[wd], value: counts[wd] }));
+      };
+
+      if (state.channel === 'all') {
+        const qr = range ? sumRange(range[0], range[1], 'qr') : 0;
+        const links = range ? sumRange(range[0], range[1], 'links') : 0;
+        panels.push(listPanel('Where visitors come from', label, [
+          { label: 'QR scans', value: qr, swatch: 'qr', color: 'var(--qr)' },
+          { label: 'Search & links', value: links, swatch: 'links', color: 'var(--links)' }
+        ]));
+        panels.push(listPanel('Pages people open first', label, pageRows(), { highlightTop: true }));
+        panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { wide: true, highlightTop: true }));
+      } else if (state.channel === 'links') {
+        const sources = range ? tally(range[0], range[1], 'sources') : {};
+        const rows = Object.keys(SOURCES).map(k => ({ label: SOURCES[k], value: sources[k] || 0 }))
+          .filter(r => r.value > 0).sort((a, b) => b.value - a.value);
+        panels.push(listPanel('Top sources', label, rows.length ? rows : [{ label: 'Google', value: 0 }], { highlightTop: true }));
+        panels.push(listPanel('Pages they open first', label, pageRows(), { highlightTop: true }));
+        panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { wide: true, highlightTop: true }));
+      } else {
+        panels.push(listPanel('Busiest days of the week', label, weekdayRows(), { highlightTop: true }));
+        panels.push(`<div class="panel info-panel">
+          <h3>How scans are counted</h3>
+          <p>Every printed QR code opens the homepage. When someone opens the homepage without coming from Google, social media or another website, the visit is counted as a scan.</p>
+          <p>QR codes generated from now on carry a hidden tag (<code>?src=qr</code>), so scans of newly printed codes are always counted exactly.</p>
+        </div>`);
+      }
+      $('insights').innerHTML = panels.join('');
+    }
+
     function renderBreakdown(mode, buckets, total) {
-      $('th-period').textContent = { week: 'Day', month: 'Day', quarter: 'Week', half: 'Week', year: 'Month' }[mode];
+      const unit = { week: 'Day', month: 'Day', quarter: 'Week', half: 'Week', year: 'Month' }[mode];
       const rows = buckets.filter(b => !b.future).reverse();
-      $('breakdown').innerHTML = rows.length ? rows.map(b => {
-        const share = total ? (b.count / total) * 100 : 0;
-        return `<tr>
-          <td>${b.name}</td>
-          <td class="num">${fmtNum(b.count)}</td>
-          <td class="num"><div class="share"><div class="share-track"><div class="share-fill" style="width:${share}%"></div></div>${share.toFixed(0)}%</div></td>
-        </tr>`;
-      }).join('') : '<tr><td colspan="3" class="muted">This period has not started yet.</td></tr>';
+      if (state.channel === 'all') {
+        $('breakdown-head').innerHTML = `<tr><th>${unit}</th>
+          <th class="num"><span class="th-inner"><i class="swatch qr"></i>QR scans</span></th>
+          <th class="num"><span class="th-inner"><i class="swatch links"></i>Search &amp; links</span></th>
+          <th class="num">Total</th></tr>`;
+        $('breakdown').innerHTML = rows.length ? rows.map(b => `<tr>
+          <td>${b.name}</td><td class="num">${fmtNum(b.qr)}</td><td class="num">${fmtNum(b.links)}</td><td class="num total">${fmtNum(b.count)}</td>
+        </tr>`).join('') : '<tr><td colspan="4" class="muted">This period has not started yet.</td></tr>';
+      } else {
+        $('breakdown-head').innerHTML = `<tr><th>${unit}</th><th class="num">${state.channel === 'qr' ? 'Scans' : 'Visits'}</th><th class="num">Share</th></tr>`;
+        $('breakdown').innerHTML = rows.length ? rows.map(b => `<tr>
+          <td>${b.name}</td><td class="num">${fmtNum(b.count)}</td><td class="num">${pct(b.count, total)}%</td>
+        </tr>`).join('') : '<tr><td colspan="3" class="muted">This period has not started yet.</td></tr>';
+      }
     }
 
     function render() {
@@ -639,14 +911,16 @@
       const elapsedDays = Math.max(0, Math.round((elapsedEnd - period.start) / DAY) + 1);
       const isCurrent = period.start <= state.today && state.today <= period.end;
 
+      renderSectionChrome();
       document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
       $('period-label').textContent = periodLabel(mode, period);
       $('next').disabled = period.end >= state.today;
       $('prev').disabled = period.start <= state.earliest;
       $('today-btn').hidden = isCurrent;
-      renderRolling();
 
-      // Totals and comparison with the same stretch of the previous period
+      renderChannels(period, elapsedEnd, elapsedDays);
+
+      // Compare with the same stretch of the previous period
       const total = elapsedDays ? sumRange(period.start, elapsedEnd) : 0;
       const prev = periodFor(mode, shiftAnchor(mode, state.anchor, -1));
       const prevEnd = Math.min(prev.end, prev.start + (elapsedDays - 1) * DAY);
@@ -654,8 +928,9 @@
       $('kpi-total').textContent = fmtNum(total);
       $('kpi-change').innerHTML = `${changeBadge(total, prevTotal)} vs ${isCurrent ? 'same point last ' + MODE_NAMES[mode] : 'previous ' + MODE_NAMES[mode]} (${fmtNum(prevTotal)})`;
 
-      $('kpi-avg').textContent = elapsedDays ? (total / elapsedDays).toFixed(total / elapsedDays < 10 ? 1 : 0) : '0';
-      $('kpi-avg-sub').textContent = `visits per day over ${elapsedDays} day${elapsedDays === 1 ? '' : 's'}`;
+      const avg = elapsedDays ? total / elapsedDays : 0;
+      $('kpi-avg').textContent = avg < 10 ? avg.toFixed(1) : fmtNum(avg);
+      $('kpi-avg-sub').textContent = `${noun(2)} per day over ${elapsedDays} day${elapsedDays === 1 ? '' : 's'}`;
 
       let best = null;
       for (let t = period.start; t <= elapsedEnd; t += DAY) {
@@ -663,7 +938,7 @@
         if (c > 0 && (!best || c > best.count)) best = { t, count: c };
       }
       $('kpi-best').textContent = best ? fmtNum(best.count) : '–';
-      $('kpi-best-sub').textContent = best ? `${WEEKDAYS_SHORT[parts(best.t).wd]} ${fmtDay(best.t, true)}` : 'No visits in this period';
+      $('kpi-best-sub').textContent = best ? `${WEEKDAYS_SHORT[parts(best.t).wd]} ${fmtDay(best.t, true)}` : 'Nothing recorded in this period';
 
       const todayCount = countOn(state.today);
       const yesterdayCount = countOn(state.today - DAY);
@@ -671,13 +946,13 @@
       $('kpi-today-sub').innerHTML = `${changeBadge(todayCount, yesterdayCount)} vs yesterday (${fmtNum(yesterdayCount)})`;
 
       const buckets = bucketsFor(mode, period);
-      $('chart-title').textContent = { week: 'Visits per day', month: 'Visits per day', quarter: 'Visits per week', half: 'Visits per week', year: 'Visits per month' }[mode];
-      $('chart-range').textContent = `${fmtDay(period.start, true)} – ${fmtDay(period.end, true)}`;
       renderChart(mode, buckets);
+      renderInsights(period, elapsedEnd, elapsedDays);
+      renderRolling();
       renderBreakdown(mode, buckets, total);
     }
 
-    // ---------- Data & auth ----------
+    // ---------- Data & sign-in ----------
     function savePassword(value) {
       try {
         if (value) sessionStorage.setItem('adminPassword', value);
@@ -693,9 +968,9 @@
         err.status = response.status;
         throw err;
       }
-      state.counts = new Map(data.days.map(d => [d.date, d.count]));
-      state.earliest = parseISO(data.days[0].date);
-      const today = parseISO(data.days[data.days.length - 1].date);
+      state.days = data.days || {};
+      state.earliest = parseISO(data.start);
+      const today = parseISO(data.today);
       if (!state.today) state.anchor = today;
       state.today = today;
       $('updated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -744,6 +1019,12 @@
       }
     }
 
+    function setChannel(channel) {
+      state.channel = channel;
+      try { localStorage.setItem('adminChannel', channel); } catch (err) {}
+      render();
+    }
+
     // ---------- Events ----------
     $('login-form').addEventListener('submit', e => {
       e.preventDefault();
@@ -761,6 +1042,10 @@
       showLogin();
     });
     $('refresh').addEventListener('click', refresh);
+    document.querySelectorAll('[data-channel]').forEach(el => el.addEventListener('click', e => {
+      e.preventDefault();
+      setChannel(el.dataset.channel);
+    }));
     $('modes').addEventListener('click', e => {
       const btn = e.target.closest('button[data-mode]');
       if (!btn) return;
@@ -769,11 +1054,7 @@
       render();
     });
     $('prev').addEventListener('click', () => { state.anchor = shiftAnchor(state.mode, state.anchor, -1); render(); });
-    $('next').addEventListener('click', () => {
-      const next = shiftAnchor(state.mode, state.anchor, 1);
-      state.anchor = Math.min(next, state.today);
-      render();
-    });
+    $('next').addEventListener('click', () => { state.anchor = Math.min(shiftAnchor(state.mode, state.anchor, 1), state.today); render(); });
     $('today-btn').addEventListener('click', () => { state.anchor = state.today; render(); });
     let resizeTimer;
     window.addEventListener('resize', () => {
@@ -781,7 +1062,11 @@
       resizeTimer = setTimeout(() => { if (!$('app').hidden) render(); }, 150);
     });
 
-    // Stay signed in for this browser tab
+    // Remember the last section viewed, and stay signed in for this browser tab
+    try {
+      const saved = localStorage.getItem('adminChannel');
+      if (CHANNELS[saved]) state.channel = saved;
+    } catch (err) {}
     try { password = sessionStorage.getItem('adminPassword') || ''; } catch (err) {}
     if (password) {
       $('login-page').hidden = true;
