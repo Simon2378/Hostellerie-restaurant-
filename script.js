@@ -250,7 +250,11 @@ const translations = {
     'room.standard-1': 'CHAMBRE STANDARD',
     'room.standard-title': 'Chambre Standard',
     'room.standard-desc': 'Sans petit déjeuner.',
-    'room.standardPrice': '29 000 FCFA TTC / nuitée'
+    'room.standardPrice': '29 000 FCFA TTC / nuitée',
+    'room.seminar': 'SALLE DE SÉMINAIRE',
+    'room.seminar-title': 'Salle de séminaire',
+    'room.seminar-desc': 'Salle équipée d’un vidéoprojecteur et d’une sonorisation, idéale pour vos séminaires, réunions et formations.',
+    'room.seminarPrice': 'Tarif sur demande'
   },
   en: {
     'menu.title': 'Hostellerie de la sanaga',
@@ -400,7 +404,11 @@ const translations = {
     'room.standard-1': 'CHAMBRE STANDARD',
     'room.standard-title': 'Chambre Standard',
     'room.standard-desc': 'Breakfast not included.',
-    'room.standardPrice': '29,000 FCFA incl. tax / night'
+    'room.standardPrice': '29,000 FCFA incl. tax / night',
+    'room.seminar': 'SEMINAR ROOM',
+    'room.seminar-title': 'Seminar Room',
+    'room.seminar-desc': 'Equipped with a video projector and sound system, ideal for seminars, meetings and training sessions.',
+    'room.seminarPrice': 'Price on request'
   }
 };
 
@@ -976,14 +984,17 @@ function reservePackage(packageName) {
   window.location.href = `https://wa.me/237692266713?text=${encodeURIComponent(message)}`;
 }
 
+// Chaque galerie commence par la photo principale, puis la chambre, puis la salle de bain / les toilettes.
 const hotelGallerySlides = [
   {
-    src: 'images/suite.jpg',
+    src: 'images/suitejuniormain.jpeg',
     titleKey: 'room.suite-title',
     descriptionKey: 'room.suite-desc',
     priceKey: 'room.suitePrice',
     altKey: 'room.suite',
     images: [
+      'images/suitejuniormain.jpeg',
+      'images/salonsuite.jpeg',
       'images/suite1.png',
       'images/suite2.png',
       'images/suite3.png',
@@ -991,25 +1002,39 @@ const hotelGallerySlides = [
     ]
   },
   {
-    src: 'images/Speciallux.png',
+    src: 'images/reallexespecial1.jpeg',
     titleKey: 'room.luxe-special-title',
     descriptionKey: 'room.luxe-special-desc',
     priceKey: 'room.luxe-special-price',
     altKey: 'room.luxe-special',
     images: [
+      'images/reallexespecial1.jpeg',
+      'images/realluxspecial3.jpeg',
+      'images/realluxespecial2.jpeg',
+      'images/luxespecialmain.jpeg',
+      'images/luxespecialmain2.jpeg',
+      'images/luxspecil3.jpeg',
       'images/luxe special1.png',
       'images/luxe special2.png',
       'images/luxe special3.png',
+      // Salle de bain / toilettes
+      'images/realluxespecial4.jpeg',
+      'images/realluxspecial5.jpeg',
+      'images/luxespecial.jpeg',
+      'images/luxspecial3.jpeg',
+      'images/luxespecial3.jpeg',
       'images/luxe special4.png',
     ]
   },
   {
-    src: 'images/luxe.PNG',
+    src: 'images/luxsimple1.jpeg',
     titleKey: 'room.luxe-title',
     descriptionKey: 'room.luxe-desc',
     priceKey: 'room.luxePrice',
     altKey: 'room.luxe',
     images: [
+      'images/luxsimple1.jpeg',
+      'images/luxsimple2.jpeg',
       'images/luxe1.png',
       'images/luxe2.png',
       'images/luxe3.png',
@@ -1017,17 +1042,18 @@ const hotelGallerySlides = [
     ]
   },
   {
-    src: 'images/stand1.jpg',
+    src: 'images/Real stabdard1.jpeg',
     titleKey: 'room.standard-title',
     descriptionKey: 'room.standard-desc',
     priceKey: 'room.standardPrice',
     altKey: 'room.standard-1',
     images: [
+      'images/Real stabdard1.jpeg',
+      'images/realstandard3.jpeg',
+      'images/realstandar2.jpeg',
       'images/stand1.jpg',
       'images/stand2.jpg',
       'images/stand3.jpg',
-      'images/stand1.jpg'
-
     ]
   }
 ];
@@ -1083,7 +1109,7 @@ function renderRoomDetails() {
   if (thumbnails) {
     thumbnails.innerHTML = slide.images.map((src, idx) => `
       <button type="button" class="detail-thumbnail${idx === currentGalleryImageIndex ? ' active' : ''}" data-index="${idx}">
-        <img src="${src}" alt="${slide.title} vue ${idx + 1}" />
+        <img src="${src}" alt="${translatedSlideTitle} ${idx + 1}" loading="lazy" />
       </button>
     `).join('');
 

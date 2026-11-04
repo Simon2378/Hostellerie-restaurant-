@@ -2230,6 +2230,48 @@ header {
   padding: 22px 18px 24px;
 }
 
+/* Seminar room: a wide card under the rooms, with its photos shown under the text */
+.slide.slide-wide {
+  grid-column: 1 / -1;
+  cursor: default;
+}
+
+.slide.slide-wide:hover {
+  transform: none;
+}
+
+.slide.slide-wide .slide-content {
+  padding: 28px 32px 20px;
+}
+
+.seminar-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 0 32px 32px;
+}
+
+.slide .seminar-photos img {
+  height: 380px;
+  border-radius: 16px;
+}
+
+@media (max-width: 720px) {
+  .slide.slide-wide .slide-content {
+    padding: 22px 18px 18px;
+  }
+
+  .seminar-photos {
+    gap: 8px;
+    padding: 0 18px 22px;
+  }
+
+  .slide .seminar-photos img {
+    height: 200px;
+    border-radius: 12px;
+  }
+}
+
 .slide-badge {
   display: inline-block;
   margin-bottom: 14px;
@@ -2293,9 +2335,10 @@ header {
 
 .room-detail-media img {
   width: 100%;
-  min-height: 360px;
+  height: 560px;
   border-radius: 20px;
-  object-fit: cover;
+  object-fit: contain;
+  background: #f4f1ea;
 }
 
 .room-thumbnails {
@@ -2397,6 +2440,10 @@ header {
 
   .room-thumbnails {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .room-detail-media img {
+    height: 440px;
   }
 
   .gallery-footer {
