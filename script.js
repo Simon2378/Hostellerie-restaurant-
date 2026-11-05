@@ -107,6 +107,7 @@ const translations = {
     'menu.phone': '📞 +237692266713',
     'menu.welcome': 'Bienvenue à Hostellerie',
     'menu.scanQr': 'Scannez ce code QR pour ouvrir le menu de ce site Web.',
+    'promo.breakfast': '☕ OFFRE SPÉCIALE : -25 % sur notre buffet petit-déjeuner · Ouvert 7j/7 de 6h30 à 10h30 · Jusqu\'au 30 novembre 2026',
     'menu.backToMenu': '← Retour au menu',
     'menu.searchPlaceholder': 'Rechercher un élément de menu...',
     'hero.title': 'Bienvenue à l’Hostellerie de la Sanaga',
@@ -263,6 +264,7 @@ const translations = {
     'menu.phone': '📞 +237692266713',
     'menu.welcome': 'Welcome to Hostellerie',
     'menu.scanQr': 'Scan this QR code to open this website menu.',
+    'promo.breakfast': '☕ SPECIAL OFFER: 25% off our breakfast buffet · Open 7 days a week from 6:30 am to 10:30 am · Until 30 November 2026',
     'menu.backToMenu': '← Back to menu',
     'menu.searchPlaceholder': 'Search any menu item...',
     'hero.title': 'Welcome to Hostellerie de la Sanaga',
@@ -424,6 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
     qrSection.style.display = isAdmin ? 'block' : 'none';
   }
 
+  setupPromoBanner();
   setupLanguageToggle();
   setupItemCardClickHandlers();
   setupModalCloseHandlers();
@@ -518,6 +521,20 @@ function searchMenu() {
 }
 //Make the  Qr code to be hidden and let it open to vercel.app when am scanning
 
+
+// Affiche la bannière promo jusqu'à sa date de fin (data-ends), puis la retire toute seule.
+function setupPromoBanner() {
+  const banner = document.getElementById('promo-banner');
+  if (!banner) return;
+  const remaining = Date.parse(banner.dataset.ends) - Date.now();
+  if (!(remaining > 0)) {
+    banner.remove();
+    return;
+  }
+  banner.hidden = false;
+  // Si la page reste ouverte au moment où l'offre se termine
+  if (remaining < 2147483647) setTimeout(() => banner.remove(), remaining);
+}
 
 // Setup item card click handlers for modal
 function setupLanguageToggle() {

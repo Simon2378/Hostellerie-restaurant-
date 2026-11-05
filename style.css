@@ -2565,3 +2565,98 @@ header {
     text-align: center;
   }
 }
+
+/* Announcement banner (homepage): scrolling promo strip under the header */
+.promo-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #b8860b, #d4af37 50%, #b8860b);
+  color: #1a1f36;
+  border-bottom: 2px solid #1a1f36;
+  box-shadow: 0 4px 14px rgba(26, 31, 54, 0.15);
+}
+
+.promo-banner[hidden] {
+  display: none;
+}
+
+.promo-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.promo-track {
+  display: flex;
+  width: max-content;
+  animation: promo-scroll 45s linear infinite;
+}
+
+.promo-banner:hover .promo-track {
+  animation-play-state: paused;
+}
+
+.promo-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.promo-item {
+  padding: 11px 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.promo-item::after {
+  content: "✦";
+  margin: 0 2.5rem;
+  opacity: 0.6;
+}
+
+@keyframes promo-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 720px) {
+  .promo-item {
+    padding: 9px 0;
+    font-size: 0.88rem;
+  }
+
+  .promo-track {
+    animation-duration: 35s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-track {
+    animation: none;
+    width: auto;
+  }
+
+  .promo-group:not(:first-child),
+  .promo-item:not(:first-child) {
+    display: none;
+  }
+
+  .promo-group {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .promo-item {
+    white-space: normal;
+    text-align: center;
+    padding: 10px 16px;
+  }
+
+  .promo-item::after {
+    content: none;
+  }
+}
